@@ -1,0 +1,31 @@
+# CI/CD configuration file for GitLab
+
+image: maven:3.8.3-openjdk-17
+
+variables:
+  MAVEN_CLI_OPTS: "-DskipUiTests=true"
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - .m2/repository
+  key: "$CI_BUILD_REF_NAME"
+
+build:
+  stage: build
+  script:
+    - "cd backend; mvn clean install $MAVEN_CLI_OPTS"
+    - echo "Compile complete."
+  artifacts:
+    paths:
+      - backend/target  # Keep this directory for the next job
+
+test:
+  stage: test
+  script:
+    - mv backend/target .  # Move the target directory from the previous job
+    - "cd backend; mvn test"
+    - echo "Tests complete."
