@@ -1,0 +1,10 @@
+{
+    // Update class path when changing the backend's pom.xml
+    "java.configuration.updateBuildConfiguration": "interactive",
+    
+    // Commit message input validation
+    "git.inputValidation": "warn",
+    "git.inputValidationSubjectLength": 50,
+    "git.inputValidationLength": 72,
+    "liveServer.settings.port": 5501
+}

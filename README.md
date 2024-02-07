@@ -1,93 +1,104 @@
 # Icebreaker
 
+## Project rules
 
+### Issues and branches
 
-## Getting started
+Each issue is assigned a label, describing the priority level (critical/suggestion), the location in the stack (frontend/backend), what type of work should be done (testing/documentation), and whether it involves an existing feature (bug/enhancement). The "in-progress" label will also be utilized to track the status of an issue on the [issue board](https://gitlab.stud.idi.ntnu.no/tdt4140-2024/produktomraade-2/gruppe-23/icebreaker/-/boards).
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Each issue will be assigned to one person since GitLab does not allow multiple assignees. Pair programming will be registered in commit messages as described in the section below. The deadline and time estimates for each issue will let the assignee know the workload required.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Every issue that involves coding has to be solved on a separate branch. We generate a new branch on the issue page, checkout to this branch locally, and make merge requests when the work is finished. Only documentation-related issues may be ommitted from this rule, pushing directly to main instead of a separate branch.
 
-## Add your files
+When merging a feature branch into the main branch, we squash the commit messages from the feature branch into one commit message on the main. We write a summary of all commit messages as the squash commit message. The individual commit messages on the feature branch will still be accessible on the merge request page.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Commit messages
+
+General format:
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.stud.idi.ntnu.no/tdt4140-2024/produktomraade-2/gruppe-23/icebreaker.git
-git branch -M main
-git push -uf origin main
+prefix: commit title
+
+- Comment 1
+- Comment 2
+...
+
+Co-authored-by: Name1 <additional-dev-1@example.com>
+Co-authored-by: Name2 <additional-dev-2@example.com>
 ```
 
-## Integrate with your tools
+The title of each commit message should include prefixes such as "feat:", "enhancement:" or "docs:", as outlined in [this](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) thread. When pair programming we will follow the "Co-authored-by:"-standard at the end of the commit, as described in [this](https://stackoverflow.com/a/7442255/10002175) thread.
 
-- [ ] [Set up project integrations](https://gitlab.stud.idi.ntnu.no/tdt4140-2024/produktomraade-2/gruppe-23/icebreaker/-/settings/integrations)
+The VS Code [settings](/.vscode/settings.json) enforce input validation warnings on commit messages in "Source control" in VS Code: titles can be up to 50 characters, and comments up to 72 characters per line. When pair programming with the [LiveShare](https://code.visualstudio.com/learn/collaboration/live-share) extension, the relevant "Co-authored-by:"-lines can be auto generated. 
 
-## Collaborate with your team
+If the commit is relevant to one or more issues, we can refer to them at the end of the commit (before "Co-authored-by") using their IDs as follows: "Related to \#\<issue-id-1> and \#\<issue-id-2>". We may close an issue directly from the commit message using certain [keywords](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically), such as "Closes" or "Resolves" directly in front of the issue reference. As an example, a commit message may look like this:
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```
+enhancement: added validation to foo-feature
 
-## Test and Deploy
+- Set up regex new patterns
+- Added null checks in setup method
 
-Use the built-in continuous integration in GitLab.
+Related to #5 and #6
+Closes #7
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Co-authored-by: Firstname Lastname <firstlast@example.com>
+```
 
-***
+Note: to reference a merge request, the identifier is given by \!\<id> instead of \#\<id>.
 
-# Editing this README
+### Local development workflow
+- Each participant clones the repository to their local machine.
+- Each participant is responsible for running compatible versions of Java and Maven.
+- Each participant uses ```git checkout``` to develop on their assigned issue branch.
+- Each participant uses ```git stash``` to stash unsaved work when checking out on another branch.
+- We utilize the [LiveShare](https://code.visualstudio.com/learn/collaboration/live-share) VS Code extension for pair programming.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Frontend setup
 
-## Suggestions for a good README
+## Backend setup
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Inspiration and credit
 
-## Name
-Choose a self-explaining name for your project.
+The backend for this project is based on a GitLab [Project Template](https://docs.gitlab.com/ee/user/project/#create-a-project-from-a-built-in-template), with the license included [here](/backend/LICENSE). To enable database integration with MySQL, the project structure was further inspired by this [tutorial](https://springjava.com/spring-boot/security-login-rest-api-with-database-authentication-in-spring-boot) provided by the Spring team (yet to be implemented).
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Dependencies and plugins
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+The backend is set up as a non-modular Maven project, which means there is only one "src/" directory to contain the Java code. The [pom.xml](/backend/pom.xml) file uses the "spring-boot-starter-parent" as a starting point, with some dependencies already configured. However, we also include additional dependencies for different purposes: Spring Boot (with Tomcat) to run the server, Spring Security for user authentication, Spring Boot JPA to enable database support, and MySQL Connector to connect to this database (some are commented out for the time being). 
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+We have plugins such as Maven Surefire for automated testing, Checkstyle to ensure consistent source code formatting, SpotBugs to check for potential bug patterns in the byte code, and JaCoCo to generate test coverage reports. The testing is done through JUnit, which is baked into the "spring-boot-starter-parent" configuration. The versions of all dependencies/plugins are configurable at the top of our [pom.xml](/backend/pom.xml) file.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### CI/CD pipeline
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+We have configured the setup for continuous integration in [this](.gitlab-ci.yml) configuration file. The file contains a build stage and a test stage. Since we are only interested in operating the server locally, we have not included any steps for continuous deployment.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Interacting with the server
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+In order to start the Spring Boot server, go through the following steps:
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+1. Open a terminal within VS Code.
+2. Jump into the "backend" directory with the command ```cd backend```
+3. Clean up the target folder and run tests with ```mvn clean install```
+4. If you want to skip the tests, run ```mvn clean install -DskipTests```
+5. If any bugs were detected by SpotBugs, debug using ```mvn spotbugs:gui``` 
+6. Run the server with ```mvn spring-boot:run```
+7. Press Ctrl+C in the terminal to stop the server
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+While the server is running, the endpoints should be accessible locally from the port 8080 on the path "/api/\<endpoint>". The port can be reconfigured in the [properties](/backend/src/main/resources/application.properties) file for the server. To ensure that the frontend web host port is compatible with the server backend, we may utilize @CrossOrigin annotation on the backend endpoints. Once implemented, database configurations will also be set up in the same properties file. The default port for the MySQL Connector is 3306, and will also be standard configured for the application properties.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Test coverage reports for unit tests
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+The Surefire plugin generates test reports in .txt format, where we can see how many tests passed or failed. However, for a more detailed report, we leverage test analysis through the JaCoCo plugin. We can see which instructions/branches are not being covered by our tests by following the steps below:
 
-## License
-For open source projects, say how it is licensed.
+1. Run the relevant tests with Maven commands (```mvn clean install``` or ```mvn test```)
+2. Look for the "target" directory within the "backend" directory
+3. Navigate through ".../target/site/jacoco/", you should now see the file "index.html"
+4. Host the "index.html" file locally and inspect the table that pops up ([Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension in VS Code)
+5. The "missed instructions" and "missed branches" columns summarize the test result
+6. The goal for a given test is not necessarily to get a coverage "Cov." of 100%. The most important thing is that the most critical methods in the class are tested
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### Integration tests
+
+We define an integration test similarly to system testing, where we try to confirm that two or more components of the app work together correctly. To test that the frontend can communicate with the backend we have added a temporary HTML/JS test frontend [here](/frontend/temporary-testing/), containing only two buttons and a div. The [index.html](/frontend/temporary-testing/index.html) can here be hosted with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by right clicking on the file in the explorer. When pressing buttons on the website, it will make calls to the "/health" and "/login" endpoints on the server, and confirm that the text in the div changes to what we expect. The console in "inspect element" will also display any errors that may appear. In the future we will replace this basic type of integration test with more realistic methods for React.
+
+It is worth noting that the current test frontend has to run on port 5501 to have access to the endpoints, due to the configurations of \@CrossOrigin in the [controllers](/backend/src/main/java/icebreaker/controller/). The VS Code [settings](/.vscode/settings.json) are set to configure the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension on port 5501, so it should work with these tools. The \@CrossOrigin setup may also be altered to work with the frontend port when testing, just make sure that the ports are aligned when both the client and server are running. 
