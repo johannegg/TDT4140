@@ -1,13 +1,20 @@
+
 .header {
     display: flex;
     padding: 8px;
     justify-content: center; /* Centers items horizontally */
-    align-items: flex-start; /* Aligns items to the top of the container */
+    align-items: space-between; /* Aligns items to the top of the container */
     font-family: 'Courier New', cursive; 
     font-size: 2em; /* Adjusted for consistency */
     background-color: rgba(251, 255, 255, 0.681);
     margin-top: 10px;
+    
 }
+.header div{
+    width: 33%;
+}
+
+
 
 .header img {
     /* Remove float and use margin-top to align the icon vertically */
