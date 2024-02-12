@@ -1,23 +1,23 @@
 .sidebar {
-    height: 100%;
-    width: 20%;
-    padding: 8px; /* Add padding value */
-    position: fixed;
-    background-color:rgb(111, 171, 194);
-    border: 1.25px solid rgb(111, 110, 110); /* Add border */
-    border-radius: 10px; /* Add border radius */
-    margin-left: 1.5%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: large;
-    font-weight: 800;
-    color:white;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  width: 20%;
+  padding: 8px;
+  position: fixed;
+  background-color: rgb(111, 171, 194);
+  border: 1.25px solid rgb(111, 110, 110);
+  border-radius: 10px;
+  margin-left: 1.5%;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 800;
+  color: white;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebarSubSection{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    font-weight: 600;
-    color: rgb(225, 247, 255);
+.sidebarSubSection {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: medium;
+  font-weight: 600;
+  color: rgb(225, 247, 255);
 }

@@ -1,21 +1,20 @@
 .listView {
-    background-color: rgb(225, 247, 255);
-    display: flex; /* Use Flexbox instead of Grid */
-    align-items: center; /* Aligns items vertically */
-    justify-content: space-between; /* Places content at opposite ends */
-    margin-left: calc(23% + 16px); /* Adjust as necessary */
-    margin-right: 2%;
-    padding: 8px; 
-    border: 1.25px solid rgb(146, 143, 143);
-    border-radius: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: large;
-    font-weight: 800;
-    color: rgb(62, 94, 107);
+  background-color: rgb(225, 247, 255);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: calc(23% + 16px);
+  margin-right: 2%;
+  padding: 8px;
+  border: 1.25px solid rgb(146, 143, 143);
+  border-radius: 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 800;
+  color: rgb(62, 94, 107);
 }
 
 .addGame {
-    cursor: pointer; /* Indicates it's clickable */
-    font-family: 'Times New Roman';
-    /* Add additional styling if needed */
+  cursor: pointer; /* Indicates it's clickable */
+  font-family: "Times New Roman";
 }
