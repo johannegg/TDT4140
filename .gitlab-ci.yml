@@ -6,26 +6,33 @@ variables:
   MAVEN_CLI_OPTS: "-DskipTests=true"
 
 stages:
-  - build
-  - test
+  - test-frontend
+  - build-backend
+  - test-backend
 
 cache:
   paths:
     - .m2/repository
   key: "$CI_BUILD_REF_NAME"
 
-build:
-  stage: build
+test-frontend:
+  stage: test-frontend
+  script:
+    - echo "Frontend tests complete."
+
+build-backend:
+  stage: build-backend
   script:
     - "cd backend; mvn clean install $MAVEN_CLI_OPTS"
-    - echo "Compile complete."
+    - echo "Backend build complete."
   artifacts:
     paths:
       - backend/target  # Keep this directory for the next job
 
-test:
-  stage: test
+test-backend:
+  stage: test-backend
+  when: manual
   script:
     - mv backend/target .  # Move the target directory from the previous job
     - "cd backend; mvn test"
-    - echo "Tests complete."
+    - echo "Backend tests complete."

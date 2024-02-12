@@ -29,7 +29,7 @@ Co-authored-by: Name2 <additional-dev-2@example.com>
 
 The title of each commit message should include prefixes such as "feat:", "enhancement:" or "docs:", as outlined in [this](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) thread. When pair programming we will follow the "Co-authored-by:"-standard at the end of the commit, as described in [this](https://stackoverflow.com/a/7442255/10002175) thread.
 
-The VS Code [settings](/.vscode/settings.json) enforce input validation warnings on commit messages in "Source control" in VS Code: titles can be up to 50 characters, and comments up to 72 characters per line. When pair programming with the [LiveShare](https://code.visualstudio.com/learn/collaboration/live-share) extension, the relevant "Co-authored-by:"-lines can be auto generated. 
+The VS Code [settings](/.vscode/settings.json) enforce input validation warnings on commit messages in "Source control" in VS Code: titles can be up to 50 characters, and comments up to 72 characters per line. When pair programming with the [LiveShare](https://code.visualstudio.com/learn/collaboration/live-share) extension, the relevant "Co-authored-by:"-lines can be auto generated.
 
 If the commit is relevant to one or more issues, we can refer to them at the end of the commit (before "Co-authored-by") using their IDs as follows: "Related to \#\<issue-id-1> and \#\<issue-id-2>". We may close an issue directly from the commit message using certain [keywords](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically), such as "Closes" or "Resolves" directly in front of the issue reference. As an example, a commit message may look like this:
 
@@ -42,12 +42,13 @@ enhancement: added validation to foo-feature
 Related to #5 and #6
 Closes #7
 
-Co-authored-by: Firstname Lastname <firstlast@example.com>
+Co-authored-by: Name <firstlast@example.com>
 ```
 
 Note: to reference a merge request, the identifier is given by \!\<id> instead of \#\<id>.
 
 ### Local development workflow
+
 - Each participant clones the repository to their local machine.
 - Each participant is responsible for running compatible versions of Java and Maven.
 - Each participant uses ```git checkout``` to develop on their assigned issue branch.
@@ -56,21 +57,33 @@ Note: to reference a merge request, the identifier is given by \!\<id> instead o
 
 ## Frontend setup
 
+### Authentication
+
+Upon successful login, a JWT token is obtained and cached for later use. Requests to protected endpoints on the backend will have to utilize this token once logged in.
+
 ## Backend setup
 
 ### Inspiration and credit
 
-The backend for this project is based on a GitLab [Project Template](https://docs.gitlab.com/ee/user/project/#create-a-project-from-a-built-in-template), with the license included [here](/backend/LICENSE). To enable database integration with MySQL, the project structure was further inspired by this [tutorial](https://springjava.com/spring-boot/security-login-rest-api-with-database-authentication-in-spring-boot) provided by the Spring team (yet to be implemented).
+The backend for this project is based on a [Spring Initializr](https://start.spring.io) template provided by Broadcom. To enable database integration with MySQL, the project structure was further inspired by this [tutorial](https://www.bezkoder.com/spring-boot-jwt-authentication/) provided by the BezKoder, allowing us to utilize JWT tokens for authentication after user login.
+
+### Prerequisites
+
+- Java version 17, a downgrade from Java 21 might be necessary.
+- Local MySQL Server, with the following details:
+  - Schema called "icebreaker_db"
+  - Admin user with username "admin", and password "P@ssw0rd!123"
+  - Server configuration on port 3306
 
 ### Dependencies and plugins
 
-The backend is set up as a non-modular Maven project, which means there is only one "src/" directory to contain the Java code. The [pom.xml](/backend/pom.xml) file uses the "spring-boot-starter-parent" as a starting point, with some dependencies already configured. However, we also include additional dependencies for different purposes: Spring Boot (with Tomcat) to run the server, Spring Security for user authentication, Spring Boot JPA to enable database support, and MySQL Connector to connect to this database (some are commented out for the time being). 
+The backend is set up as a non-modular Maven project, which means there is only one "src/" directory to contain the Java code. The [pom.xml](/backend/pom.xml) file uses the "spring-boot-starter-parent" as a starting point, with some dependencies already configured. However, we also include additional dependencies for different purposes: Spring Boot (with Tomcat) to run the server, Spring Security for user authentication, Spring Boot JPA to enable database support, and MySQL Connector to connect to this database (some are commented out for the time being).
 
 We have plugins such as Maven Surefire for automated testing, Checkstyle to ensure consistent source code formatting, SpotBugs to check for potential bug patterns in the byte code, and JaCoCo to generate test coverage reports. The testing is done through JUnit, which is baked into the "spring-boot-starter-parent" configuration. The versions of all dependencies/plugins are configurable at the top of our [pom.xml](/backend/pom.xml) file.
 
 ### CI/CD pipeline
 
-We have configured the setup for continuous integration in [this](.gitlab-ci.yml) configuration file. The file contains a build stage and a test stage. Since we are only interested in operating the server locally, we have not included any steps for continuous deployment.
+We have configured the setup for continuous integration in [this](.gitlab-ci.yml) configuration file. The file contains a build stage and a test stage, but since we require a local MySQL instance with a specific login, we made the test stage manual for the time being. In the future, if we hook up to a database in the cloud, we may configure it back to use automatic testing. Since we are only interested in operating the server locally, we have not included any steps for continuous deployment.
 
 ### Interacting with the server
 
@@ -80,11 +93,15 @@ In order to start the Spring Boot server, go through the following steps:
 2. Jump into the "backend" directory with the command ```cd backend```
 3. Clean up the target folder and run tests with ```mvn clean install```
 4. If you want to skip the tests, run ```mvn clean install -DskipTests```
-5. If any bugs were detected by SpotBugs, debug using ```mvn spotbugs:gui``` 
+5. If any bugs were detected by SpotBugs, debug using ```mvn spotbugs:gui```
 6. Run the server with ```mvn spring-boot:run```
 7. Press Ctrl+C in the terminal to stop the server
 
-While the server is running, the endpoints should be accessible locally from the port 8080 on the path "/api/\<endpoint>". The port can be reconfigured in the [properties](/backend/src/main/resources/application.properties) file for the server. To ensure that the frontend web host port is compatible with the server backend, we may utilize @CrossOrigin annotation on the backend endpoints. Once implemented, database configurations will also be set up in the same properties file. The default port for the MySQL Connector is 3306, and will also be standard configured for the application properties.
+While the server is running, the endpoints should be accessible locally from the port 8080 on the path "/api/\<endpoint>". The port can be reconfigured in the [properties](/backend/src/main/resources/application.properties) file for the server. Database configurations are also set up in the same properties file. The MySQL Connector operates on port 3306. To ensure that the frontend web host port is compatible with the server backend, we utilize @CrossOrigin annotation on the backend endpoints.
+
+### Database management
+
+The database setup for the backend relies on a local MySQL server instance with the login specified in "Prerequisites" section above. The server is configured to automatically set up tables for the defined entity classes and repositories through JPA/Hibernate. We have also ensured that some "standard" data is automatically inserted on server launch through the [data.sql](/backend/src/main/resources/data.sql) file; specifically 3 entries in "roles", 3 entries in "users", and 6 entries in "user_roles". If the tables and predefined data entries already exist in the database, nothing will be added on server launch. Other data that was added will also remain between server restarts. In the future we will include some predefined data for other types of entities. Interactions with the database is done through methods defined for each JPA repository; this includes queries, deletions, insertions etc.
 
 ### Test coverage reports for unit tests
 
@@ -99,6 +116,11 @@ The Surefire plugin generates test reports in .txt format, where we can see how 
 
 ### Integration tests
 
-We define an integration test similarly to system testing, where we try to confirm that two or more components of the app work together correctly. To test that the frontend can communicate with the backend we have added a temporary HTML/JS test frontend [here](/frontend/temporary-testing/), containing only two buttons and a div. The [index.html](/frontend/temporary-testing/index.html) can here be hosted with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by right clicking on the file in the explorer. When pressing buttons on the website, it will make calls to the "/health" and "/login" endpoints on the server, and confirm that the text in the div changes to what we expect. The console in "inspect element" will also display any errors that may appear. In the future we will replace this basic type of integration test with more realistic methods for React.
+We define an integration test similarly to system testing, where we try to confirm that two or more components of the app work together correctly. To test that the frontend can communicate with the backend we have added a temporary HTML/JS test frontend [here](/frontend/auth-testing/), containing some buttons to test user permissions after logging in. The [index.html](/frontend/auth-testing/index.html) can here be hosted with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by right clicking on the file in the VS Code file explorer. Once the website is hosted in a browser, the console in "inspect element" will display any errors that may appear. In the future we will replace this basic type of integration test with more realistic methods for React.
 
-It is worth noting that the current test frontend has to run on port 5501 to have access to the endpoints, due to the configurations of \@CrossOrigin in the [controllers](/backend/src/main/java/icebreaker/controller/). The VS Code [settings](/.vscode/settings.json) are set to configure the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension on port 5501, so it should work with these tools. The \@CrossOrigin setup may also be altered to work with the frontend port when testing, just make sure that the ports are aligned when both the client and server are running. 
+It is important to note the JWT authentication method required to use the backend endpoints. Any frontend must obtain the access token from the "api/auth/signin" endpoint and cache it locally for use in future requests. The request format will then require the header "Authorization: Bearer \<token>" for all protected endpoints.
+We also have test users that has username:password.
+
+- adminuser: admin
+- moduser: mod
+- normaluser: user

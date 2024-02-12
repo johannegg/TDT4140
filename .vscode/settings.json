@@ -1,10 +1,12 @@
 {
-    // Update class path when changing the backend's pom.xml
+    // Dynamic class path with pom.xml
     "java.configuration.updateBuildConfiguration": "interactive",
+
+    // Automatic null analysis for Java
+    "java.compile.nullAnalysis.mode": "automatic",
     
     // Commit message input validation
     "git.inputValidation": "warn",
     "git.inputValidationSubjectLength": 50,
     "git.inputValidationLength": 72,
-    "liveServer.settings.port": 5501
 }
