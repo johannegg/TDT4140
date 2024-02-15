@@ -1,0 +1,24 @@
+.game-form-container{
+    border: 2px solid #010101; 
+    border-radius: 8px; 
+    padding: 20px; 
+    background-color: white; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 90%; 
+    max-width: 500px;
+    margin: 20px auto; 
+  }
+
+  .checkBox{
+    font-size: small;
+    margin-right: 10px;
+  }
+
+  .description{
+    width: 500px;
+    margin-top: 10px;
+  }
+
+  .input{
+    margin-left: 10px;
+  }
