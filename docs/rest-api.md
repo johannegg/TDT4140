@@ -20,7 +20,7 @@ Signs up a new user with the given user credentials.
 - parameters:
   - username (type: String), [minimum 3 characters, maximum 20 characters]
   - email (type: String), [email formatting, maximum 50 characters]
-  - password (type: String), [minimum 6 characters, maximum 40 characters]
+  - password (type: String), [minimum 6 characters, maximum 40 characters, must contain at least one uppercase letter and at least one digit]
 - statuscodes [200, 400, 401]
 - response:
   - 200: success message
