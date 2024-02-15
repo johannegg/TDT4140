@@ -99,9 +99,17 @@ In order to start the Spring Boot server, go through the following steps:
 
 While the server is running, the endpoints should be accessible locally from the port 8080 on the path "/api/\<endpoint>". The port can be reconfigured in the [properties](/backend/src/main/resources/application.properties) file for the server. Database configurations are also set up in the same properties file. The MySQL Connector operates on port 3306. To ensure that the frontend web host port is compatible with the server backend, we utilize @CrossOrigin annotation on the backend endpoints.
 
+### Available endpoints
+
+The full documentation for the REST API can be found [here](/docs/rest-api.md). In this document, we specify which data is required in a request, and what type of data is returned. For the frontend team, this documentation will act as a guide on how to interact with the server through requests to endpoints. The test frontend setups in the [frontendTest](/frontendTest/) directory also specify examples for how to use "fetch" in Javascript, which should be easily adaptable for Typescript.
+
 ### Database management
 
-The database setup for the backend relies on a local MySQL server instance with the login specified in "Prerequisites" section above. The server is configured to automatically set up tables for the defined entity classes and repositories through JPA/Hibernate. We have also ensured that some "standard" data is automatically inserted on server launch through the [data.sql](/backend/src/main/resources/data.sql) file; specifically 3 entries in "roles", 3 entries in "users", and 6 entries in "user_roles". If the tables and predefined data entries already exist in the database, nothing will be added on server launch. Other data that was added will also remain between server restarts. In the future we will include some predefined data for other types of entities. Interactions with the database is done through methods defined for each JPA repository; this includes queries, deletions, insertions etc.
+The database setup for the backend relies on a local MySQL server instance with the login specified in "Prerequisites" section above. The server is configured to automatically set up tables for the defined entity classes and repositories through JPA/Hibernate. 
+
+We have ensured that some "standard data" is automatically inserted on server launch through the [data.sql](/backend/src/main/resources/data.sql) file; for instance we have 3 entries in "roles", 3 entries in "users", and 6 entries in "user_roles". The full overview of our standard data can be found in [this](/docs/standard-data.md) file. If the tables and predefined data entries already exist in the database, nothing will be added on server launch. Other data that was added will also remain between server restarts. 
+
+Interactions with the database is done through methods defined for each JPA repository; this includes queries, deletions, insertions etc. Endpoints related to fetching data are generally set up for public access, while other endpoints require authentication with specific roles.
 
 ### Test coverage reports for unit tests
 
@@ -114,12 +122,15 @@ The Surefire plugin generates test reports in .txt format, where we can see how 
 5. The "missed instructions" and "missed branches" columns summarize the test result
 6. The goal for a given test is not necessarily to get a coverage "Cov." of 100%. The most important thing is that the most critical methods in the class are tested
 
+It is worth noting that our project does not necessarily benefit from writing unit tests. Relying on integration tests where more parts of the infrastructure is connected is more valuable. Writing test frontends for the backend is more important than testing edge cases of individual methods.
+
 ### Integration tests
 
 We define an integration test similarly to system testing, where we try to confirm that two or more components of the app work together correctly. To test that the frontend can communicate with the backend we have added a temporary HTML/JS test frontend [here](/frontend/auth-testing/), containing some buttons to test user permissions after logging in. The [index.html](/frontend/auth-testing/index.html) can here be hosted with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by right clicking on the file in the VS Code file explorer. Once the website is hosted in a browser, the console in "inspect element" will display any errors that may appear. In the future we will replace this basic type of integration test with more realistic methods for React.
 
 It is important to note the JWT authentication method required to use the backend endpoints. Any frontend must obtain the access token from the "api/auth/signin" endpoint and cache it locally for use in future requests. The request format will then require the header "Authorization: Bearer \<token>" for all protected endpoints.
-We also have test users that has username:password.
+
+The "standard data" that is loaded upon server launch includes test users with the following login info (username and password):
 
 - adminuser: admin
 - moduser: mod

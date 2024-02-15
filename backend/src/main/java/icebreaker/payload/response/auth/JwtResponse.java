@@ -1,4 +1,4 @@
-package icebreaker.payload.response;
+package icebreaker.payload.response.auth;
 
 import java.util.List;
 

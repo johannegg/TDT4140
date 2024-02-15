@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+
+    <title>REST API Test</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            margin-bottom: 10px;
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #authPage, #endpointsPage, #resultPage {
+            margin-right: 50px;
+            margin-left: 50px;
+        }
+
+        #endpointsPageContainer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        #endpointsPageContainer>div {
+            width: 100%;
+        }
+
+        #roles-div {
+            max-width: 160px;
+            overflow-wrap: break-word;
+        }
+
+        #request-json, #response-json{
+            max-width: 300px;
+            max-height: 500px;
+            overflow-wrap: break-word;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="authPage">
+            <h1>Authentication</h1>
+            <div>
+                <h2>Login</h2>
+                <input type="text" id="username" placeholder="Username"><br>
+                <input type="password" id="password" placeholder="Password"><br>
+                <button onclick="login()">Login</button>
+            </div>
+            <div>
+                <h2>Sign Up</h2>
+                <input type="text" id="signupUsername" placeholder="Username"><br>
+                <input type="email" id="signupEmail" placeholder="Email"><br>
+                <input type="password" id="signupPassword" placeholder="Password"><br>
+                <button onclick="signup()">Sign Up</button>
+            </div>
+            <div>
+                <h2>Logout</h2>
+                <button onclick="logout()">Logout</button>
+            </div>
+            <div>
+                <h2>Username</h2>
+                <div id="username-div">Not logged in.</div>
+            </div>
+            <div>
+                <h2>Roles</h2>
+                <div id="roles-div">No roles found.</div>
+            </div>
+        </div>
+
+        <div id="endpointsPage">
+            <h1>Endpoint testing</h1>
+            <div id="endpointsPageContainer">
+                <div>
+                    <h2>Get GameCard</h2>
+                    <input type="number" id="get-id" placeholder="Search by ID" min="1"><br>
+                    <button onclick="getGameCardById()">Get Card</button><br>
+                    <input type="text" id="get-title" placeholder="Search by title"><br>
+                    <button onclick="getGameCardByTitle()">Get Card</button><br><br>
+                    <button onclick="getAllGameCards()">Get All Cards</button>
+                </div>
+                <div>
+                    <h2>Delete GameCard</h2>
+                    <input type="number" id="delete-id" placeholder="Search by ID" min="1"><br>
+                    <button onclick="deleteGameCardById()">Delete Card</button><br>
+                    <input type="text" id="delete-title" placeholder="Search by title"><br>
+                    <button onclick="deleteGameCardByTitle()">Delete Card</button>
+                </div>
+                <div>
+                    <h2>Create GameCard</h2>
+                    <input type="text" id="create-title" placeholder="Title"><br>
+                    <textarea id="create-description" placeholder="Description"></textarea><br>
+                    <textarea id="create-rules" placeholder="Rules"></textarea><br>
+                    <select id="create-categories" multiple>
+                        <option value="Familie">Familie</option>
+                        <option value="Fest">Fest</option>
+                        <option value="Quiz">Quiz</option>
+                        <option value="Barn">Barn</option>
+                        <option value="Innendørs">Innendørs</option>
+                        <option value="Utendørs">Utendørs</option>
+                        <option value="Musikkquiz">Musikkquiz</option>
+                        <option value="Student">Student</option>
+                        <option value="Individuell">Individuell</option>
+                        <option value="Teambuilding">Teambuilding</option>
+                    </select><br>
+                    <button onclick="createGameCard()">Create Card</button>
+                </div>
+                <div>
+                    <h2>Update GameCard</h2>
+                    <input type="number" id="update-id" placeholder="ID" min="1"><br>
+                    <input type="text" id="update-title" placeholder="New title"><br>
+                    <textarea id="update-description" placeholder="New description"></textarea><br>
+                    <textarea id="update-rules" placeholder="New rules"></textarea><br>
+                    <select id="update-categories" multiple>
+                        <option value="Familie">Familie</option>
+                        <option value="Fest">Fest</option>
+                        <option value="Quiz">Quiz</option>
+                        <option value="Barn">Barn</option>
+                        <option value="Innendørs">Innendørs</option>
+                        <option value="Utendørs">Utendørs</option>
+                        <option value="Musikkquiz">Musikkquiz</option>
+                        <option value="Student">Student</option>
+                        <option value="Individuell">Individuell</option>
+                        <option value="Teambuilding">Teambuilding</option>
+                    </select><br>
+                    <button onclick="updateGameCard()">Update Card</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="resultPage">
+            <h1>Result</h1>
+            <div id="endpointsPageContainer">
+                <div>
+                    <h2>Request JSON</h2>
+                    <div id="request-json"></div>
+                </div>
+                <div>
+                    <h2>Response JSON</h2>
+                    <div id="response-json"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="gamecard.js"></script>
+
+</body>
+
+</html>

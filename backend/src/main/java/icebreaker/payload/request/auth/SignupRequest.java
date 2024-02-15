@@ -1,4 +1,4 @@
-package icebreaker.payload.request;
+package icebreaker.payload.request.auth;
 
 import java.util.Set;
 

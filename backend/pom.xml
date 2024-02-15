@@ -114,6 +114,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>-Dfile.encoding=UTF8</jvmArguments>
+				</configuration>
 			</plugin>
 
 			<!-- Maven Surefire plugin for automatic testing -->
@@ -122,6 +125,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
 					<skipTests>${skipTests}</skipTests>
 				</configuration>
 			</plugin>
