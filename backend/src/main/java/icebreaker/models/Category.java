@@ -12,23 +12,24 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "roles", uniqueConstraints = {
+@Table(name = "categories", uniqueConstraints = {
         @UniqueConstraint(columnNames = "name")
 })
-public class Role {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank
     @Enumerated(EnumType.STRING)
-    @Size(max = 20)
-    private ERole name;
+    @Size(max = 30)
+    private ECategory name;
 
-    public Role() {
+    // Constructors
+    public Category() {
     }
 
-    public Role(ERole name) {
+    public Category(ECategory name) {
         this.name = name;
     }
 
@@ -41,11 +42,11 @@ public class Role {
         this.id = id;
     }
 
-    public ERole getName() {
+    public ECategory getName() {
         return name;
     }
 
-    public void setName(ERole name) {
+    public void setName(ECategory name) {
         this.name = name;
     }
 }
