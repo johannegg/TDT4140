@@ -266,6 +266,76 @@ Response (200):
 ]
 ```
 
+## /gamecard/get/categories
+
+Fetches game card data filtered by given categories (union operation).
+
+- method: POST
+- role: none
+- headers: 
+  - 'Content-Type': 'application/json'
+- path variables: none
+- parameters: 
+  - categories (type: Set\<String>), [allowed string entries:
+      - "Familie"
+      - "Fest"
+      - "Barn"
+      - "Innendørs"
+      - "Utendørs"
+      - "Quiz"
+      - "Musikkquiz"
+      - "Student"
+      - "Individuell"
+      - "Teambuilding"
+  ]
+- statuscodes: [200]
+- response: 
+    - 200: array of game card information objects
+
+### Example 1: Successful fetch
+
+Request:
+
+```
+{
+    "categories": [
+        "Familie",
+        "Quiz"
+    ]
+}
+```
+
+Response (200):
+```
+[
+    {
+        "id": 7,
+        "title": "Cider pong",
+        "rules": "To lag steller seg på hver sin ende av et bord.\nHvert lag har 6 eller 10 glass med valgfri drikke plassert som en triangel (slik som i bowling). \nLagene skal etter tur kaste ballen og treffe i motstanderens glass.\nNår et lag treffer, skal glasset fjernes og innholdet må drikkes opp.\nDet lage som treffer alle glassene til motstanderen først vinner.",
+        "description": "Treff ballen i 10 glass",
+        "username": "normaluser",
+        "averageRating": null,
+        "categories": [
+            "Fest",
+            "Familie"
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Test game",
+        "rules": "Rules",
+        "description": "Desc",
+        "username": "normaluser",
+        "averageRating": null,
+        "categories": [
+            "Fest",
+            "Quiz",
+            "Student"
+        ]
+    }
+]
+```
+
 ## /gamecard/create
 
 Creates and stores a new game card entry in the database. Requires cached JWT token and username.
