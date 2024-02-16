@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import icebreaker.models.Category;
 import icebreaker.models.GameCard;
 import icebreaker.payload.request.gamecard.GameCardAddRequest;
+import icebreaker.payload.request.gamecard.GameCardCategoryFilterRequest;
 import icebreaker.payload.request.gamecard.GameCardUpdateRequest;
 import icebreaker.payload.response.MessageResponse;
 import icebreaker.payload.response.gamecard.GameCardResponse;
@@ -64,6 +66,15 @@ public class GameCardController {
     @GetMapping("/get/all")
     public ResponseEntity<?> getGameCard() {
         List<GameCardResponse> response = gameCardRepository.findAll().stream().map(GameCardResponse::new).toList();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/get/categories")
+    public ResponseEntity<?> filterGameCardByCategory(@Valid @RequestBody GameCardCategoryFilterRequest categoryFilterRequest) {
+
+        List<GameCardResponse> response = gameCardRepository.findAllByCategoriesIn(categoryFilterRequest.getCategories()).stream()
+                .map(GameCardResponse::new).toList();
+
         return ResponseEntity.ok(response);
     }
 
@@ -135,7 +146,8 @@ public class GameCardController {
         try {
             gameCardRepository.deleteById(id);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new MessageResponse("Error: Game card could not be deleted"));
+            return ResponseEntity.internalServerError()
+                    .body(new MessageResponse("Error: Game card could not be deleted"));
         }
 
         return ResponseEntity.ok(new MessageResponse("Game card deleted successfully"));
