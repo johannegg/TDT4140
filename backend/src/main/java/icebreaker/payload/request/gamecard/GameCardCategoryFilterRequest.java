@@ -3,7 +3,7 @@ package icebreaker.payload.request.gamecard;
 import java.util.HashSet;
 import java.util.Set;
 
-import icebreaker.models.ECategory;
+import icebreaker.models.types.ECategory;
 
 public class GameCardCategoryFilterRequest {
     

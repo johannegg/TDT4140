@@ -11,11 +11,14 @@ function getGameCardById() {
     fetch(gameCardApiUrl + '/get/id/' + getId, {
         method: 'GET',
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json().then(data => {
             requestDiv.innerText = 'Path variable: id = ' + getId;
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        })
+            if (response.ok) {
+                responseDiv.innerText = JSON.stringify(data, null, 2);
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error fetching game card:', error);
         });
@@ -28,11 +31,14 @@ function getGameCardByTitle() {
     fetch(gameCardApiUrl + '/get/title/' + getTitle, {
         method: 'GET',
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json().then(data => {
             requestDiv.innerText = 'Path variable: title = ' + getTitle;
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        })
+            if (response.ok) {
+                responseDiv.innerText = JSON.stringify(data, null, 2);
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error fetching game card:', error);
         });
@@ -43,11 +49,14 @@ function getAllGameCards() {
     fetch(gameCardApiUrl + '/get/all', {
         method: 'GET',
     })
-        .then(response => response.json())
-        .then(data => {
-            requestDiv.innerText = 'No arguments needed for this request.';
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        })
+        .then(response => response.json().then(data => {
+            requestDiv.innerText = 'Get all game cards';
+            if (response.ok) {
+                responseDiv.innerText = JSON.stringify(data, null, 2);
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error fetching game cards:', error);
         });
@@ -64,11 +73,14 @@ function deleteGameCardById() {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json().then(data => {
             requestDiv.innerText = 'Path variable: id = ' + deleteId;
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        })
+            if (response.ok) {
+                responseDiv.innerText = JSON.stringify(data, null, 2);
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error deleting game card:', error);
         });
@@ -85,11 +97,14 @@ function deleteGameCardByTitle() {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json().then(data => {
             requestDiv.innerText = 'Path variable: title = ' + deleteTitle;
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        })
+            if (response.ok) {
+                responseDiv.innerText = JSON.stringify(data, null, 2);
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error deleting game card:', error);
         });
@@ -112,11 +127,14 @@ function createGameCard() {
         },
         body: requestBody
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json().then(data => {
             requestDiv.innerText = requestBody;
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        })
+            if (response.ok) {
+                responseDiv.innerText = JSON.stringify(data, null, 2);
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error creating game card:', error);
         });
@@ -140,11 +158,14 @@ function updateGameCard() {
         },
         body: requestBody
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json().then(data => {
             requestDiv.innerText = requestBody;
-            responseDiv.innerText = JSON.stringify(data, null, 2);
-        })
+            if (response.ok) {
+                responseDiv.innerText = JSON.stringify(data, null, 2);
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error updating game card:', error);
         });

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import icebreaker.models.ERole;
 import icebreaker.models.Role;
 import icebreaker.models.User;
+import icebreaker.models.types.ERole;
 import icebreaker.payload.request.auth.LoginRequest;
 import icebreaker.payload.request.auth.SignupRequest;
 import icebreaker.payload.response.MessageResponse;
@@ -76,23 +77,13 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Error: Username already taken!"));
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: Email is already in use!"));
-		}
-
-		if (!signUpRequest.getPassword().matches("^(?=.*[a-zæøå])(?=.*[A-ZÆØÅ])(?=.*\\d).{6,}$")) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse(
-							"Error: Password must contain at least one uppercase letter, one lowercase letter, one digit and be at least 6 characters long"));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Error: Email is already in use!"));
 		}
 
 		// Create new user's account

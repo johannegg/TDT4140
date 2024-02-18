@@ -13,13 +13,16 @@ function login() {
         },
         body: JSON.stringify({ username: username, password: password })
     })
-        .then(response => response.json())
-        .then(data => {
-            token = data.accessToken;
-        })
+        .then(response => response.json().then(data => {
+            if (response.ok) {
+                alert("Login successful!");
+                token = data.accessToken;
+            } else {
+                alert(response.status + ' ' + data.message);
+            }
+        }))
         .catch(error => {
             console.error('Error logging in:', error);
-            alert('Login failed. Please try again.');
         });
 }
 
@@ -35,38 +38,40 @@ function signup() {
         },
         body: JSON.stringify({ username: username, email: email, password: password })
     })
-    .then(response => response.json())
-    .then(data => {
-        alert('Signup successful! Please login.');
-    })
-    .catch(error => {
-        console.error('Error signing up:', error);
-        alert('Signup failed. Please try again.');
-    });
+        .then(response => response.json().then(data => {
+            if (response.ok) {
+                alert('Signup successful! Please login.');
+            } else {
+                alert(response.status + ' ' + data.message);
+            }
+        }))
+        .catch(error => {
+            console.error('Error signing up:', error);
+        });
 }
 
 function viewToken() {
-    // Clear token and display login page again
     const tokenDiv = document.getElementById('token-div');
     tokenDiv.innerText = token;
 }
 
 function logout() {
-    // Clear token and display login page again
     token = null;
 }
 
 function fetchTestData(url, divID) {
-    // Fetch data from your endpoints using the token
     fetch(apiUrl + 'test/' + url, {
         headers: {
             'Authorization': 'Bearer ' + token
         }
     })
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById(divID).innerText = data;
-        })
+        .then(response => response.text().then(data => {
+            if (response.ok) {
+                document.getElementById(divID).innerText = data;
+            } else {
+                document.getElementById(divID).innerText = response.status + ' Error';
+            }
+        }))
         .catch(error => {
             console.error('Error fetching data:', error);
         });

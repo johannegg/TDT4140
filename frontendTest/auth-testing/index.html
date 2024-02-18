@@ -9,38 +9,45 @@
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
     <link rel="manifest" href="icons/site.webmanifest">
 
-    <title>REST API Test</title>
+    <title>API Authentication Test</title>
 </head>
 
 <body>
 
-<div id="loginPage">
-    <div>
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username"><br>
-        <input type="password" id="password" placeholder="Password"><br>
-        <button onclick="login()">Login</button>
-    </div>
-    <div>
-        <h2>Sign Up</h2>
-        <input type="text" id="signupUsername" placeholder="Username"><br>
-        <input type="email" id="signupEmail" placeholder="Email"><br>
-        <input type="password" id="signupPassword" placeholder="Password"><br>
-        <button onclick="signup()">Sign Up</button>
-    </div>
-</div><br>
+    <h1>API Authentication Test</h1>
+    <div id="loginPage">
+        <div>
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username"><br>
+            <input type="password" id="password" placeholder="Password"><br>
+            <button onclick="login()">Login</button>
+        </div>
+        <div>
+            <h2>Sign Up</h2>
+            <input type="text" id="signupUsername" placeholder="Username"><br>
+            <input type="email" id="signupEmail" placeholder="Email"><br>
+            <input type="password" id="signupPassword" placeholder="Password"><br>
+            <button onclick="signup()">Sign Up</button>
+        </div>
+    </div><br>
 
-<div id="homePage">
-    <h2>Test roles</h2><br>
-    <button onclick="fetchTestData('all', 'all-content');">Test all</button><div id="all-content"></div><br>
-    <button onclick="fetchTestData('user', 'user-content');">Test user</button><div id="user-content"></div><br>
-    <button onclick="fetchTestData('mod', 'mod-content');">Test mod</button><div id="mod-content"></div><br>
-    <button onclick="fetchTestData('admin', 'admin-content');">Test admin</button><div id="admin-content"></div><br>
-    <button onclick="viewToken()">View token</button><div id="token-div"></div><br>
-    <button onclick="logout()">Logout</button>
-</div>
+    <div id="homePage">
+        <h2>Test roles</h2><br>
+        <button onclick="fetchTestData('all', 'all-content');">Test all</button>
+        <div id="all-content"></div><br>
+        <button onclick="fetchTestData('user', 'user-content');">Test user</button>
+        <div id="user-content"></div><br>
+        <button onclick="fetchTestData('mod', 'mod-content');">Test mod</button>
+        <div id="mod-content"></div><br>
+        <button onclick="fetchTestData('admin', 'admin-content');">Test admin</button>
+        <div id="admin-content"></div><br>
+        <button onclick="viewToken()">View token</button>
+        <div id="token-div"></div><br>
+        <button onclick="logout()">Logout</button>
+    </div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>

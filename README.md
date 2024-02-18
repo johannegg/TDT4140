@@ -132,6 +132,6 @@ It is important to note the JWT authentication method required to use the backen
 
 The "standard data" that is loaded upon server launch includes test users with the following login info (username and password):
 
-- adminuser: admin
-- moduser: mod
-- normaluser: user
+- adminuser: Adminuser1
+- moduser: Moduser1
+- normaluser: Normaluser1

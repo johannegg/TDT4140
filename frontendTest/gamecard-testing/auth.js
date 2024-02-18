@@ -20,19 +20,23 @@ function login() {
         },
         body: requestBody
     })
-        .then(response => response.json())
-        .then(data => {
-            token = data.accessToken;
-            rolesText = data.roles.toString();
-            usernameText = data.username;
-            alert(data.username + ' logged in successfully!');
-            rolesText = rolesText.replace(/,/g, ' ');
-            rolesDiv.innerText = rolesText;
-            usernameDiv.innerText = usernameText;
-        })
+        .then(response => response.json().then(data => {
+            requestDiv.innerText = 'Login with username ' + username;
+            if (response.ok) {
+                responseDiv.innerText = "Login successful!";
+                token = data.accessToken;
+                rolesText = data.roles.toString();
+                usernameText = data.username;
+                rolesText = rolesText.replace(/,/g, ' ');
+                rolesDiv.innerText = rolesText;
+                usernameDiv.innerText = usernameText;
+                usernameDiv.innerText = data.username;
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error logging in:', error);
-            alert('Login failed. Please try again.');
         });
 }
 
@@ -49,20 +53,20 @@ function signup() {
         },
         body: requestBody
     })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-        })
+        .then(response => response.json().then(data => {
+            requestDiv.innerText = 'Signup with username ' + username + ' and email ' + email;
+            if (response.ok) {
+                responseDiv.innerText = data.message;
+            } else {
+                responseDiv.innerText = response.status + ' ' + data.message;
+            }
+        }))
         .catch(error => {
             console.error('Error signing up:', error);
-            alert('Signup failed. Please try again.');
         });
 }
 
 function logout() {
-
-    // Alert the user upon successful logout
-    alert('Logged out successfully!');
 
     // Clear token and roles upon logout
     token = null;

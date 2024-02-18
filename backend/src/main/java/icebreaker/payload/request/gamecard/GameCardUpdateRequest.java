@@ -3,28 +3,30 @@ package icebreaker.payload.request.gamecard;
 import java.util.HashSet;
 import java.util.Set;
 
-import icebreaker.models.ECategory;
-import jakarta.persistence.Id;
+import icebreaker.models.types.ECategory;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class GameCardUpdateRequest {
-    
-    @Id
+
+    @NotNull(message = "Game card ID must not be null")
+    @Min(value = 1, message = "Game card ID must be at least 1")
     private Long id;
 
-    @NotBlank
-    @Size(max = 30)
+    @NotBlank(message = "Title must not be blank")
+    @Size(max = 30, message = "Title must be at most 30 characters")
     private String title;
 
-    @NotBlank
-    @Size(max = 500)
+    @NotBlank(message = "Rules must not be blank")
+    @Size(max = 500, message = "Rules must be at most 500 characters")
     private String rules;
 
-    @NotBlank
+    @NotBlank(message = "Description must not be blank")
     @Size(max = 100)
     private String description;
-    
+
     private Set<ECategory> categories = new HashSet<>();
 
     // Getters and Setters
