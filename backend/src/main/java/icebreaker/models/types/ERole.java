@@ -1,4 +1,4 @@
-package icebreaker.models;
+package icebreaker.models.types;
 
 public enum ERole {
     ROLE_USER,

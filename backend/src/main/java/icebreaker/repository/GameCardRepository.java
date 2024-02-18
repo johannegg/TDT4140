@@ -8,12 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import icebreaker.models.ECategory;
 import icebreaker.models.GameCard;
+import icebreaker.models.types.ECategory;
 
 @Repository
 public interface GameCardRepository extends JpaRepository<GameCard, Long> {
-    // Custom query methods
     GameCard findByTitle(String title);
 
     boolean existsByTitle(String title);

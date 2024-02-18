@@ -3,8 +3,8 @@ package icebreaker.payload.response.gamecard;
 import java.util.HashSet;
 import java.util.Set;
 
-import icebreaker.models.ECategory;
 import icebreaker.models.GameCard;
+import icebreaker.models.types.ECategory;
 
 public class GameCardResponse {
     private int id;
@@ -21,7 +21,11 @@ public class GameCardResponse {
         this.rules = gameCard.getRules();
         this.description = gameCard.getDescription();
         this.username = gameCard.getUsername();
-        this.averageRating = gameCard.getAverageRating();
+        if (gameCard.getAverageRating() == null) {
+            this.averageRating = null;
+        } else {
+            this.averageRating = Math.round(gameCard.getAverageRating() * 100.0) / 100.0;
+        }
         this.categories = Set.copyOf(gameCard.getCategories().stream().map(category -> category.getName()).toList());
     }
 

@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
     <link rel="manifest" href="icons/site.webmanifest">
 
-    <title>API Category Filter Test</title>
+    <title>API Rating Test</title>
 
     <style>
         body {
@@ -71,7 +71,7 @@
 <body>
     <div id="container">
         <div id="authPage">
-            <h1>API Category Filter Test</h1>
+            <h1>API Rating Test</h1>
             <div>
                 <h2>Login</h2>
                 <input type="text" id="username" placeholder="Username"><br>
@@ -103,48 +103,29 @@
             <h1>Endpoint testing</h1>
             <div id="endpointsPageContainer">
                 <div>
-                    <h2>Get all cards</h2>
-                    <button onclick="getAllGameCards()">Get All Cards</button>
+                    <h2>Get all game cards</h2>
+                    <button onclick="getAllGameCards()">Get Cards</button>
                 </div>
                 <div>
-                    <h2>Filter by category</h2>
-                    <select id="categories" multiple>
-                        <option value="Familie">Familie</option>
-                        <option value="Fest">Fest</option>
-                        <option value="Quiz">Quiz</option>
-                        <option value="Barn">Barn</option>
-                        <option value="Innendørs">Innendørs</option>
-                        <option value="Utendørs">Utendørs</option>
-                        <option value="Musikkquiz">Musikkquiz</option>
-                        <option value="Student">Student</option>
-                        <option value="Individuell">Individuell</option>
-                        <option value="Teambuilding">Teambuilding</option>
-                    </select><br>
-                    <button onclick="getGameCardsByCategory()">Get Cards</button>
+                    <h2>Get ratings</h2>
+                    <input type="text" id="get-ratings-username" placeholder="Search by username"><br>
+                    <button onclick="getRatingsByUsername()">Get Ratings</button><br>
+
+                    <input type="number" id="get-ratings-gamecard-id" placeholder="Search by card ID" min="1"><br>
+                    <button onclick="getRatingsByGameCardId()">Get Ratings</button>
                 </div>
                 <div>
-                    <h2>Create card</h2>
-                    <input type="text" id="create-title" placeholder="Title"><br>
-                    <textarea id="create-description" placeholder="Description"></textarea><br>
-                    <textarea id="create-rules" placeholder="Rules"></textarea><br>
-                    <select id="create-categories" multiple>
-                        <option value="Familie">Familie</option>
-                        <option value="Fest">Fest</option>
-                        <option value="Quiz">Quiz</option>
-                        <option value="Barn">Barn</option>
-                        <option value="Innendørs">Innendørs</option>
-                        <option value="Utendørs">Utendørs</option>
-                        <option value="Musikkquiz">Musikkquiz</option>
-                        <option value="Student">Student</option>
-                        <option value="Individuell">Individuell</option>
-                        <option value="Teambuilding">Teambuilding</option>
-                    </select><br>
-                    <button onclick="createGameCard()">Create Card</button>
+                    <h2>Add new rating</h2>
+                    <input type="number" id="add-score" placeholder="Score" min="1" max="5"><br>
+                    <input type="text" id="add-comment" placeholder="Comment"><br>
+                    <input type="number" id="add-gamecard-id" placeholder="Game card ID" min="1"><br>
+                    <button onclick="addRating()">Add Rating</button>
                 </div>
                 <div>
-                    <h2>Delete card</h2>
-                    <input type="text" id="delete-title" placeholder="Search by title" min="1"><br>
-                    <button onclick="deleteGameCardByTitle()">Delete Card</button><br>
+                    <h2>Remove rating</h2>
+                    <input type="number" id="remove-gamecard-id" placeholder="Search by card ID" min="1"><br>
+                    <input type="text" id="remove-username" placeholder="Search by username"><br>
+                    <button onclick="removeRating()">Remove Rating</button><br>
                 </div>
             </div>
         </div>
@@ -164,7 +145,7 @@
         </div>
     </div>
     <script src="auth.js"></script>
-    <script src="categoryFilter.js"></script>
+    <script src="rating.js"></script>
 
 </body>
 

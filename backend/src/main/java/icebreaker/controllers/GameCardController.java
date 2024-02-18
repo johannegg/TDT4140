@@ -45,7 +45,8 @@ public class GameCardController {
         GameCard gameCard = gameCardRepository.findById(id).orElse(null);
 
         if (gameCard == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Error: Game card not found"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new MessageResponse("Error: Game card not found"));
         }
 
         return ResponseEntity.ok(new GameCardResponse(gameCard));
@@ -57,7 +58,8 @@ public class GameCardController {
         GameCard gameCard = gameCardRepository.findByTitle(title);
 
         if (gameCard == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Error: Game card not found"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new MessageResponse("Error: Game card not found"));
         }
 
         return ResponseEntity.ok(new GameCardResponse(gameCard));
@@ -70,9 +72,11 @@ public class GameCardController {
     }
 
     @PostMapping("/get/categories")
-    public ResponseEntity<?> filterGameCardByCategory(@Valid @RequestBody GameCardCategoryFilterRequest categoryFilterRequest) {
+    public ResponseEntity<?> filterGameCardByCategory(
+            @Valid @RequestBody GameCardCategoryFilterRequest categoryFilterRequest) {
 
-        List<GameCardResponse> response = gameCardRepository.findAllByCategoriesIn(categoryFilterRequest.getCategories()).stream()
+        List<GameCardResponse> response = gameCardRepository
+                .findAllByCategoriesIn(categoryFilterRequest.getCategories()).stream()
                 .map(GameCardResponse::new).toList();
 
         return ResponseEntity.ok(response);
@@ -85,7 +89,8 @@ public class GameCardController {
         String title = addRequest.getTitle();
 
         if (gameCardRepository.existsByTitle(title)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Game card already exists"));
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new MessageResponse("Error: Game card already exists"));
         }
 
         Set<Category> categories = categoryRepository.findAllByNameIn(addRequest.getCategories());
@@ -93,14 +98,9 @@ public class GameCardController {
         GameCard gameCard = new GameCard(title, addRequest.getRules(), addRequest.getDescription(),
                 addRequest.getUsername(), categories);
 
-        try {
-            gameCardRepository.save(gameCard);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError()
-                    .body(new MessageResponse("Error: Game card could not be created"));
-        }
+        gameCardRepository.save(gameCard);
 
-        return ResponseEntity.ok(new MessageResponse("Game card created successfully"));
+        return ResponseEntity.ok(new MessageResponse("Game card created successfully!"));
     }
 
     @PutMapping("/update")
@@ -113,26 +113,22 @@ public class GameCardController {
         GameCard gameCard = gameCardRepository.findById(id).orElse(null);
 
         if (gameCard == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Error: Game card not found"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new MessageResponse("Error: Game card not found"));
         }
 
         if (gameCardRepository.existsByTitle(title) && !gameCard.getTitle().equals(title)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Game card already exists"));
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new MessageResponse("Error: Game card already exists"));
         }
 
         gameCard.setTitle(title);
         gameCard.setRules(updateRequest.getRules());
         gameCard.setDescription(updateRequest.getDescription());
         gameCard.setCategories(categoryRepository.findAllByNameIn(updateRequest.getCategories()));
+        gameCardRepository.save(gameCard);
 
-        try {
-            gameCardRepository.save(gameCard);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError()
-                    .body(new MessageResponse("Error: Game card could not be updated"));
-        }
-
-        return ResponseEntity.ok(new MessageResponse("Game card updated successfully"));
+        return ResponseEntity.ok(new MessageResponse("Game card updated successfully!"));
     }
 
     @DeleteMapping("/delete/id/{id}")
@@ -140,17 +136,13 @@ public class GameCardController {
     public ResponseEntity<?> deleteGameCardById(@PathVariable long id) {
 
         if (!gameCardRepository.existsById(id)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Error: Game card not found"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new MessageResponse("Error: Game card not found"));
         }
 
-        try {
-            gameCardRepository.deleteById(id);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError()
-                    .body(new MessageResponse("Error: Game card could not be deleted"));
-        }
+        gameCardRepository.deleteById(id);
 
-        return ResponseEntity.ok(new MessageResponse("Game card deleted successfully"));
+        return ResponseEntity.ok(new MessageResponse("Game card deleted successfully!"));
     }
 
     @DeleteMapping("/delete/title/{title}")
@@ -160,16 +152,12 @@ public class GameCardController {
         GameCard gameCard = gameCardRepository.findByTitle(title);
 
         if (gameCard == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Error: Game card not found"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new MessageResponse("Error: Game card not found"));
         }
 
-        try {
-            gameCardRepository.delete(gameCard);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError()
-                    .body(new MessageResponse("Error: Game card could not be deleted" + e));
-        }
+        gameCardRepository.delete(gameCard);
 
-        return ResponseEntity.ok(new MessageResponse("Game card deleted successfully"));
+        return ResponseEntity.ok(new MessageResponse("Game card deleted successfully!"));
     }
 }
