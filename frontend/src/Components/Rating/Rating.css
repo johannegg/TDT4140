@@ -1,0 +1,41 @@
+.close-button {
+    position: relative;
+    margin-left: 400px;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+
+.comment {
+    resize: none;
+    margin-bottom: 20px;
+    
+  }
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #ccc; 
+    background-color: rgb(225, 247, 255); 
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    line-height: 1.5;
+}
+
+.submitRating {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; 
+  }
+  
+  .submitRating:hover {
+    background-color: #2980b9;
+  }
