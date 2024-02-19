@@ -70,7 +70,17 @@ public class GameCardController {
     public ResponseEntity<?> getGameCard() {
         List<GameCardResponse> response = new ArrayList<>(
                 gameCardRepository.findAll().stream().map(GameCardResponse::new).toList());
-        response.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating()));
+        response.sort((a, b) -> {
+            if (a.getAverageRating() == null && b.getAverageRating() == null) {
+                return 0;
+            } else if (a.getAverageRating() == null) {
+                return 1;
+            } else if (b.getAverageRating() == null) {
+                return -1;
+            } else {
+                return Double.compare(b.getAverageRating(), a.getAverageRating());
+            }
+        });
         return ResponseEntity.ok(response);
     }
 
@@ -81,7 +91,17 @@ public class GameCardController {
         List<GameCardResponse> response = new ArrayList<>(gameCardRepository
                 .findAllByCategoriesIn(categoryFilterRequest.getCategories()).stream()
                 .map(GameCardResponse::new).toList());
-        response.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating()));
+        response.sort((a, b) -> {
+            if (a.getAverageRating() == null && b.getAverageRating() == null) {
+                return 0;
+            } else if (a.getAverageRating() == null) {
+                return 1;
+            } else if (b.getAverageRating() == null) {
+                return -1;
+            } else {
+                return Double.compare(b.getAverageRating(), a.getAverageRating());
+            }
+        });
         return ResponseEntity.ok(response);
     }
 

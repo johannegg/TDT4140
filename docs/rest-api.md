@@ -19,3 +19,4 @@ The documentation has been split up into different files, grouped by the feature
 - Authentication related endpoints: [auth.md](./api-sections/auth.md)
 - Game card related endpoints: [gamecard.md](./api-sections/gamecard.md)
 - Rating related endpoints: [rating.md](./api-sections/rating.md)
+- Queue related endpoints: [queue.md](./api-sections/queue.md)

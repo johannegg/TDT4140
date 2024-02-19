@@ -9,10 +9,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
     <link rel="manifest" href="../icons/site.webmanifest">
 
-    <title>API Category Filter Test</title>
+    <title>API Queue Test</title>
 
     <style>
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
@@ -70,7 +71,7 @@
 <body>
     <div id="container">
         <div id="authPage">
-            <h1>API Category Filter Test</h1>
+            <h1>API Queue Test</h1>
             <div>
                 <h2>Login</h2>
                 <input type="text" id="username" placeholder="Username"><br>
@@ -78,7 +79,7 @@
                 <button onclick="login()">Login</button>
             </div>
             <div>
-                <h2>Sign up</h2>
+                <h2>Sign Up</h2>
                 <input type="text" id="signupUsername" placeholder="Username"><br>
                 <input type="email" id="signupEmail" placeholder="Email"><br>
                 <input type="password" id="signupPassword" placeholder="Password"><br>
@@ -102,48 +103,22 @@
             <h1>Endpoint testing</h1>
             <div id="endpointsPageContainer">
                 <div>
-                    <h2>Get all cards</h2>
+                    <h2>Get cards</h2>
                     <button onclick="getAllGameCards()">Get All Cards</button>
                 </div>
                 <div>
-                    <h2>Filter by category</h2>
-                    <select id="categories" multiple>
-                        <option value="Familie">Familie</option>
-                        <option value="Fest">Fest</option>
-                        <option value="Quiz">Quiz</option>
-                        <option value="Barn">Barn</option>
-                        <option value="Innendørs">Innendørs</option>
-                        <option value="Utendørs">Utendørs</option>
-                        <option value="Musikkquiz">Musikkquiz</option>
-                        <option value="Student">Student</option>
-                        <option value="Individuell">Individuell</option>
-                        <option value="Teambuilding">Teambuilding</option>
-                    </select><br>
-                    <button onclick="getGameCardsByCategory()">Get Cards</button>
+                    <h2>Get queue</h2>
+                    <button onclick="getQueue()">Get Queue</button><br>
                 </div>
                 <div>
-                    <h2>Create card</h2>
-                    <input type="text" id="create-title" placeholder="Title"><br>
-                    <textarea id="create-description" placeholder="Description"></textarea><br>
-                    <textarea id="create-rules" placeholder="Rules"></textarea><br>
-                    <select id="create-categories" multiple>
-                        <option value="Familie">Familie</option>
-                        <option value="Fest">Fest</option>
-                        <option value="Quiz">Quiz</option>
-                        <option value="Barn">Barn</option>
-                        <option value="Innendørs">Innendørs</option>
-                        <option value="Utendørs">Utendørs</option>
-                        <option value="Musikkquiz">Musikkquiz</option>
-                        <option value="Student">Student</option>
-                        <option value="Individuell">Individuell</option>
-                        <option value="Teambuilding">Teambuilding</option>
-                    </select><br>
-                    <button onclick="createGameCard()">Create Card</button>
+                    <h2>Add to queue</h2>
+                    <input type="number" id="add-gamecard-id" placeholder="Search by ID" min="1"><br>
+                    <button onclick="addToQueue()">Add Card</button><br>
                 </div>
                 <div>
-                    <h2>Delete card</h2>
-                    <input type="text" id="delete-title" placeholder="Search by title" min="1"><br>
-                    <button onclick="deleteGameCardByTitle()">Delete Card</button><br>
+                    <h2>Remove from queue</h2>
+                    <input type="number" id="remove-gamecard-id" placeholder="Search by ID" min="1"><br>
+                    <button onclick="removeFromQueue()">Remove Card</button><br>
                 </div>
             </div>
         </div>
@@ -152,18 +127,18 @@
             <h1>Result</h1>
             <div id="endpointsPageContainer">
                 <div>
-                    <h2>Request</h2>
+                    <h2>Request JSON</h2>
                     <div id="request-json"></div>
                 </div>
                 <div>
-                    <h2>Response</h2>
+                    <h2>Response JSON</h2>
                     <div id="response-json"></div>
                 </div>
             </div>
         </div>
     </div>
     <script src="auth.js"></script>
-    <script src="categoryFilter.js"></script>
+    <script src="queue.js"></script>
 
 </body>
 
