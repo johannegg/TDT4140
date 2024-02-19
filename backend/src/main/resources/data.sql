@@ -84,6 +84,14 @@ Når et lag treffer, skal glasset fjernes og innholdet må drikkes opp.
 Det lage som treffer alle glassene til motstanderen først vinner.', 'normaluser', 2.5
     );
 
+INSERT IGNORE INTO
+    gamecards (
+        title, description, rules, username, average_rating
+    )
+VALUES (
+        'Brus pong', 'Beskrivelse', 'Regler', 'normaluser', null
+    );
+
 -- Assign categories to gamecards
 INSERT IGNORE INTO
     gamecard_category (gamecard_id, category_id)
@@ -101,6 +109,14 @@ WHERE
     g.title = 'Cider pong'
     AND c.name IN ('Fest', 'Familie');
 
+INSERT IGNORE INTO
+    gamecard_category (gamecard_id, category_id)
+SELECT g.id, c.id
+FROM gamecards g, categories c
+WHERE
+    g.title = 'Brus pong'
+    AND c.name IN ('Familie', 'Barn');
+
 -- Ratings standard data for users and gamecards
 INSERT IGNORE INTO
     ratings (
@@ -110,3 +126,34 @@ VALUES (4, 'Great game!', 1, 1),
     (5, 'Awesome!', 2, 1),
     (3, 'Not bad.', 3, 2),
     (2, NULL, 1, 2);
+
+-- Add game cards to user queues
+INSERT IGNORE INTO
+    queue (
+        user_id, gamecard_id, order_index
+    )
+SELECT u.id, g.id, 0
+FROM users u, gamecards g
+WHERE
+    u.username = 'normaluser'
+    AND g.title = 'Cider pong';
+
+INSERT IGNORE INTO
+    queue (
+        user_id, gamecard_id, order_index
+    )
+SELECT u.id, g.id, 0
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Beer pong';
+
+INSERT IGNORE INTO
+    queue (
+        user_id, gamecard_id, order_index
+    )
+SELECT u.id, g.id, 1
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Cider pong';

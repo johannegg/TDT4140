@@ -1,6 +1,8 @@
 package icebreaker.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -15,6 +17,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderColumn;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -56,6 +59,12 @@ public class User {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    // Define Many-to-Many relationship with GameCard (queue)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "queue", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gamecard_id"))
+    @OrderColumn(name = "order_index")
+    private List<GameCard> queue = new ArrayList<>();
+
     // Constructors
     public User() {
     }
@@ -64,6 +73,16 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    // Add game card to queue
+    public void addGameCardToQueue(GameCard gameCard) {
+        this.queue.add(gameCard);
+    }
+
+    // Remove game card from queue
+    public void removeGameCardFromQueue(GameCard gameCard) {
+        this.queue.remove(gameCard);
     }
 
     // Getters and setters
@@ -113,5 +132,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<GameCard> getQueue() {
+        return queue;
+    }
+
+    public void setQueue(List<GameCard> queue) {
+        this.queue = queue;
     }
 }

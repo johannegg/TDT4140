@@ -5,7 +5,7 @@ import icebreaker.models.Rating;
 public class RatingResponse {
     private int score;
     private String comment;
-    private int gameCardId;
+    private long gameCardId;
     private String username;
 
     public RatingResponse(Rating rating) {
@@ -31,11 +31,11 @@ public class RatingResponse {
         this.comment = comment;
     }
 
-    public int getGameCardId() {
+    public long getGameCardId() {
         return gameCardId;
     }
 
-    public void setGameCardId(int gameCardId) {
+    public void setGameCardId(long gameCardId) {
         this.gameCardId = gameCardId;
     }
 

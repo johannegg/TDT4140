@@ -28,7 +28,7 @@ import jakarta.validation.constraints.Size;
 public class GameCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Tittel kan ikke være tom")
     @Size(max = 30, message = "Tittel kan ha maks 30 tegn")
@@ -102,11 +102,11 @@ public class GameCard {
     }
 
     // Getters and setters
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
