@@ -12,23 +12,26 @@ type GameCardType = {
 
 interface ListViewProps {
   refreshKey: number;
+  // categoriesToFilter: Array<boolean>;
 }
 
 const gameCardApiUrl = "http://localhost:8080/api/gamecard";
 
-const ListView = ({ refreshKey }: ListViewProps) => {
+const ListView = ({ refreshKey/* , categoriesToFilter  */}: ListViewProps) => {
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
 
   const fetchGameCards = () => {
     fetch(`${gameCardApiUrl}/get/all`, {
       method: "GET",
     })
-      .then(response => response.json().then(data => {
-        if (!response.ok) {
-          throw new Error(data.message);
-        }
-        setGameCards(data);
-      }))
+      .then((response) =>
+        response.json().then((data) => {
+          if (!response.ok) {
+            throw new Error(data.message);
+          }
+          setGameCards(data);
+        })
+      )
       .catch((error) => {
         console.error("Error fetching game cards:", error);
         alert(error);
@@ -42,6 +45,10 @@ const ListView = ({ refreshKey }: ListViewProps) => {
   useEffect(() => {
     fetchGameCards();
   }, [refreshKey]);
+
+  // useEffect(() => {
+  //   console.log("test");
+  // }, [categoriesToFilter]);
 
   return (
     <div className="listView">

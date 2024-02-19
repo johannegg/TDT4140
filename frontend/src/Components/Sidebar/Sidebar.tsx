@@ -1,8 +1,12 @@
+import { Dispatch, SetStateAction, useState } from "react";
+import CategoryBox from "../CategoryBox/CategoryBox";
 import "./Sidebar.css";
 
 interface SidebarProps {
   toggleFormModal: () => void;
+  /* filterCategories: Dispatch<SetStateAction<boolean[]>>; */
 }
+
 
 const Sidebar = (props: SidebarProps) => {
   const handleToggleFormModal = () => {
@@ -22,6 +26,8 @@ const Sidebar = (props: SidebarProps) => {
       <div className="sidebarSubSection" onClick={handleToggleFormModal}>
         + Legg til nytt spill
       </div>
+      <div>-----------------</div>
+      <CategoryBox /* filterCategories={props.filterCategories} */></CategoryBox>
     </div>
   );
 };
