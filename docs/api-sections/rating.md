@@ -6,7 +6,7 @@ Requests to any endpoint must have http://localhost:8080/api as the URI prefix.
 
 ## /rating/get/gamecard/{gamecardID}
 
-Fetches all rating data related to a specific game card.
+Fetches all rating data related to a specific game card, sorted by score.
 
 - method: GET
 - role: none

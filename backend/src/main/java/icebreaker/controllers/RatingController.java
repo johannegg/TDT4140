@@ -47,7 +47,7 @@ public class RatingController {
         }
 
         List<RatingResponse> response = user.getRatings().stream().map(RatingResponse::new).toList();
-
+        response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
         return ResponseEntity.ok(response);
     }
 
@@ -62,7 +62,7 @@ public class RatingController {
         }
 
         List<RatingResponse> response = gameCard.getRatings().stream().map(RatingResponse::new).toList();
-
+        response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
         return ResponseEntity.ok(response);
     }
 

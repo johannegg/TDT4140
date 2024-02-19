@@ -94,7 +94,7 @@ Response (404):
 
 ## /gamecard/get/all
 
-Fetches game card data for all game cards in the database.
+Fetches game card data for all game cards in the database, sorted by rating.
 
 - method: GET
 - role: none
@@ -137,7 +137,7 @@ Response (200):
 
 ## /gamecard/get/categories
 
-Fetches game card data filtered by given categories (union operation).
+Fetches game card data filtered by given categories (union operation), sorted by rating.
 
 - method: POST
 - role: none
