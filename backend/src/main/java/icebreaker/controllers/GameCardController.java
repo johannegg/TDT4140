@@ -1,5 +1,6 @@
 package icebreaker.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -67,7 +68,9 @@ public class GameCardController {
 
     @GetMapping("/get/all")
     public ResponseEntity<?> getGameCard() {
-        List<GameCardResponse> response = gameCardRepository.findAll().stream().map(GameCardResponse::new).toList();
+        List<GameCardResponse> response = new ArrayList<>(
+                gameCardRepository.findAll().stream().map(GameCardResponse::new).toList());
+        response.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating()));
         return ResponseEntity.ok(response);
     }
 
@@ -75,10 +78,10 @@ public class GameCardController {
     public ResponseEntity<?> filterGameCardByCategory(
             @Valid @RequestBody GameCardCategoryFilterRequest categoryFilterRequest) {
 
-        List<GameCardResponse> response = gameCardRepository
+        List<GameCardResponse> response = new ArrayList<>(gameCardRepository
                 .findAllByCategoriesIn(categoryFilterRequest.getCategories()).stream()
-                .map(GameCardResponse::new).toList();
-
+                .map(GameCardResponse::new).toList());
+        response.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating()));
         return ResponseEntity.ok(response);
     }
 
