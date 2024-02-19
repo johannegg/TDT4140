@@ -6,12 +6,14 @@
   font-size: 2em;
   background-color: rgba(251, 255, 255, 0.681);
   margin-top: 10px;
+  width: 100%;
+  height: 10%;
 }
 .header div {
   width: 33%;
 }
 
-.header img {
+.logImg{
   margin-top: 0px;
-  margin-right: 10px;
+  margin-right: 30px;
 }

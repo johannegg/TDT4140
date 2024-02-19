@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+
+.mainBody {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}

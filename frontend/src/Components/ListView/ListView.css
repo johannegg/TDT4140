@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-left: calc(23% + 16px);
+  margin-left: 2%;
   margin-right: 2%;
   padding: 8px;
   border: 1.25px solid rgb(146, 143, 143);
@@ -12,4 +12,10 @@
   font-size: large;
   font-weight: 800;
   color: rgb(62, 94, 107);
+  width: 75%;
+  height: 10%;
+}
+
+.categoryCheck{
+  width: 14px;
 }

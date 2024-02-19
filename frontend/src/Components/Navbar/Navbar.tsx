@@ -35,6 +35,7 @@ const Navbar = (props: NavbarProps) => {
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         {localStorage.getItem("userInfo") == null && (
           <img
+            className="logImg"
             onClick={props.toggleLoginModal}
             src={loginn}
             height="60"
@@ -44,6 +45,7 @@ const Navbar = (props: NavbarProps) => {
         )}
         {localStorage.getItem("userInfo") !== null && (
           <img
+            className="logImg"
             onClick={handleLogout}
             src={logout}
             height="60"
