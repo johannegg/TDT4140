@@ -113,7 +113,7 @@ public class GameCardController {
 
         if (gameCardRepository.existsByTitle(title)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Bli-kjent lek med den tittelen finnes allerede!"));
+                    .body(new MessageResponse("Bli-kjent lek med den tittelen finnes allerede"));
         }
 
         Set<Category> categories = categoryRepository.findAllByNameIn(addRequest.getCategories());
@@ -137,12 +137,12 @@ public class GameCardController {
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en!"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
         if (gameCardRepository.existsByTitle(title) && !gameCard.getTitle().equals(title)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Bli-kjent lek med den tittelen finnes allerede!"));
+                    .body(new MessageResponse("Bli-kjent lek med den tittelen finnes allerede"));
         }
 
         gameCard.setTitle(title);
@@ -160,7 +160,7 @@ public class GameCardController {
 
         if (!gameCardRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en!"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
         gameCardRepository.deleteById(id);
@@ -176,7 +176,7 @@ public class GameCardController {
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Finner ikke bli-kjent lek med den tittelen!"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den tittelen"));
         }
 
         gameCardRepository.delete(gameCard);

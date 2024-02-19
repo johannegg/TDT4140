@@ -20,3 +20,4 @@ The documentation has been split up into different files, grouped by the feature
 - Game card related endpoints: [gamecard.md](./api-sections/gamecard.md)
 - Rating related endpoints: [rating.md](./api-sections/rating.md)
 - Queue related endpoints: [queue.md](./api-sections/queue.md)
+- Favorites related endpoints: [favorites.md](./api-sections/favorites.md)

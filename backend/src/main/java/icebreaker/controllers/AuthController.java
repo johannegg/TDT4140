@@ -79,11 +79,11 @@ public class AuthController {
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Brukernavn er allerede i bruk!"));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Brukernavn er allerede i bruk"));
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Email er allerede i bruk!"));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Email er allerede i bruk"));
 		}
 
 		// Create new user's account

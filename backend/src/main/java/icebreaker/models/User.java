@@ -59,6 +59,11 @@ public class User {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    // Define Many-to-Many relationship with GameCard (favorites)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gamecard_id"))
+    private List<GameCard> favorites = new ArrayList<>();
+
     // Define Many-to-Many relationship with GameCard (queue)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "queue", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gamecard_id"))
@@ -73,6 +78,16 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    // Add game card to favorites
+    public void addGameCardToFavorites(GameCard gameCard) {
+        this.favorites.add(gameCard);
+    }
+
+    // Remove game card from favorites
+    public void removeGameCardFromFavorites(GameCard gameCard) {
+        this.favorites.remove(gameCard);
     }
 
     // Add game card to queue
@@ -132,6 +147,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<GameCard> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<GameCard> favorites) {
+        this.favorites = favorites;
     }
 
     public List<GameCard> getQueue() {
