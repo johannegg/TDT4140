@@ -18,21 +18,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest()
-                .body(new MessageResponse("Error: Invalid input. Please check your data and try again."));
+                .body(new MessageResponse("Ugyldig input, prøv igjen med gyldig input"));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationErrorHandling(MethodArgumentNotValidException ex,
             WebRequest request) {
         FieldError fieldError = ex.getBindingResult().getFieldError();
-        String errorMessage = fieldError != null ? fieldError.getDefaultMessage() : "Validation error";
+        String errorMessage = fieldError != null ? fieldError.getDefaultMessage() : "Validering";
         return ResponseEntity.badRequest()
-                .body(new MessageResponse("Error: " + errorMessage));
+                .body(new MessageResponse(errorMessage));
     }
 
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<?> handleDataAccessException(DataAccessException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new MessageResponse("Error: Something went wrong on the server"));
+                .body(new MessageResponse("Feil i databasen, prøv igjen senere"));
     }
 }

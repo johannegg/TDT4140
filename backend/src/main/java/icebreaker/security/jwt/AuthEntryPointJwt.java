@@ -1,8 +1,6 @@
 package icebreaker.security.jwt;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import icebreaker.payload.response.MessageResponse;
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
@@ -28,16 +28,24 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
             throws IOException, ServletException {
         logger.error("Unauthorized error: {}", authException.getMessage());
 
+        String norwegianMessage = translateToNorwegian(authException.getMessage());
+        MessageResponse messageResponse = new MessageResponse(norwegianMessage);
+
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        final Map<String, Object> body = new HashMap<>();
-        body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        body.put("error", "Unauthorized");
-        body.put("message", "Error: " + authException.getMessage());
-        body.put("path", request.getServletPath());
-
         final ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), body);
+        mapper.writeValue(response.getOutputStream(), messageResponse);
+    }
+
+    private String translateToNorwegian(String englishMessage) {
+        switch (englishMessage) {
+            case "Bad credentials":
+                return "Feil brukernavn eller passord";
+            case "Full authentication is required to access this resource":
+                return "Logg inn for å få tilgang til denne ressursen";
+            default:
+                return "Ukjent feil";
+        }
     }
 }

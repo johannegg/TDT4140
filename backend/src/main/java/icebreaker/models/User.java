@@ -33,17 +33,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Username must not be null")
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @NotBlank(message = "Brukernavn må ikke være tomt")
+    @Size(min = 3, max = 20, message = "Brukernavn må være mellom 3 og 20 tegn")
     private String username;
 
-    @NotBlank(message = "Email must not be null")
-    @Size(max = 50, message = "Email must be at most 50 characters")
-    @Email(message = "Email must be a valid email address")
+    @NotBlank(message = "Email kan ikke være tom")
+    @Size(max = 50, message = "Email kan ha maks 50 tegn")
+    @Email(message = "Email må ha gyldig format")
     private String email;
 
-    @NotBlank(message = "Password hash must not be null")
-    @Size(max = 120, message = "Password hash must be at most 120 characters")
+    @NotBlank(message = "Passord hash kan ikke være tom")
+    @Size(max = 120, message = "Passord hash kan ha maks 120 tegn")
     private String password;
 
     // Define One-to-Many relationship with Rating

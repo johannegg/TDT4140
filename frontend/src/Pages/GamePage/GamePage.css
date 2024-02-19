@@ -1,0 +1,12 @@
+.backButton{
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  background-color: rgb(111, 171, 194);
+  border-radius: 10px;
+  border-width: 0;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 12px;
+}

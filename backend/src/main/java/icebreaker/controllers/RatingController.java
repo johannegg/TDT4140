@@ -43,7 +43,7 @@ public class RatingController {
 
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: User not found"));
+                    .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
         List<RatingResponse> response = user.getRatings().stream().map(RatingResponse::new).toList();
@@ -58,7 +58,7 @@ public class RatingController {
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
         List<RatingResponse> response = gameCard.getRatings().stream().map(RatingResponse::new).toList();
@@ -75,24 +75,24 @@ public class RatingController {
 
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: User not found"));
+                    .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
         if (gameCard.getRatings().stream().anyMatch(r -> r.getUser().equals(user))) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Error: User already rated this game card"));
+                    .body(new MessageResponse("Brukeren har allerede gitt en vurdering på denne bli-kjent leken"));
         }
 
         Rating rating = new Rating(ratingAddRequest.getScore(), ratingAddRequest.getComment(), user, gameCard);
         gameCard.addRating(rating);
         gameCardRepository.save(gameCard);
 
-        return ResponseEntity.ok(new MessageResponse("Rating added successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Vurdering lagt til!"));
     }
 
     @DeleteMapping("/delete/{gamecardID}/{username}")
@@ -104,24 +104,24 @@ public class RatingController {
 
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: User not found"));
+                    .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
         Rating rating = gameCard.getRatings().stream().filter(r -> r.getUser().equals(user)).findFirst().orElse(null);
 
         if (rating == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Rating not found"));
+                    .body(new MessageResponse("Finner ikke vurdering for denne brukeren på denne bli-kjent leken"));
         }
 
         gameCard.removeRating(rating);
         gameCardRepository.save(gameCard);
 
-        return ResponseEntity.ok(new MessageResponse("Rating deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Vurdering slettet!"));
     }
 }

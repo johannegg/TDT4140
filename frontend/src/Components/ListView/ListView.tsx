@@ -1,35 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ListView.css";
 import { GameCard } from "../GameCard/GameCard";
 
-const ListView = () => {
+type GameCardType = {
+  id: string;
+  title: string;
+  categories: string[];
+  description: string;
+  rating?: number;
+};
+
+interface ListViewProps {
+  refreshKey: number;
+}
+
+const gameCardApiUrl = "http://localhost:8080/api/gamecard";
+
+const ListView = ({ refreshKey }: ListViewProps) => {
+  const [gameCards, setGameCards] = useState<GameCardType[]>([]);
+
+  const fetchGameCards = () => {
+    fetch(`${gameCardApiUrl}/get/all`, {
+      method: "GET",
+    })
+      .then(response => response.json().then(data => {
+        if (!response.ok) {
+          throw new Error(data.message);
+        }
+        setGameCards(data);
+      }))
+      .catch((error) => {
+        console.error("Error fetching game cards:", error);
+        alert(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchGameCards();
+  }, []);
+
+  useEffect(() => {
+    fetchGameCards();
+  }, [refreshKey]);
+
   return (
     <div className="listView">
-      <div className="addGame"> + Add Game</div>
-
-      <GameCard game={{
-        id: "1",
-        title: "Beer pong",
-        categories: ["Fest", "18+"],
-        description: "Dette er et spill",
-        rating: 4.5,
-      }}></GameCard>
-
-      <GameCard game={{
-        id: "2",
-        title: "Cider pong",
-        categories: ["Fest", "18+"],
-        description: "Dette er også et spill",
-        rating: 4.5,
-      }}></GameCard>
-
-      <GameCard game={{
-        id: "3",
-        title: "Brus pong",
-        categories: ["Fest", "Barnebursdag"],
-        description: "Dette er i hvert fall et spill",
-        rating: 5,
-      }}></GameCard>
+      {gameCards.map((game) => (
+        <GameCard key={game.id} game={game}></GameCard>
+      ))}
     </div>
   );
 };

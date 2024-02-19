@@ -1,24 +1,50 @@
-.game-form-container{
-    border: 2px solid #010101; 
-    border-radius: 8px; 
-    padding: 20px; 
-    background-color: white; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    width: 90%; 
-    max-width: 500px;
-    margin: 20px auto; 
-  }
+.game-form-container {
+  border: 2px solid #010101;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  position: absolute;
+  top: 55%;
+  left: 61%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
 
-  .checkBox{
-    font-size: small;
-    margin-right: 10px;
-  }
+.checkBox {
+  font-size: medium;
+  margin-right: 10px;
+}
 
-  .description{
-    width: 500px;
-    margin-top: 10px;
-  }
+.description {
+  width: 500px;
+  height: 150px;
+  margin-top: 10px;
+}
 
-  .input{
-    margin-left: 10px;
-  }
+.input {
+  margin-left: 10px;
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.checkboxContainer label {
+  flex-basis: calc(25% - 30px);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.submitButton{
+  background-color: rgb(111, 171, 194);
+  border-radius: 10px;
+  border-width: 0;
+  color: #333333;
+  padding: 10px 12px;
+}

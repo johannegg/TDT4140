@@ -32,7 +32,7 @@ export default function SignupModal(props: ModalProps) {
   const handleSignup = async () => {
     if (signupData.password != passwordRepeat) {
       console.log(1);
-      alert("Passwords do not match");
+      alert("Passordene er ikke like");
       return;
     }
 
@@ -42,7 +42,7 @@ export default function SignupModal(props: ModalProps) {
       handleClose();
     } catch (error) {
       console.error("Error during signup:", error);
-      alert("Signup failed. Please try again.");
+      alert(error);
     }
   };
 
@@ -58,12 +58,11 @@ export default function SignupModal(props: ModalProps) {
         body: requestBodySignup,
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        alert(data.message);
-      } else {
-        throw new Error("Something went wrong");
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
       }
+      alert(data.message);
     } catch (error) {
       console.error("Error during signup request:", error);
       throw error; // Re-throw the error to be caught by the handleSignup function
@@ -84,13 +83,10 @@ export default function SignupModal(props: ModalProps) {
       },
       body: requestBody,
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
+      .then(response => response.json().then(data => {
+        if (!response.ok) {
+          throw new Error(data.message);
         }
-        throw new Error("Something went wrong");
-      })
-      .then((data) => {
         localStorage.setItem("userInfo", JSON.stringify(data));
         console.log(localStorage.getItem("userInfo"));
         const info = localStorage.getItem("userInfo");
@@ -98,10 +94,10 @@ export default function SignupModal(props: ModalProps) {
           console.log(JSON.parse(info).roles);
         }
         window.location.reload();
-      })
+      }))
       .catch((error) => {
         console.error("Error logging in:", error);
-        alert("Signup failed. Please try again.");
+        alert(error);
       });
   };
 
@@ -112,7 +108,7 @@ export default function SignupModal(props: ModalProps) {
           <div className="loginOverlay"></div>
           <div className="modalContent">
             <div className="modalHeader">
-              <p>Sign up</p>
+              <p>Lag bruker</p>
               <div onClick={handleClose} className="close" />
             </div>
             <div className="modalBody">
@@ -121,7 +117,7 @@ export default function SignupModal(props: ModalProps) {
                 name="username"
                 onChange={handleInputChange}
                 value={signupData.username}
-                placeholder="Username"
+                placeholder="Brukernavn"
               />
               <br />
               <input
@@ -137,7 +133,7 @@ export default function SignupModal(props: ModalProps) {
                 name="password"
                 onChange={handleInputChange}
                 value={signupData.password}
-                placeholder="Password"
+                placeholder="Passord"
               />
               <br />
               <input
@@ -145,7 +141,7 @@ export default function SignupModal(props: ModalProps) {
                 name="passwordRepeat"
                 onChange={(e) => setPasswordRepeat(e.target.value)}
                 value={passwordRepeat}
-                placeholder="Repeat password"
+                placeholder="Gjenta passord"
               />
               <br />
             </div>
@@ -154,10 +150,10 @@ export default function SignupModal(props: ModalProps) {
                 style={{ padding: "7px", margin: "8px" }}
                 onClick={handleSignup}
               >
-                Sign up
+                Lag bruker
               </button>
               <p onClick={props.onLogin} className="loginButton">
-                Already have an account? Login
+                Har du allerede en konto? Logg inn
               </p>
             </div>
           </div>

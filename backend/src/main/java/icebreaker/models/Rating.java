@@ -14,11 +14,11 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "ratings")
 public class Rating {
-    @Min(value = 1, message = "Score must be at least 1")
-    @Max(value = 5, message = "Score must be at most 5")
+    @Min(value = 1, message = "Score må være minst 1")
+    @Max(value = 5, message = "Score må være maks 5")
     private int score;
 
-    @Size(max = 300, message = "Comment must be at most 300 characters")
+    @Size(max = 300, message = "Kommentaren kan ha maks 300 tegn")
     private String comment;
 
     @Id

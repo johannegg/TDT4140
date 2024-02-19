@@ -20,7 +20,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Category name must not be null")
+    @NotNull(message = "Kategorinavn kan ikke være null")
     @Enumerated(EnumType.STRING)
     private ECategory name;
 
