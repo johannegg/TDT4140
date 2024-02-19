@@ -20,7 +20,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @NotNull(message = "Role name must not be null")
+    @NotNull(message = "Rollenavn kan ikke være null")
     @Enumerated(EnumType.STRING)
     private ERole name;
 

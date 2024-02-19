@@ -1,14 +1,27 @@
-import React from "react";
 import "./Sidebar.css";
 
-const Sidebar = () => {
+interface SidebarProps {
+  toggleFormModal: () => void;
+}
+
+const Sidebar = (props: SidebarProps) => {
+  const handleToggleFormModal = () => {
+    if (localStorage.getItem("userInfo") === null) {
+      alert("Du må være logget inn for å legge til spill");
+      return;
+    }
+    props.toggleFormModal();
+  };
+
   return (
     <div className="sidebar">
-      <div>Sidebar</div>
+      <div className="sidebarSubSection">Profil</div>
+      <div className="sidebarSubSection">Del</div>
+      <div className="sidebarSubSection">Kø</div>
       <div>-----------------</div>
-      <div className="sidebarSubSection">Profile</div>
-      <div className="sidebarSubSection">Share</div>
-      <div className="sidebarSubSection">Queue</div>
+      <div className="sidebarSubSection" onClick={handleToggleFormModal}>
+        + Legg til nytt spill
+      </div>
     </div>
   );
 };

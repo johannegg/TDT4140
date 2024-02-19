@@ -79,11 +79,11 @@ public class AuthController {
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Error: Username already taken!"));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Brukernavn er allerede i bruk!"));
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Error: Email is already in use!"));
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("Email er allerede i bruk!"));
 		}
 
 		// Create new user's account
@@ -96,7 +96,7 @@ public class AuthController {
 
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					.orElseThrow(() -> new RuntimeException("Finner ikke rollen"));
 			roles.add(userRole);
 		} else {
 			strRoles.forEach(role -> {
@@ -104,21 +104,21 @@ public class AuthController {
 					case "admin":
 						Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 								.orElseThrow(() -> new RuntimeException(
-										"Error: Role is not found."));
+										"Finner ikke rollen"));
 						roles.add(adminRole);
 
 						break;
 					case "mod":
 						Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
 								.orElseThrow(() -> new RuntimeException(
-										"Error: Role is not found."));
+										"Finner ikke rollen"));
 						roles.add(modRole);
 
 						break;
 					default:
 						Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 								.orElseThrow(() -> new RuntimeException(
-										"Error: Role is not found."));
+										"Finner ikke rollen"));
 						roles.add(userRole);
 				}
 			});
@@ -127,6 +127,6 @@ public class AuthController {
 		user.setRoles(roles);
 		userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.ok(new MessageResponse("Bruker ble registrert!"));
 	}
 }

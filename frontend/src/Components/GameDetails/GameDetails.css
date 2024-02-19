@@ -1,0 +1,47 @@
+.gameContainer {
+  flex-direction: row;
+  flex-direction: column;
+  width: 1000px;
+  margin: auto;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.text {
+  margin-right: 30px;
+}
+
+.detailsHeader {
+  width: 670px;
+  border: solid rgb(180, 209, 220) 2px;
+  padding: 15px;
+  border-radius: 40px;
+  background-color: rgb(225, 247, 255);
+  padding-bottom: 30px;
+}
+
+.imgContainer {
+  position: relative;
+}
+
+.imgDetails {
+  width: 300px;
+}
+
+.categoriesDetail {
+  font-weight: 500;
+}
+
+.rules {
+  padding-top: 20px;
+  margin-left: 10px;
+}
+
+.commentsContainer {
+  margin-left: 10px;
+}

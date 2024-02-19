@@ -9,25 +9,24 @@ import jakarta.validation.constraints.Size;
 
 public class GameCardAddRequest {
     
-    @NotBlank(message = "Title must not be blank")
-    @Size(max = 30, message = "Title must be at most 30 characters")
+    @NotBlank(message = "Tittel kan ikke være tom")
+    @Size(max = 30, message = "Tittel kan ha maks 30 tegn")
     private String title;
 
-    @NotBlank(message = "Rules must not be blank")
-    @Size(max = 500, message = "Rules must be at most 500 characters")
+    @NotBlank(message = "Regel-feltet kan ikke være tomt")
+    @Size(max = 500, message = "Regel-feltet kan ha maks 500 tegn")
     private String rules;
 
-    @NotBlank(message = "Description must not be blank")
-    @Size(max = 100, message = "Description must be at most 100 characters")
+    @NotBlank(message = "Beskrivelse kan ikke være tom")
+    @Size(max = 100, message = "Beskrivelse kan ha maks 100 tegn")
     private String description;
 
-    @NotBlank(message = "Username must not be blank")
-    @Size(max = 20, message = "Username must be at most 20 characters")
+    @NotBlank(message = "Brukernavn kan ikke være tomt")
+	@Size(min = 3, max = 20, message = "Brukernavn må være mellom 3 og 20 tegn")
     private String username;
     
     private Set<ECategory> categories = new HashSet<>();
 
-    // Getters and Setters
     public String getTitle() {
         return title;
     }

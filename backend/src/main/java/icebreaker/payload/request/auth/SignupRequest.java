@@ -8,18 +8,18 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class SignupRequest {
-    @NotBlank(message = "Username must not be blank")
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @NotBlank(message = "Brukernavn kan ikke være tomt")
+    @Size(min = 3, max = 20, message = "Brukernavn må være mellom 3 og 20 tegn")
     private String username;
 
-    @NotBlank(message = "Email must not be blank")
-    @Size(max = 50, message = "Email must be at most 50 characters")
-    @Email(message = "Email must be a valid email address")
+    @NotBlank(message = "Email kan ikke være tom")
+    @Size(max = 50, message = "Email kan ha maks 50 tegn")
+    @Email(message = "Email må ha gyldig format")
     private String email;
 
-    @NotBlank(message = "Password must not be null")
-    @Size(min = 6, max = 40, message = "Password must be between 6 and 40 characters")
-    @Pattern(regexp = "^(?=.*[a-zæøå])(?=.*[A-ZÆØÅ])(?=.*\\d).+$", message = "Password must contain at least one lowercase character, one uppercase character, and one digit")
+    @NotBlank(message = "Passord kan ikke være tomt")
+    @Size(min = 6, max = 40, message = "Passord må være mellom 6 og 40 tegn")
+    @Pattern(regexp = "^(?=.*[a-zæøå])(?=.*[A-ZÆØÅ])(?=.*\\d).+$", message = "Passord må inneholde minst en stor bokstav, en liten bokstav og et tall")
     private String password;
 
     private Set<String> role;

@@ -8,20 +8,20 @@ import jakarta.validation.constraints.Size;
 
 public class RatingAddRequest {
 
-    @NotNull(message = "Score must not be null")
-    @Min(value = 1, message = "Score must be at least 1")
-    @Max(value = 5, message = "Score must be at most 5")
+    @NotNull(message = "Score kan ikke være null")
+    @Min(value = 1, message = "Score må være minst 1")
+    @Max(value = 5, message = "Score må være maks 5")
     private Integer score;
 
-    @Size(max = 300, message = "Comment must be at most 300 characters")
+    @Size(max = 300, message = "Kommentaren kan ha maks 300 tegn")
     private String comment;
 
-    @NotNull(message = "Game card ID must not be null")
-    @Min(value = 1, message = "Game card ID must be at least 1")
+    @NotNull(message = "Bli-kjent lek ID kan ikke være null")
+    @Min(value = 1, message = "Bli-kjent lek ID må være minst 1")
     private Long gameCardId;
 
-    @NotBlank(message = "Username must not be blank")
-    @Size(max = 30, message = "Username must be at most 30 characters")
+    @NotBlank(message = "Brukernavn kan ikke være tomt")
+	@Size(min = 3, max = 20, message = "Brukernavn må være mellom 3 og 20 tegn")
     private String username;
 
     public int getScore() {

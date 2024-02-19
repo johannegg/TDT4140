@@ -46,7 +46,7 @@ public class GameCardController {
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
         return ResponseEntity.ok(new GameCardResponse(gameCard));
@@ -59,7 +59,7 @@ public class GameCardController {
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den tittelen"));
         }
 
         return ResponseEntity.ok(new GameCardResponse(gameCard));
@@ -90,7 +90,7 @@ public class GameCardController {
 
         if (gameCardRepository.existsByTitle(title)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Error: Game card already exists"));
+                    .body(new MessageResponse("Bli-kjent lek med den tittelen finnes allerede!"));
         }
 
         Set<Category> categories = categoryRepository.findAllByNameIn(addRequest.getCategories());
@@ -100,7 +100,7 @@ public class GameCardController {
 
         gameCardRepository.save(gameCard);
 
-        return ResponseEntity.ok(new MessageResponse("Game card created successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek lagt til!"));
     }
 
     @PutMapping("/update")
@@ -114,12 +114,12 @@ public class GameCardController {
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en!"));
         }
 
         if (gameCardRepository.existsByTitle(title) && !gameCard.getTitle().equals(title)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Error: Game card already exists"));
+                    .body(new MessageResponse("Bli-kjent lek med den tittelen finnes allerede!"));
         }
 
         gameCard.setTitle(title);
@@ -128,7 +128,7 @@ public class GameCardController {
         gameCard.setCategories(categoryRepository.findAllByNameIn(updateRequest.getCategories()));
         gameCardRepository.save(gameCard);
 
-        return ResponseEntity.ok(new MessageResponse("Game card updated successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek oppdatert!"));
     }
 
     @DeleteMapping("/delete/id/{id}")
@@ -137,12 +137,12 @@ public class GameCardController {
 
         if (!gameCardRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en!"));
         }
 
         gameCardRepository.deleteById(id);
 
-        return ResponseEntity.ok(new MessageResponse("Game card deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek slettet!"));
     }
 
     @DeleteMapping("/delete/title/{title}")
@@ -153,11 +153,11 @@ public class GameCardController {
 
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Error: Game card not found"));
+                    .body(new MessageResponse("Finner ikke bli-kjent lek med den tittelen!"));
         }
 
         gameCardRepository.delete(gameCard);
 
-        return ResponseEntity.ok(new MessageResponse("Game card deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek slettet!"));
     }
 }
