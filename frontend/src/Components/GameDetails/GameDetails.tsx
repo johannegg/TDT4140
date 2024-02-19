@@ -6,6 +6,7 @@ import familie from "../../Media/Familie.png";
 import innendørs from "../../Media/Innendørs.png";
 import quiz from "../../Media/Quiz.png";
 import utendørs from "../../Media/Utendørs.png";
+import RateButton from "../Rating/RateButton";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -50,6 +51,7 @@ export function GameDetails({ game }: GameDetailsProps) {
         </div>
       </div>
       {game.rating && <p className="rating">Rating: {game.rating}</p>}
+      <RateButton></RateButton>
       <div className="commentsContainer">
         <h2>Kommentarer</h2>
         <div>Test kommentar</div>
