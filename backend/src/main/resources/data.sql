@@ -127,6 +127,27 @@ VALUES (4, 'Great game!', 1, 1),
     (3, 'Not bad.', 3, 2),
     (2, NULL, 1, 2);
 
+-- Add game cards to user favorites
+INSERT IGNORE INTO
+    favorites (user_id, gamecard_id)
+SELECT u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'normaluser'
+    AND g.title = 'Cider pong';
+
+INSERT IGNORE INTO
+    favorites (user_id, gamecard_id)
+SELECT u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'adminuser'
+    AND (
+        g.title = 'Beer pong'
+        OR g.title = 'Cider pong'
+        OR g.title = 'Brus pong'
+    );
+
 -- Add game cards to user queues
 INSERT IGNORE INTO
     queue (
