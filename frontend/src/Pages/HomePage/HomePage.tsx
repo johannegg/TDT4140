@@ -13,6 +13,8 @@ export default function HomePage() {
   const [signupModal, setSignupModal] = useState(false);
   const [formModal, setFormModal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [searchInput, setSearchInput] = useState("");
+  const [updateKey, setUpdateKey] = useState(0);
   /* const [checkedCategories, setCheckedCategories] = useState<Array<boolean>>(
     new Array(categories.length).fill(false)
   ); */
@@ -31,16 +33,22 @@ export default function HomePage() {
     setRefreshKey((oldKey) => oldKey + 1);
   };
 
+  const handleChange = (value: string) => {
+    setSearchInput(value);
+    setUpdateKey(oldKey => oldKey + 1);
+  };
+
+
   return (
     <>
       <Navbar toggleLoginModal={toggleLoginModal}></Navbar>
       <div className="mainBody">
         <Sidebar
-          toggleFormModal={toggleFormModal}
+          toggleFormModal={toggleFormModal} handleChange={handleChange}
           // filterCategories={setCheckedCategories}
-        ></Sidebar>
+        ></Sidebar> 
         <ListView
-          refreshKey={refreshKey}
+          refreshKey={refreshKey} updateKey={updateKey} searchInput={searchInput}
           // categoriesToFilter={checkedCategories}
         ></ListView>
       </div>

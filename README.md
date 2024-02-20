@@ -105,9 +105,9 @@ The full documentation for the REST API can be found [here](/docs/rest-api.md). 
 
 ### Database management
 
-The database setup for the backend relies on a local MySQL server instance with the login specified in "Prerequisites" section above. The server is configured to automatically set up tables for the defined entity classes and repositories through JPA/Hibernate. 
+The database setup for the backend relies on a local MySQL server instance with the login specified in "Prerequisites" section above. The server is configured to automatically set up tables for the defined entity classes and repositories through JPA/Hibernate.
 
-We have ensured that some "standard data" is automatically inserted on server launch through the [data.sql](/backend/src/main/resources/data.sql) file; for instance we have 3 entries in "roles", 3 entries in "users", and 6 entries in "user_roles". The full overview of our standard data can be found in [this](/docs/standard-data.md) file. If the tables and predefined data entries already exist in the database, nothing will be added on server launch. Other data that was added will also remain between server restarts. 
+We have ensured that some "standard data" is automatically inserted on server launch through the [data.sql](/backend/src/main/resources/data.sql) file; for instance we have 3 entries in "roles", 3 entries in "users", and 6 entries in "user_roles". The full overview of our standard data can be found in [this](/docs/standard-data.md) file. If the tables and predefined data entries already exist in the database, nothing will be added on server launch. Other data that was added will also remain between server restarts.
 
 Interactions with the database is done through methods defined for each JPA repository; this includes queries, deletions, insertions etc. Endpoints related to fetching data are generally set up for public access, while other endpoints require authentication with specific roles.
 
