@@ -51,8 +51,8 @@ export function GameDetails({ game }: GameDetailsProps) {
         </div>
       </div>
       {game.rating && <p className="rating">Rating: {game.rating}</p>}
-      <RateButton></RateButton>
       <div className="commentsContainer">
+        <RateButton game={game}></RateButton>
         <h2>Kommentarer</h2>
         <div>Test kommentar</div>
       </div>

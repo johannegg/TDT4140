@@ -2,12 +2,26 @@ import React, { useState } from 'react';
 import Rating from './Rating';
 
 
-interface RateButtonProps {}
+interface RateButtonProps {
+  game: {
+    id: string;
+    title: string;
+    categories: string[];
+    description?: string;
+    rules: string;
+    rating?: number;
+  };
+}
 
-const TestRating: React.FC<RateButtonProps> = () => {
+const TestRating: React.FC<RateButtonProps> = ({game}: RateButtonProps) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const handleButtonClick = () => {
+    // Open the rating popup only if the user is logged in
+    if (!localStorage.getItem('userInfo')) {
+      alert('Du må være logget inn for å vurdere et spill');
+      return;
+    }
     setPopupOpen(true);
   };
 
@@ -43,7 +57,7 @@ const TestRating: React.FC<RateButtonProps> = () => {
           &#9733; {/* Stjerne */}
         </span>
       </button>
-      {isPopupOpen && <Rating onClose={handleClosePopup} />}
+      {isPopupOpen && <Rating onClose={handleClosePopup} game={game} />}
     </div>
   );
 };
