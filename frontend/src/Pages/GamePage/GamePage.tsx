@@ -5,6 +5,7 @@ import "./GamePage.css";
 import { GameDetails } from "../../Components/GameDetails/GameDetails";
 import LoginModal from "../../Components/LoginModal/LoginModal";
 import SignupModal from "../../Components/SignupModal/SignupModal";
+import RateButton from "../../Components/Rating/RateButton";
 
 type RouteParams = {
   gameId: string;
@@ -30,19 +31,21 @@ const GamePage = () => {
       fetch(`${gameCardApiUrl}/get/id/${gameId}`, {
         method: "GET",
       })
-        .then(response => response.json().then(data => {
-          if (!response.ok) {
-            throw new Error(data.message);
-          }
-          setGame({
-            id: gameId,
-            title: data.title,
-            categories: data.categories || [],
-            description: data.description,
-            rules: data.rules,
-            rating: data.rating,
-          });
-        }))
+        .then((response) =>
+          response.json().then((data) => {
+            if (!response.ok) {
+              throw new Error(data.message);
+            }
+            setGame({
+              id: gameId,
+              title: data.title,
+              categories: data.categories || [],
+              description: data.description,
+              rules: data.rules,
+              rating: data.rating,
+            });
+          })
+        )
         .catch((error) => {
           console.error("Error fetching game card:", error);
           alert(error);
