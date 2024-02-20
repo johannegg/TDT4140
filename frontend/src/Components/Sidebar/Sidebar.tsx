@@ -5,10 +5,10 @@ import SearchBar from "../SearchBar/SearchBar";
 
 interface SidebarProps {
   toggleFormModal: () => void;
-  handleChange: (value: string) => void; 
-  /* filterCategories: Dispatch<SetStateAction<boolean[]>>; */
+  handleChange: (value: string) => void;
+  checkedCategories: Array<string>;
+  setCheckedCategories: Dispatch<SetStateAction<string[]>>;
 }
-
 
 const Sidebar = (props: SidebarProps) => {
   const [searchInput, setSearchInput] = useState("");
@@ -23,7 +23,7 @@ const Sidebar = (props: SidebarProps) => {
 
   const handleChange = (value: string) => {
     setSearchInput(value);
-    props.handleChange(value); 
+    props.handleChange(value);
   };
 
   return (
@@ -38,7 +38,10 @@ const Sidebar = (props: SidebarProps) => {
       <div>-----------------</div>
       <SearchBar handleChange={handleChange} searchInput={searchInput} />
       <div>-----------------</div>
-      <CategoryBox /* filterCategories={props.filterCategories} */></CategoryBox>
+      <CategoryBox
+        checkedCategories={props.checkedCategories}
+        setCheckedCategories={props.setCheckedCategories}
+      ></CategoryBox>
     </div>
   );
 };

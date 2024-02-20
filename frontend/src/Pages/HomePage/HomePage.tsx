@@ -6,7 +6,6 @@ import ListView from "../../Components/ListView/ListView";
 import LoginModal from "../../Components/LoginModal/LoginModal";
 import SignupModal from "../../Components/SignupModal/SignupModal";
 import { GameForm } from "../../Components/GameForm/GameForm";
-import { categories } from "../../Components/CategoryBox/utils/categories";
 
 export default function HomePage() {
   const [loginModal, setLoginModal] = useState(false);
@@ -15,9 +14,7 @@ export default function HomePage() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [updateKey, setUpdateKey] = useState(0);
-  /* const [checkedCategories, setCheckedCategories] = useState<Array<boolean>>(
-    new Array(categories.length).fill(false)
-  ); */
+  const [checkedCategories, setCheckedCategories] = useState<Array<string>>([]);
 
   const toggleLoginModal = () => {
     // localStorage.clear();
@@ -35,21 +32,24 @@ export default function HomePage() {
 
   const handleChange = (value: string) => {
     setSearchInput(value);
-    setUpdateKey(oldKey => oldKey + 1);
+    setUpdateKey((oldKey) => oldKey + 1);
   };
-
 
   return (
     <>
       <Navbar toggleLoginModal={toggleLoginModal}></Navbar>
       <div className="mainBody">
         <Sidebar
-          toggleFormModal={toggleFormModal} handleChange={handleChange}
-          // filterCategories={setCheckedCategories}
-        ></Sidebar> 
+          toggleFormModal={toggleFormModal}
+          handleChange={handleChange}
+          checkedCategories={checkedCategories}
+          setCheckedCategories={setCheckedCategories}
+        ></Sidebar>
         <ListView
-          refreshKey={refreshKey} updateKey={updateKey} searchInput={searchInput}
-          // categoriesToFilter={checkedCategories}
+          refreshKey={refreshKey}
+          updateKey={updateKey}
+          searchInput={searchInput}
+          categoriesToFilter={checkedCategories}
         ></ListView>
       </div>
       <LoginModal

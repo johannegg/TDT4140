@@ -12,14 +12,19 @@ type GameCardType = {
 
 interface ListViewProps {
   refreshKey: number;
-  // categoriesToFilter: Array<boolean>;
+  categoriesToFilter: Array<string>;
   updateKey: number;
   searchInput: string;
 }
 
 const gameCardApiUrl = "http://localhost:8080/api/gamecard";
 
-const ListView = ({ refreshKey, updateKey, searchInput/* , categoriesToFilter  */}: ListViewProps) => {
+const ListView = ({
+  refreshKey,
+  updateKey,
+  searchInput,
+  categoriesToFilter,
+}: ListViewProps) => {
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
 
   const fetchGameCards = () => {
@@ -48,19 +53,24 @@ const ListView = ({ refreshKey, updateKey, searchInput/* , categoriesToFilter  *
     fetchGameCards();
   }, [refreshKey]);
 
-  const filteredGames = gameCards.filter((game) =>
-    game.title.toLowerCase().includes(searchInput.toLowerCase())
-  );
+  const checkValidGame = (arr: Array<string>, target: Array<string>) =>
+    target.every((category) => arr.includes(category));
 
-  // useEffect(() => {
-  //   console.log("test");
-  // }, [categoriesToFilter]);
+  const filteredGames = gameCards.filter(
+    (game) =>
+      game.title.toLowerCase().includes(searchInput.toLowerCase()) &&
+      (categoriesToFilter.length === 0 ||
+        checkValidGame(game.categories, categoriesToFilter))
+  );
 
   return (
     <div className="listView">
       {filteredGames.map((game) => (
         <GameCard key={game.id} game={game}></GameCard>
       ))}
+      {filteredGames.length === 0 && (
+        <p>Ingen spill matcher det du leter etter.</p>
+      )}
     </div>
   );
 };

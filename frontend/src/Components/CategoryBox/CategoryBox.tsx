@@ -1,31 +1,37 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { categories } from "./utils/categories";
 import "./CategoryBox.css";
 
-// interface Props {
-//   filterCategories: Dispatch<SetStateAction<boolean[]>>;
-// }
+interface Props {
+  checkedCategories: Array<string>;
+  setCheckedCategories: Dispatch<SetStateAction<string[]>>;
+}
 
-const CategoryBox = (/* { filterCategories }: Props */) => {
-//   const [checkedState, setCheckedState] = useState(
-//     new Array(categories.length).fill(false)
-//   );
-//   const handleOnChange = (position: number) => {
-//     checkedState[position] = !checkedState[position];
-//     filterCategories(checkedState);
-//   };
+const CategoryBox = ({ checkedCategories, setCheckedCategories }: Props) => {
+  const handleOnChange = (position: number) => {
+    const updatedCategories = [...checkedCategories];
+    if (updatedCategories.includes(categories[position])) {
+      setCheckedCategories(
+        updatedCategories.filter(
+          (category) => category !== categories[position]
+        )
+      );
+    } else {
+      updatedCategories.push(categories[position]);
+      setCheckedCategories(updatedCategories);
+    }
+  };
   return (
     <div>
       <p className="kategoriTittel">Kategorier</p>
       {categories.map((category, index) => {
-        // console.log(category, index);
         return (
           <div>
             <input
               type="checkbox"
               id={`custom-checkbox-${index}`}
               value={category}
-            //   onChange={() => handleOnChange(index)}
+              onChange={() => handleOnChange(index)}
               className="categoryCheck"
             />
             <label
