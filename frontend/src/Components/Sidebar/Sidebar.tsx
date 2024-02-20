@@ -1,20 +1,29 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import CategoryBox from "../CategoryBox/CategoryBox";
 import "./Sidebar.css";
+import SearchBar from "../SearchBar/SearchBar";
 
 interface SidebarProps {
   toggleFormModal: () => void;
+  handleChange: (value: string) => void; 
   /* filterCategories: Dispatch<SetStateAction<boolean[]>>; */
 }
 
 
 const Sidebar = (props: SidebarProps) => {
+  const [searchInput, setSearchInput] = useState("");
+
   const handleToggleFormModal = () => {
     if (localStorage.getItem("userInfo") === null) {
       alert("Du må være logget inn for å legge til spill");
       return;
     }
     props.toggleFormModal();
+  };
+
+  const handleChange = (value: string) => {
+    setSearchInput(value);
+    props.handleChange(value); 
   };
 
   return (
@@ -26,6 +35,8 @@ const Sidebar = (props: SidebarProps) => {
       <div className="sidebarSubSection" onClick={handleToggleFormModal}>
         + Legg til nytt spill
       </div>
+      <div>-----------------</div>
+      <SearchBar handleChange={handleChange} searchInput={searchInput} />
       <div>-----------------</div>
       <CategoryBox /* filterCategories={props.filterCategories} */></CategoryBox>
     </div>

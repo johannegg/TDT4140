@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./ListView.css";
 import { GameCard } from "../GameCard/GameCard";
 
@@ -13,11 +13,13 @@ type GameCardType = {
 interface ListViewProps {
   refreshKey: number;
   // categoriesToFilter: Array<boolean>;
+  updateKey: number;
+  searchInput: string;
 }
 
 const gameCardApiUrl = "http://localhost:8080/api/gamecard";
 
-const ListView = ({ refreshKey/* , categoriesToFilter  */}: ListViewProps) => {
+const ListView = ({ refreshKey, updateKey, searchInput/* , categoriesToFilter  */}: ListViewProps) => {
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
 
   const fetchGameCards = () => {
@@ -46,13 +48,17 @@ const ListView = ({ refreshKey/* , categoriesToFilter  */}: ListViewProps) => {
     fetchGameCards();
   }, [refreshKey]);
 
+  const filteredGames = gameCards.filter((game) =>
+    game.title.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   // useEffect(() => {
   //   console.log("test");
   // }, [categoriesToFilter]);
 
   return (
     <div className="listView">
-      {gameCards.map((game) => (
+      {filteredGames.map((game) => (
         <GameCard key={game.id} game={game}></GameCard>
       ))}
     </div>

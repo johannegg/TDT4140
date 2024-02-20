@@ -1,5 +1,6 @@
 .listView {
   background-color: rgb(225, 247, 255);
+  min-height: 22rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
