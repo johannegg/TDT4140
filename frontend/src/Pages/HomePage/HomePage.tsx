@@ -13,7 +13,6 @@ export default function HomePage() {
   const [formModal, setFormModal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
  
- 
   const [searchInput, setSearchInput] = useState("");
   const [checkedCategories, setCheckedCategories] = useState<Array<string>>([]);
 
@@ -31,11 +30,9 @@ export default function HomePage() {
     setRefreshKey((oldKey) => oldKey + 1);
   };
   
-  
   const handleChange = (value: string) => {
     setSearchInput(value);
   };
-
 
 
   return (

@@ -7,6 +7,8 @@ import innendørs from "../../Media/Innendørs.png";
 import quiz from "../../Media/Quiz.png";
 import utendørs from "../../Media/Utendørs.png";
 import RateButton from "../Rating/RateButton";
+import RatingListView from "../RatingListView/RatingListView";
+import { categories } from "../CategoryBox/utils/categories";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -33,9 +35,10 @@ type GameDetailsProps = {
   };
 };
 
-export function GameDetails({ game }: GameDetailsProps) {
+export function GameDetails({ game }: GameDetailsProps, ) {
   const firstCategory = game.categories[0];
   const imageSrc = mappedImg[firstCategory];
+  const ratingEndpoint: string = "http://localhost:8080/api/rating/get/gamecard/" + game.id;
   return (
     <div className="gameContainer">
       <div className="topSection">
@@ -62,6 +65,7 @@ export function GameDetails({ game }: GameDetailsProps) {
                 <span style={{ marginLeft: '5px', color: 'gray' }}>Ingen</span>
               )}
             </h3>
+            <div className="categories">{game.categories.map((cat) => <p className="category">{cat}</p>)}</div>
             <div className="descriptionDetail">{game.description}</div>
           </div>
           <div className="rules">{game.rules}</div>
@@ -72,8 +76,9 @@ export function GameDetails({ game }: GameDetailsProps) {
       </div>
       <div className="commentsContainer">
         <RateButton game={game}></RateButton>
-        <h2>Kommentarer</h2>
-        <div>Test kommentar</div>
+      <RatingListView
+        ratingApiUrl={ratingEndpoint}  
+      ></RatingListView>
       </div>
     </div>
   );

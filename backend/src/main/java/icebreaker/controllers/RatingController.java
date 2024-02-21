@@ -1,5 +1,6 @@
 package icebreaker.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class RatingController {
                     .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
-        List<RatingResponse> response = user.getRatings().stream().map(RatingResponse::new).toList();
+        List<RatingResponse> response = new ArrayList<>(user.getRatings().stream().map(RatingResponse::new).toList());
         response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
         return ResponseEntity.ok(response);
     }
@@ -61,7 +62,7 @@ public class RatingController {
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
-        List<RatingResponse> response = gameCard.getRatings().stream().map(RatingResponse::new).toList();
+        List<RatingResponse> response = new ArrayList<>(gameCard.getRatings().stream().map(RatingResponse::new).toList());
         response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
         return ResponseEntity.ok(response);
     }
