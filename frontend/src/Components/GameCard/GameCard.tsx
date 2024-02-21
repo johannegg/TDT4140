@@ -1,25 +1,33 @@
 import React from "react";
 import "./GameCard.css";
 import { Link } from "react-router-dom";
+import familie from "../../Media/Familie.png";
 import fest from "../../Media/Fest.png";
 import barn from "../../Media/Barn.png";
-import familie from "../../Media/Familie.png";
 import innendørs from "../../Media/Innendørs.png";
-import quiz from "../../Media/Quiz.png";
 import utendørs from "../../Media/Utendørs.png";
+import musikkquiz from "../../Media/Musikkquiz.png";
+import FavoriteButton from "../Favorite/FavoriteButton";
+// import quiz from "../../Media/Quiz.png"; // need image
+// import student from "../../Media/Student.png"; // need image
+// import individuell from "../../Media/Individuell.png"; // need image
+// import teambuilding from "../../Media/Teambuilding.png"; // need image
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
 };
 
 const mappedImg: CategoryMappedImg = {
-  Barn: barn,
   Familie: familie,
   Fest: fest,
+  Barn: barn,
   Innendørs: innendørs,
-  Quiz: quiz,
   Utendørs: utendørs,
-  //TODO: Add more categories and images
+  Musikkquiz: musikkquiz,
+  // Quiz: quiz, // need image
+  // Student: student, // need image
+  // Individuell: individuell, // need image
+  // Teambuilding: teambuilding, // need image
 };
 
 type GameCardProps = {
@@ -31,13 +39,18 @@ type GameCardProps = {
     averageRating?: number;
   };
 };
+
 export function GameCard({ game }: GameCardProps) {
   const categoriesString = game.categories.join(", ");
   const firstCategory = game.categories[0];
   const imageSrc = mappedImg[firstCategory];
+  const userInfoString = localStorage.getItem("userInfo");
   return (
     <Link to={`/spill/${game.id}`} style={{ textDecoration: "none" }}>
       <div className="gameCard">
+        <div className="favoriteButton">
+          {userInfoString && <FavoriteButton gameId={+game.id}/>}
+        </div>
         <img src={imageSrc} alt="img" className="imgCard" />
         <h2 className="title">{game.title}</h2>
         <h3 className="rating">

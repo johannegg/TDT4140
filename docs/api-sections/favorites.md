@@ -6,7 +6,7 @@ Requests to any endpoint must have http://localhost:8080/api as the URI prefix.
 
 ## /favorites/get/all/{username}
 
-Fetches all favorite game cards for a given user.
+Fetches all favorite game cards for a given user, ordered by average rating.
 
 - method: GET
 - role: none
@@ -19,9 +19,9 @@ Fetches all favorite game cards for a given user.
     - 200: array of favorite game card objects
     - 404: no cards with the given id
 
-## /favorites/add
+## /favorites/check
 
-Adds a new game card to the user's favorites. Requires cached JWT token with user permissions.
+Checks if a given card is favorited or not for a given card and user, returns a boolean. Requires cached JWT token with user permissions.
 
 - method: POST
 - role: user
@@ -32,18 +32,17 @@ Adds a new game card to the user's favorites. Requires cached JWT token with use
 - parameters:
   - gameCardId (type: int), [min 1]
   - username (type: String), [cached username value]
-- statuscodes [200, 400, 401, 409, 500]
+- statuscodes [200, 400, 401, 404, 500]
 - response:
-  - 200: success message
+  - 200: boolean for if it is a favorite or not
   - 400: invalid request body input
   - 401: not a user
-  - 409: game card already favorited
+  - 404: user or card not found
   - 500: something went wrong on the server
 
+## /favorites/toggle
 
-## /favorites/remove
-
-Removes a game card from the user's favorites. Requires cached JWT token with user permissions.
+Favorite or unfavorite a given card for a given user. Requires cached JWT token with user permissions.
 
 - method: POST
 - role: user
@@ -59,5 +58,5 @@ Removes a game card from the user's favorites. Requires cached JWT token with us
   - 200: success message
   - 400: invalid request body input
   - 401: not a user
-  - 404: the game card was not found as favorited
+  - 404: user or card not found
   - 500: something went wrong on the server

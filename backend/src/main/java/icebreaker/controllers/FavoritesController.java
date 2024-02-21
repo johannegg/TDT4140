@@ -1,5 +1,6 @@
 package icebreaker.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import icebreaker.models.GameCard;
 import icebreaker.models.User;
 import icebreaker.payload.request.favorites.FavoritesRequest;
 import icebreaker.payload.response.MessageResponse;
+import icebreaker.payload.response.favorites.FavoriteResponse;
 import icebreaker.payload.response.gamecard.GameCardResponse;
 import icebreaker.repository.GameCardRepository;
 import icebreaker.repository.UserRepository;
@@ -44,14 +46,26 @@ public class FavoritesController {
                     .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
-        List<GameCardResponse> response = user.getFavorites().stream().map(gameCard -> new GameCardResponse(gameCard))
-                .toList();
+        List<GameCardResponse> response = new ArrayList<>(
+                user.getFavorites().stream().map(gameCard -> new GameCardResponse(gameCard))
+                        .toList());
+        response.sort((a, b) -> {
+            if (a.getAverageRating() == null && b.getAverageRating() == null) {
+                return 0;
+            } else if (a.getAverageRating() == null) {
+                return 1;
+            } else if (b.getAverageRating() == null) {
+                return -1;
+            } else {
+                return Double.compare(b.getAverageRating(), a.getAverageRating());
+            }
+        });
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/toggle")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> addToFavorites(@Valid @RequestBody FavoritesRequest favoritesRequest) {
+    public ResponseEntity<?> toggleFavorite(@Valid @RequestBody FavoritesRequest favoritesRequest) {
 
         long gameID = favoritesRequest.getGameCardId();
 
@@ -67,21 +81,24 @@ public class FavoritesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
+
+        String message;
 
         if (user.getFavorites().contains(gameCard)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Bli-kjent lek er allerede lagt til i favoritter"));
+            user.removeGameCardFromFavorites(gameCard);
+            message = "Bli-kjent lek fjernet fra favoritter!";
+        } else {
+            user.addGameCardToFavorites(gameCard);
+            message = "Bli-kjent lek lagt til i favoritter!";
         }
 
-        user.addGameCardToFavorites(gameCard);
         userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek lagt til i favoritter!"));
+        return ResponseEntity.ok(new MessageResponse(message));
     }
 
-    @PostMapping("/remove")
+    @PostMapping("/check")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> removeFromFavorites(@Valid @RequestBody FavoritesRequest favoritesRequest) {
+    public ResponseEntity<?> checkFavorite(@Valid @RequestBody FavoritesRequest favoritesRequest) {
 
         long gameID = favoritesRequest.getGameCardId();
 
@@ -98,14 +115,7 @@ public class FavoritesController {
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
-        if (!user.getFavorites().contains(gameCard)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Finner ikke denne bli-kjent leken i brukerens favoritter"));
-        }
-
-        user.removeGameCardFromFavorites(gameCard);
         userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek fjernet fra favoritter!"));
+        return ResponseEntity.ok(new FavoriteResponse(user.getFavorites().contains(gameCard)));
     }
 }

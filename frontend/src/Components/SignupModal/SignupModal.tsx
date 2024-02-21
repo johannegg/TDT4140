@@ -30,7 +30,6 @@ export default function SignupModal(props: ModalProps) {
 
   const handleSignup = async () => {
     if (signupData.password !== passwordRepeat) {
-      console.log(1);
       alert("Passordene er ikke like");
       return;
     }

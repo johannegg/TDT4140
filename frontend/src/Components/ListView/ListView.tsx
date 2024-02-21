@@ -14,7 +14,7 @@ interface ListViewProps {
   categoriesToFilter: Array<string>;
   searchInput: string;
   refreshKey: number;
-  isUserPage?: boolean;
+  onUserPage?: boolean;
   gameCardApiUrl: string;
 }
 
@@ -22,11 +22,11 @@ const ListView = ({
   refreshKey,
   searchInput,
   categoriesToFilter,
-  isUserPage,
+  onUserPage,
   gameCardApiUrl
 }: ListViewProps) => {
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
-  const listViewClassName = isUserPage ? "listViewUserPage" : "listView";
+  const listViewClassName = onUserPage ? "listViewUserPage" : "listView";
   const fetchGameCards = useCallback(() => {
     fetch(`${gameCardApiUrl}`, {
       method: "GET",

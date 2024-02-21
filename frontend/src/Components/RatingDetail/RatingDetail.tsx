@@ -13,19 +13,21 @@ export function RatingDetail({ rating }: RatingDetailProps) {
 
   return (
     <div className="container">
-      <p className="username">{username}</p>
-      <p className="rating">Rating:
-        <span
-          style={{
-            marginLeft: '5px',
-            fontSize: '20px',
-            paddingTop: '10px',
-            color: 'gold'
-          }}
-        >
-          &#9733; {/* Stjerne */}
-        </span> {score}</p>
-      <p className="comment">Kommentar: {comment}</p>
+      <div className="commentHeader">
+        <p className="username">{username}</p>
+        <p className="ratingScore">Rating:
+          <span
+            style={{
+              marginLeft: '5px',
+              fontSize: '20px',
+              paddingTop: '10px',
+              color: 'gold'
+            }}
+          >
+            &#9733; {/* Stjerne */}
+          </span> {score}</p>
+      </div>
+      <p className="comment">{comment}</p>
     </div>
   );
 }

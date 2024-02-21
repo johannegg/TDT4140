@@ -1,7 +1,7 @@
 .gameCard{
   box-shadow: 2px 2px 20px 5px rgba(0, 0, 0, 0.15);
   width: 205px;
-  height: 360px;
+  height: 370px;
   margin: 20px;
   margin-left: 25px;
   margin-right: 25px;
@@ -33,21 +33,22 @@
   text-decoration: none;
   line-height: 1;
   text-align: center;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
 }
 
 .cardCategories{
   color: black;
   line-height: 1;
   font-weight: 400;
-  padding-bottom: 10px;
   text-align: center;
+  padding-bottom: 10px;
 }
 
 .rating {
   color: black;
   font-weight: 700;
   text-align: center;
+  padding-bottom: 10px;
 }
 
 .cardDescription {
@@ -58,9 +59,15 @@
   font-size: small;
   font-weight: 200;
   text-align: center;
+  padding-bottom: 10px;
+
 }
 
 .imgCard{
-  width: 135px;
+  width: 125px;
   margin: auto;
+}
+
+.favoriteButton {
+  margin-left: auto;
 }

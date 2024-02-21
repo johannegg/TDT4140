@@ -27,6 +27,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "gamecard_id"}),
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
 })
@@ -62,7 +63,7 @@ public class User {
     // Define Many-to-Many relationship with GameCard (favorites)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gamecard_id"))
-    private List<GameCard> favorites = new ArrayList<>();
+    private Set<GameCard> favorites = new HashSet<>();
 
     // Define Many-to-Many relationship with GameCard (queue)
     @ManyToMany(fetch = FetchType.LAZY)
@@ -149,11 +150,11 @@ public class User {
         this.roles = roles;
     }
 
-    public List<GameCard> getFavorites() {
+    public Set<GameCard> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(List<GameCard> favorites) {
+    public void setFavorites(Set<GameCard> favorites) {
         this.favorites = favorites;
     }
 

@@ -62,7 +62,8 @@ public class RatingController {
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
-        List<RatingResponse> response = new ArrayList<>(gameCard.getRatings().stream().map(RatingResponse::new).toList());
+        List<RatingResponse> response = new ArrayList<>(
+                gameCard.getRatings().stream().map(RatingResponse::new).toList());
         response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
         return ResponseEntity.ok(response);
     }
