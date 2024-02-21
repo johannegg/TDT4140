@@ -2,10 +2,12 @@ import { Dispatch, SetStateAction } from "react";
 import { categories } from "./utils/categories";
 import "./CategoryBox.css";
 
+
 interface Props {
   checkedCategories: Array<string>;
   setCheckedCategories: Dispatch<SetStateAction<string[]>>;
 }
+
 
 const CategoryBox = ({ checkedCategories, setCheckedCategories }: Props) => {
   const handleOnChange = (position: number) => {

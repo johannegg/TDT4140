@@ -1,19 +1,37 @@
 .listView {
   background-color: rgb(225, 247, 255);
-  min-height: 22rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-left: 2%;
   margin-right: 2%;
+  margin-bottom: 1%;
   padding: 8px;
   border: 1.25px solid rgb(146, 143, 143);
   border-radius: 10px;
   font-size: large;
   font-weight: 800;
   color: rgb(62, 94, 107);
-  width: 75%;
+  width: 94%;
+  height: 10%;
+}
+
+.listViewUserPage {
+  /* background-color: rgb(255, 225, 225); */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding: 8px;
+  /* border: 1.25px solid rgb(146, 143, 143);
+  border-radius: 10px; */
+  font-size: large;
+  font-weight: 800;
+  color: rgb(62, 94, 107);
+  width: 94%;
   height: 10%;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./HomePage.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Sidebar from "../../Components/Sidebar/Sidebar";
@@ -12,8 +12,8 @@ export default function HomePage() {
   const [signupModal, setSignupModal] = useState(false);
   const [formModal, setFormModal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+ 
   const [searchInput, setSearchInput] = useState("");
-  const [updateKey, setUpdateKey] = useState(0);
   const [checkedCategories, setCheckedCategories] = useState<Array<string>>([]);
 
   const toggleLoginModal = () => {
@@ -29,11 +29,11 @@ export default function HomePage() {
   const refreshGameCards = () => {
     setRefreshKey((oldKey) => oldKey + 1);
   };
-
+  
   const handleChange = (value: string) => {
     setSearchInput(value);
-    setUpdateKey((oldKey) => oldKey + 1);
   };
+
 
   return (
     <>
@@ -47,9 +47,9 @@ export default function HomePage() {
         ></Sidebar>
         <ListView
           refreshKey={refreshKey}
-          updateKey={updateKey}
           searchInput={searchInput}
           categoriesToFilter={checkedCategories}
+          gameCardApiUrl="http://localhost:8080/api/gamecard"
         ></ListView>
       </div>
       <LoginModal

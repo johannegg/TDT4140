@@ -5,7 +5,6 @@ import "./GamePage.css";
 import { GameDetails } from "../../Components/GameDetails/GameDetails";
 import LoginModal from "../../Components/LoginModal/LoginModal";
 import SignupModal from "../../Components/SignupModal/SignupModal";
-import RateButton from "../../Components/Rating/RateButton";
 
 type RouteParams = {
   gameId: string;
@@ -31,6 +30,7 @@ const GamePage = () => {
       fetch(`${gameCardApiUrl}/get/id/${gameId}`, {
         method: "GET",
       })
+
         .then((response) =>
           response.json().then((data) => {
             if (!response.ok) {

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import "./SignupModal.css";
-import { log } from "console";
 
 const authApiUrl = "http://localhost:8080/api/auth";
 
@@ -30,7 +29,7 @@ export default function SignupModal(props: ModalProps) {
   };
 
   const handleSignup = async () => {
-    if (signupData.password != passwordRepeat) {
+    if (signupData.password !== passwordRepeat) {
       console.log(1);
       alert("Passordene er ikke like");
       return;
