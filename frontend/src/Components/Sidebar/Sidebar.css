@@ -3,8 +3,9 @@
   width: 20%;
   min-height: 600px;
   padding: 8px;
+  padding-top: 15px;
+  margin-top: 10px;
   background-color: rgb(111, 171, 194);
-  border: 1.25px solid rgb(111, 110, 110);
   border-radius: 10px;
   margin-left: 1.5%;
   font-size: x-large;
@@ -19,6 +20,7 @@
   font-weight: 600;
   color: rgb(225, 247, 255);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .sidebarSubSection:hover {

@@ -45,3 +45,8 @@
 .commentsContainer {
   margin-left: 10px;
 }
+
+.avgrating {
+  font-weight: 700;
+  text-align: left;
+}

@@ -42,12 +42,6 @@
 
 }
 
-.list-view h3 {
-  color: #333;
-  font-size: 1.2em;
-  margin: 0px 16px 0px;
-}
-
 .list-view p {
   color: #666;
   font-size: 1em;
@@ -55,17 +49,15 @@
 }
 
 .favorites,
-.queue {
+.queue,
+.ratings {
+  color: #333;
+  font-size: 1.2em;
+  margin: 0px 16px 0px;
   position: sticky;
   padding-top: 20px;
   padding-bottom: 20px;
   top: 0;
-  background-color: rgb(255, 255, 255);
-  z-index: 1;
-}
-
-.favorites, .queue {
-  position: sticky;
   top: 0;
   background-color: rgb(225, 247, 255);
   z-index: 1;

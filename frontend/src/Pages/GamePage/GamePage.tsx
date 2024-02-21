@@ -15,7 +15,7 @@ type Game = {
   categories: string[];
   description: string;
   rules: string;
-  rating?: number;
+  averageRating?: number;
 };
 const gameCardApiUrl = "http://localhost:8080/api/gamecard";
 
@@ -42,7 +42,7 @@ const GamePage = () => {
               categories: data.categories || [],
               description: data.description,
               rules: data.rules,
-              rating: data.rating,
+              averageRating: data.averageRating,
             });
           })
         )
@@ -72,7 +72,7 @@ const GamePage = () => {
   return (
     <>
       <Link to={"/"}>
-        <button className="backButton">Tilbake</button>
+        <button className="backButton">Hjem</button>
       </Link>
       <Navbar toggleLoginModal={toggleLoginModal}></Navbar>
       <GameDetails game={game}></GameDetails>

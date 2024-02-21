@@ -23,26 +23,19 @@ INSERT IGNORE INTO
     user_roles (user_id, role_id)
 SELECT u.id, r.id
 FROM users u, roles r
-WHERE
-    u.username = 'normaluser'
-    AND r.name = 'ROLE_USER';
-
-INSERT IGNORE INTO
-    user_roles (user_id, role_id)
-SELECT u.id, r.id
-FROM users u, roles r
-WHERE
-    u.username = 'moduser'
-    AND r.name IN ('ROLE_USER', 'ROLE_MODERATOR');
-
-INSERT IGNORE INTO
-    user_roles (user_id, role_id)
-SELECT u.id, r.id
-FROM users u, roles r
-WHERE
-    u.username = 'adminuser'
-    AND r.name IN (
-        'ROLE_USER', 'ROLE_MODERATOR', 'ROLE_ADMIN'
+WHERE (
+        u.username = 'normaluser'
+        AND r.name = 'ROLE_USER'
+    )
+    OR (
+        u.username = 'moduser'
+        AND r.name IN ('ROLE_USER', 'ROLE_MODERATOR')
+    )
+    OR (
+        u.username = 'adminuser'
+        AND r.name IN (
+            'ROLE_USER', 'ROLE_MODERATOR', 'ROLE_ADMIN'
+        )
     );
 
 -- Categories standard data
@@ -65,31 +58,70 @@ INSERT IGNORE INTO
         title, description, rules, username, average_rating
     )
 VALUES (
-        'Beer pong', 'Treff ballen i 10 glass', 'To lag steller seg på hver sin ende av et bord. 
+        'Beer pong', 'Kast deg inn i en klassisk festfavoritt med dette utfordrende øl-pongspillet!', 'To lag stiller seg på hver sin ende av et bord. 
 Hvert lag har 6 eller 10 glass med valgfri drikke plassert som en triangel (slik som i bowling). 
 Lagene skal etter tur kaste ballen og treffe i motstanderens glass. 
 Når et lag treffer, skal glasset fjernes og innholdet må drikkes opp. 
-Det lage som treffer alle glassene til motstanderen først vinner.', 'adminuser', 4.5
-    );
-
-INSERT IGNORE INTO
-    gamecards (
-        title, description, rules, username, average_rating
-    )
-VALUES (
-        'Cider pong', 'Treff ballen i 10 glass', 'To lag steller seg på hver sin ende av et bord.
-Hvert lag har 6 eller 10 glass med valgfri drikke plassert som en triangel (slik som i bowling). 
-Lagene skal etter tur kaste ballen og treffe i motstanderens glass.
-Når et lag treffer, skal glasset fjernes og innholdet må drikkes opp.
-Det lage som treffer alle glassene til motstanderen først vinner.', 'normaluser', 2.5
-    );
-
-INSERT IGNORE INTO
-    gamecards (
-        title, description, rules, username, average_rating
-    )
-VALUES (
-        'Brus pong', 'Beskrivelse', 'Regler', 'normaluser', null
+Det laget som treffer i alle glassene til motstanderen først vinner.', 'adminuser', 4.0
+    ),
+    (
+        'Dance-Off', 'Et energisk og underholdende innendørsspill der deltakerne konkurrerer i danseferdigheter.', 'Deltakerne danner grupper og improviserer dansekoreografier basert på forskjellige musikksjangre. 
+En jury eller publikum stemmer på de beste forestillingene.', 'adminuser', null
+    ),
+    (
+        'To sannheter og en løgn', 'Del morsomme fakta om deg selv og la de andre gjette hva som er sant og hva som er løgn!', 'Hver deltaker presenterer tre påstander om seg selv, hvorav to er sanne og en er falsk. 
+Resten av gruppen skal gjette hvilken påstand som er løgn.', 'normaluser', null
+    ),
+    (
+        'Gjett Melodien', 'Test musikkunnskapen din med dette morsomme gjetteleken!', 'Spillerne hører på korte klipp av sanger og prøver å gjette tittelen og artisten. 
+Spilleren med flest riktige gjetninger vinner.', 'moduser', null
+    ),
+    (
+        'Team Trivia Trek', 'Et teambasert trivia-spill som tester deltakernes kunnskap om ulike emner.', 'Deltakerne deles inn i lag og konkurrerer mot hverandre for å svare på trivia-spørsmål. 
+Laget med flest poeng vinner.', 'moduser', null
+    ),
+    (
+        'Babels tårn', 'Bygg det høyeste tårnet!', 'Bygg et så høyt tårn som mulig ved å sette sammen spaghetti og marshmallows.
+Du har 3 minutter.
+På slutten av tiden har ingen lov til å holde eller berøre tårnet, og det er heller ikke lov å lene seg mot noe.
+Høyeste vinner!', 'normaluser', 5.0
+    ),
+    (
+        'Flytt vann', 'Flytt så mye vann du kan!', 'Plasser to bøtter, en fylt med vann og en tom. 
+Plasser et sett med hjelpemidler ved siden av den fylte bøtta, for eksempel svamp, kopp, skje, osv.
+Deltakerne må flytte vannet fra den fylte bøtta til den tomme bøtta ved hjelp av de valgte hjelpemidlene. 
+Du må ikke røre eller flytte noen av bøttene. 
+Laget som flytter mest vann vinner. 
+Du har 3 minutter.', 'normaluser', null
+    ),
+    (
+        'Kjenn smaken', 'Gjett hva du spiser!', 'Deltakerne får bind for øynene og smaker på forskjellige matvarer.
+De må gjette hva de spiser.
+Flest riktige gjetninger vinner.', 'normaluser', 1
+    ),
+    (
+        'Kast ring', 'Kast ringen på pinnen!', 'Plasser en stol i midten av rommet og en ring på gulvet rundt stolen.
+Deltakerne skal kaste ringen og treffe pinnen som står i midten av stolen.
+Flest treff vinner.', 'normaluser', 4.0
+    ),
+    (
+        'Spark av skoen', 'Test skuddferdighetene dine!', 'Deltakerne skal sparke av skoen og treffe et bestemt mål. 
+Det deles inn i lag. 
+Laget med flest treff oppi bøtta på 2 minutt vinner.', 'adminuser', null
+    ),
+    (
+        'Mariekjeks', 'Spis kjeks og løp fort!', 'Hvert lag stiller seg i rekkefølge.
+Den fremste fra hvert lag løper til et bord og spiser f. eks. fire kjeks, og løper tilbake og veksler med nestemann. 
+Det laget som først har fått alle sine deltakere i mål vinner.', 'moduser', 3.5
+    ),
+    (
+        'En som begynner med', 'Skriv ord innenfor en kategori som starter med riktig bokstav.', 'En utvalgt person på gruppa bestemmer 5 kategorier, for eksempel dyr, sport, bilmerke osv.
+Hvert lag må da skrive ned kategoriene på sitt eget papir. 
+Den samme personen som bestemte kategoriene sier en bokstav, f.eks. S og så må alle skrive et ord som begynner med S innenfor de valgte kategoriene. 
+For eksempel et land (Sverige), et dyr (Skilpadde) og en sport (Skiskyting), etc. 
+Lagene har bare 45 sekunder! 
+Har to lag svart likt får du 1 poeng, er du alene med svaret ditt får du 2 poeng. 
+Har du ikke skrevet noe får du 0 poeng.', 'moduser', null
     );
 
 -- Assign categories to gamecards
@@ -97,84 +129,171 @@ INSERT IGNORE INTO
     gamecard_category (gamecard_id, category_id)
 SELECT g.id, c.id
 FROM gamecards g, categories c
-WHERE
-    g.title = 'Beer pong'
-    AND c.name = 'Fest';
-
-INSERT IGNORE INTO
-    gamecard_category (gamecard_id, category_id)
-SELECT g.id, c.id
-FROM gamecards g, categories c
-WHERE
-    g.title = 'Cider pong'
-    AND c.name IN ('Fest', 'Familie');
-
-INSERT IGNORE INTO
-    gamecard_category (gamecard_id, category_id)
-SELECT g.id, c.id
-FROM gamecards g, categories c
-WHERE
-    g.title = 'Brus pong'
-    AND c.name IN ('Familie', 'Barn');
+WHERE (
+        g.title = 'Beer pong'
+        AND c.name IN (
+            'Fest', 'Innendørs', 'Utendørs', 'Student'
+        )
+    )
+    OR (
+        g.title = 'Dance-Off'
+        AND c.name IN (
+            'Fest', 'Innendørs', 'Teambuilding'
+        )
+    )
+    OR (
+        g.title = 'To sannheter og en løgn'
+        AND c.name IN (
+            'Teambuilding', 'Fest', 'Student', 'Innendørs'
+        )
+    )
+    OR (
+        g.title = 'Gjett Melodien'
+        AND c.name IN (
+            'Musikkquiz', 'Innendørs', 'Individuell'
+        )
+    )
+    OR (
+        g.title = 'Team Trivia Trek'
+        AND c.name IN (
+            'Student', 'Quiz', 'Teambuilding', 'Innendørs'
+        )
+    )
+    OR (
+        g.title = 'Babels tårn'
+        AND c.name IN (
+            'Individuell', 'Teambuilding', 'Student', 'Innendørs'
+        )
+    )
+    OR (
+        g.title = 'Flytt vann'
+        AND c.name IN (
+            'Utendørs', 'Teambuilding', 'Student', 'Individuell'
+        )
+    )
+    OR (
+        g.title = 'Kjenn smaken'
+        AND c.name IN (
+            'Familie', 'Barn', 'Teambuilding', 'Student', 'Innendørs'
+        )
+    )
+    OR (
+        g.title = 'Kast ring'
+        AND c.name IN (
+            'Barn', 'Familie', 'Teambuilding', 'Innendørs'
+        )
+    )
+    OR (
+        g.title = 'Spark av skoen'
+        AND c.name IN (
+            'Utendørs', 'Teambuilding', 'Student', 'Barn', 'Familie'
+        )
+    )
+    OR (
+        g.title = 'Mariekjeks'
+        AND c.name IN (
+            'Student', 'Teambuilding', 'Utendørs'
+        )
+    )
+    OR (
+        g.title = 'En som begynner med'
+        AND c.name IN (
+            'Innendørs', 'Student', 'Teambuilding'
+        )
+    );
 
 -- Ratings standard data for users and gamecards
 INSERT IGNORE INTO
     ratings (
         score, comment, user_id, gamecard_id
     )
-VALUES (4, 'Great game!', 1, 1),
-    (5, 'Awesome!', 2, 1),
-    (3, 'Not bad.', 3, 2),
-    (2, NULL, 1, 2);
+SELECT 4, 'Gøy!', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'adminuser'
+    AND g.title = 'Beer pong'
+UNION ALL
+SELECT 5, 'Fantastisk!', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Beer pong'
+UNION ALL
+SELECT 3, 'Helt ok.', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'normaluser'
+    AND g.title = 'Beer pong'
+UNION ALL
+SELECT 5, 'Dette var gøy!', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'normaluser'
+    AND g.title = 'Mariekjeks'
+UNION ALL
+SELECT 2, NULL, u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Mariekjeks'
+UNION ALL
+SELECT 1, 'Dårlig, alle mobba meg :(', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Kjenn smaken'
+UNION ALL
+SELECT 3, 'Meh', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Kast ring'
+UNION ALL
+SELECT 5, 'Kjempestas med familien', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'adminuser'
+    AND g.title = 'Kast ring'
+UNION ALL
+SELECT 5, 'Nå snakker vi!!', u.id, g.id
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Babels tårn';
 
 -- Add game cards to user favorites
 INSERT IGNORE INTO
     favorites (user_id, gamecard_id)
 SELECT u.id, g.id
 FROM users u, gamecards g
-WHERE
-    u.username = 'normaluser'
-    AND g.title = 'Cider pong';
-
-INSERT IGNORE INTO
-    favorites (user_id, gamecard_id)
-SELECT u.id, g.id
-FROM users u, gamecards g
-WHERE
-    u.username = 'adminuser'
-    AND (
-        g.title = 'Beer pong'
-        OR g.title = 'Cider pong'
-        OR g.title = 'Brus pong'
-    );
+WHERE (
+        u.username = 'normaluser'
+        AND g.title = 'Beer pong'
+    )
+    OR (
+        u.username = 'moduser'
+        AND g.title = 'Beer pong'
+        OR g.title = 'Babels tårn'
+    )
+    OR (
+        u.username = 'adminuser'
+        AND (
+            g.title = 'Beer pong'
+            OR g.title = 'Kast ring'
+            OR g.title = 'Spark av skoen'
+        )
+);
 
 -- Add game cards to user queues
-INSERT IGNORE INTO
-    queue (
-        user_id, gamecard_id, order_index
-    )
+INSERT IGNORE INTO queue (user_id, gamecard_id, order_index)
 SELECT u.id, g.id, 0
 FROM users u, gamecards g
-WHERE
-    u.username = 'normaluser'
-    AND g.title = 'Cider pong';
-
-INSERT IGNORE INTO
-    queue (
-        user_id, gamecard_id, order_index
-    )
+WHERE u.username = 'normaluser' AND g.title = 'Beer pong'
+UNION ALL
 SELECT u.id, g.id, 0
 FROM users u, gamecards g
-WHERE
-    u.username = 'moduser'
-    AND g.title = 'Beer pong';
-
-INSERT IGNORE INTO
-    queue (
-        user_id, gamecard_id, order_index
-    )
+WHERE u.username = 'moduser' AND g.title = 'Flytt vann'
+UNION ALL
 SELECT u.id, g.id, 1
 FROM users u, gamecards g
-WHERE
-    u.username = 'moduser'
-    AND g.title = 'Cider pong';
+WHERE u.username = 'moduser' AND g.title = 'Kjenn smaken';

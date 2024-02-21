@@ -6,37 +6,48 @@ const favoriteGamesRefreshKey = 1;
 
 const UserPage = () => {
 
-  // Replace these with dynamic data
-  const username = "Bruker";
-  const email = "brukernavn@gmail.com";
-  // const minHeight = `${window.innerHeight * 0.9 - window.innerHeight * 0.01 - 10}px`;
+  const userInfoString = localStorage.getItem("userInfo");
+  if (!userInfoString) {
+    alert("Logg inn for å se denne siden");
+    window.location.href = "/";
+    return null;
+  }
+
+  const userInfo = JSON.parse(userInfoString);
+  const username: string = userInfo.username;
+  const email: string = userInfo.email;
+  const favoritesEndpoint: string = "http://localhost:8080/api/favorites/get/all/" + username;
+  // const queueEndpoint: string = "http://localhost:8080/api/queue/get/all/" + username;
 
   return (
-    <div
-      className="user-page-container"
-      // style={{ minHeight }}
-      >
+    <div className="user-page-container">
       <div className="userinfo-title">
         <h2>Min Profil</h2>
         <p>Brukernavn: {username}</p>
         <p>Email: {email}</p>
       </div>
-      {/* Replace with dynamic username */}
       <div className="lists-container">
         <div className="list-view">
-          <h3 className="favorites">Favoritter</h3>
+          <h3 className="favorites">Mine Favoritter</h3>
           <ListView 
           categoriesToFilter={[]}
           searchInput=""
           refreshKey={favoriteGamesRefreshKey}
           isUserPage={true} 
-          gameCardApiUrl="http://localhost:8080/api/gamecard" 
-
-          />
+          gameCardApiUrl={favoritesEndpoint} />
         </div>
         {/* <div className="list-view">
-          <h3 className="queue">Kø</h3>
-          <ListView refreshKey={queuedGamesRefreshKey} isUserPage={true} gameCardApiUrl="http://localhost:8080/api/gamecard" />
+          <h3 className="queue">Min Kø</h3>
+          <ListView 
+          categoriesToFilter={[]}
+          searchInput=""
+          refreshKey={favoriteGamesRefreshKey}
+          isUserPage={true} 
+          gameCardApiUrl={queueEndpoint} />
+        </div> */}
+        {/* <div className="list-view">
+          <h3 className="ratings">Mine Ratings</h3>
+          RATING/COMMENTS VIEW
         </div> */}
       </div>
     </div>

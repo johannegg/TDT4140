@@ -4,7 +4,7 @@ Click [here](../rest-api.md) to go back to the API documentation overview.
 
 Requests to any endpoint must have http://localhost:8080/api as the URI prefix. 
 
-## /favorites/get/{username}
+## /favorites/get/all/{username}
 
 Fetches all favorite game cards for a given user.
 

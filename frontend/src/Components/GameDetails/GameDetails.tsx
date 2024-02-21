@@ -29,7 +29,7 @@ type GameDetailsProps = {
     categories: string[];
     description?: string;
     rules: string;
-    rating?: number;
+    averageRating?: number;
   };
 };
 
@@ -42,6 +42,26 @@ export function GameDetails({ game }: GameDetailsProps) {
         <div className="text">
           <div className="detailsHeader">
             <h1 className="titleDetail">{game.title}</h1>
+            <h3 className="avgrating">
+              Rating:
+              {game.averageRating !== null ? (
+                <>
+                  <span
+                    style={{
+                      marginLeft: '5px',
+                      fontSize: '20px',
+                      paddingTop: '10px',
+                      color: 'gold'
+                    }}
+                  >
+                    &#9733; {/* Stjerne */}
+                  </span>
+                  {game.averageRating}
+                </>
+              ) : (
+                <span style={{ marginLeft: '5px', color: 'gray' }}>Ingen</span>
+              )}
+            </h3>
             <div className="descriptionDetail">{game.description}</div>
           </div>
           <div className="rules">{game.rules}</div>
@@ -50,7 +70,6 @@ export function GameDetails({ game }: GameDetailsProps) {
           <img src={imageSrc} alt="img" className="imgDetails" />
         </div>
       </div>
-      {game.rating && <p className="rating">Rating: {game.rating}</p>}
       <div className="commentsContainer">
         <RateButton game={game}></RateButton>
         <h2>Kommentarer</h2>

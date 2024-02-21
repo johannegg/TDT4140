@@ -4,7 +4,7 @@ Click [here](../rest-api.md) to go back to the API documentation overview.
 
 Requests to any endpoint must have http://localhost:8080/api as the URI prefix. 
 
-## /queue/get/{username}
+## /queue/get/all/{username}
 
 Fetches all game cards in queue, sorted in order of when they were added to the queue.
 

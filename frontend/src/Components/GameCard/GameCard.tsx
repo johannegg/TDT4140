@@ -28,7 +28,7 @@ type GameCardProps = {
     title: string;
     categories: string[];
     description: string;
-    rating?: number;
+    averageRating?: number;
   };
 };
 export function GameCard({ game }: GameCardProps) {
@@ -40,7 +40,26 @@ export function GameCard({ game }: GameCardProps) {
       <div className="gameCard">
         <img src={imageSrc} alt="img" className="imgCard" />
         <h2 className="title">{game.title}</h2>
-        {/* <h3 className="rating">Rating: {game.rating}</h3> */}
+        <h3 className="rating">
+          Rating:
+          {game.averageRating !== null ? (
+            <>
+              <span
+                style={{
+                  marginLeft: '5px',
+                  fontSize: '20px',
+                  paddingTop: '10px',
+                  color: 'gold'
+                }}
+              >
+                &#9733; {/* Stjerne */}
+              </span>
+              {game.averageRating}
+            </>
+          ) : (
+            <span style={{ marginLeft: '5px', color: 'gray' }}>Ingen</span>
+          )}
+        </h3>
         <div className="cardCategories">{categoriesString}</div>
         <div className="cardDescription">{game.description}</div>
       </div>
