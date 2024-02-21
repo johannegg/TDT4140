@@ -83,6 +83,7 @@ const Rating: React.FC<RatingProps> = ({ onClose, game }) => {
       }
       alert("Du har gitt en rating!");
       onClose();
+      window.location.reload();
     } catch (error) {
       console.error("Error during rating:", error);
       alert(error);

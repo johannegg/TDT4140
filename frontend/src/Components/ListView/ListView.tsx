@@ -28,7 +28,7 @@ const ListView = ({
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
   const listViewClassName = isUserPage ? "listViewUserPage" : "listView";
   const fetchGameCards = useCallback(() => {
-    fetch(`${gameCardApiUrl}/get/all`, {
+    fetch(`${gameCardApiUrl}`, {
       method: "GET",
     })
       .then((response) =>
