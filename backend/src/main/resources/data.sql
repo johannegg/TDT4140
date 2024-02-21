@@ -69,11 +69,11 @@ Det laget som treffer i alle glassene til motstanderen først vinner.', 'adminus
 En jury eller publikum stemmer på de beste forestillingene.', 'adminuser', null
     ),
     (
-        'To sannheter og en løgn', 'Del morsomme fakta om deg selv og la de andre gjette hva som er sant og hva som er løgn!', 'Hver deltaker presenterer tre påstander om seg selv, hvorav to er sanne og en er falsk. 
+        'To sannheter og en løgn', 'Del "fakta" om deg selv og la de andre gjette om er sant!', 'Hver deltaker presenterer tre påstander om seg selv, hvorav to er sanne og en er falsk. 
 Resten av gruppen skal gjette hvilken påstand som er løgn.', 'normaluser', null
     ),
     (
-        'Gjett Melodien', 'Test musikkunnskapen din med dette morsomme gjetteleken!', 'Spillerne hører på korte klipp av sanger og prøver å gjette tittelen og artisten. 
+        'Gjett melodien', 'Test musikkunnskapen din med dette morsomme gjetteleken!', 'Spillerne hører på korte klipp av sanger og prøver å gjette tittelen og artisten. 
 Spilleren med flest riktige gjetninger vinner.', 'moduser', null
     ),
     (
@@ -272,8 +272,10 @@ WHERE (
     )
     OR (
         u.username = 'moduser'
-        AND g.title = 'Beer pong'
-        OR g.title = 'Babels tårn'
+        AND (
+            g.title = 'Beer pong'
+            OR g.title = 'Babels tårn'
+        )
     )
     OR (
         u.username = 'adminuser'
@@ -282,18 +284,27 @@ WHERE (
             OR g.title = 'Kast ring'
             OR g.title = 'Spark av skoen'
         )
-);
+    );
 
 -- Add game cards to user queues
-INSERT IGNORE INTO queue (user_id, gamecard_id, order_index)
+INSERT IGNORE INTO
+    queue (
+        user_id, gamecard_id, order_index
+    )
 SELECT u.id, g.id, 0
 FROM users u, gamecards g
-WHERE u.username = 'normaluser' AND g.title = 'Beer pong'
+WHERE
+    u.username = 'normaluser'
+    AND g.title = 'Beer pong'
 UNION ALL
 SELECT u.id, g.id, 0
 FROM users u, gamecards g
-WHERE u.username = 'moduser' AND g.title = 'Flytt vann'
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Flytt vann'
 UNION ALL
 SELECT u.id, g.id, 1
 FROM users u, gamecards g
-WHERE u.username = 'moduser' AND g.title = 'Kjenn smaken';
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Kjenn smaken';

@@ -1,7 +1,5 @@
-import React from "react";
 import "./Navbar.css";
 
-import navbarIcon from "./icon/navbar.png";
 import logoImage from "./icon/Icebreaker-4.png";
 import loginn from "./icon/loginn.png";
 import logout from "./icon/logout.png";

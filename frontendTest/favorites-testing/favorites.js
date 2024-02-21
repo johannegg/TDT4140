@@ -44,11 +44,11 @@ function getFavorites() {
         });
 }
 
-function addToFavorites() {
-    const gameCardId = document.getElementById('add-gamecard-id').value;
+function toggleFavorite() {
+    const gameCardId = document.getElementById('toggle-gamecard-id').value;
     const requestBody = JSON.stringify({ gameCardId: gameCardId, username: usernameText });
 
-    fetch(favoritesApiUrl + '/add', {
+    fetch(favoritesApiUrl + '/toggle', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -57,7 +57,7 @@ function addToFavorites() {
         body: requestBody
     })
     .then(response => response.json().then(data => {
-        requestDiv.innerText = 'Add card with id ' + gameCardId + ' to favorites for username ' + usernameText;
+        requestDiv.innerText = 'Toggle favorite for card ' + gameCardId + ' and username ' + usernameText;
         if (response.ok) {
             responseDiv.innerText = data.message;
         } else {
@@ -69,11 +69,11 @@ function addToFavorites() {
     });
 }
 
-function removeFromFavorites() {
-    const gameCardId = document.getElementById('remove-gamecard-id').value;
+function checkFavorite() {
+    const gameCardId = document.getElementById('check-gamecard-id').value;
     const requestBody = JSON.stringify({ gameCardId: gameCardId, username: usernameText });
 
-    fetch(favoritesApiUrl + '/remove', {
+    fetch(favoritesApiUrl + '/check', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -82,9 +82,9 @@ function removeFromFavorites() {
         body: requestBody
     })
     .then(response => response.json().then(data => {
-        requestDiv.innerText = 'Remove card with id ' + gameCardId + ' from favorites for username ' + usernameText;
+        requestDiv.innerText = 'Check if card ' + gameCardId + ' is favorited for username ' + usernameText;
         if (response.ok) {
-            responseDiv.innerText = data.message;
+            responseDiv.innerText = data.isFavorite;
         } else {
             responseDiv.innerText = response.status + ' ' + data.message;
         }

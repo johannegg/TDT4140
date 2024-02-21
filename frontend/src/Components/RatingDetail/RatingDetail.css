@@ -1,37 +1,44 @@
 .container {
-  width: 100%; 
-  max-width: 100%;
+  width: 50%;
   border: 3px solid #90b5cf;
   background-color: rgb(225, 247, 255);
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 10px;
   overflow: hidden;
-  margin: 5px auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-  
-  .username {
-    font-weight: bold;
-    text-align: left;
-    margin: 0;
-    padding: 5px;
-  }
-  
-  .rating {
-    font-size: 14px;
-    text-align: center;
-    margin: 5px 0;
-  }
-  
-  .comment {
-    font-size: 16px;
-    text-align: left;
-    margin: 5px 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .expanded {
-    white-space: normal;
-  }
-  
+
+.username {
+  font-weight: bold;
+  text-align: left;
+  margin: 0;
+  padding: 5px;
+}
+
+.ratingScore {
+  font-size: 14px;
+  text-align: center;
+  color: black;
+  font-weight: 700;
+  text-align: center;
+}
+
+.comment {
+  font-size: 16px;
+  text-align: left;
+  padding: 5px;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.expanded {
+  white-space: normal;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+}
