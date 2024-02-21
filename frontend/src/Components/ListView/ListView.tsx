@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./ListView.css";
 import { GameCard } from "../GameCard/GameCard";
 
@@ -11,23 +11,23 @@ type GameCardType = {
 };
 
 interface ListViewProps {
-  refreshKey: number;
   categoriesToFilter: Array<string>;
-  updateKey: number;
   searchInput: string;
+  refreshKey: number;
+  isUserPage?: boolean;
+  gameCardApiUrl: string;
 }
-
-const gameCardApiUrl = "http://localhost:8080/api/gamecard";
 
 const ListView = ({
   refreshKey,
-  updateKey,
   searchInput,
   categoriesToFilter,
+  isUserPage,
+  gameCardApiUrl
 }: ListViewProps) => {
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
-
-  const fetchGameCards = () => {
+  const listViewClassName = isUserPage ? "listViewUserPage" : "listView";
+  const fetchGameCards = useCallback(() => {
     fetch(`${gameCardApiUrl}/get/all`, {
       method: "GET",
     })
@@ -43,15 +43,11 @@ const ListView = ({
         console.error("Error fetching game cards:", error);
         alert(error);
       });
-  };
+  }, [gameCardApiUrl]);
 
   useEffect(() => {
     fetchGameCards();
-  }, []);
-
-  useEffect(() => {
-    fetchGameCards();
-  }, [refreshKey]);
+  }, [fetchGameCards, refreshKey]);
 
   const checkValidGame = (arr: Array<string>, target: Array<string>) =>
     target.every((category) => arr.includes(category));
@@ -64,7 +60,7 @@ const ListView = ({
   );
 
   return (
-    <div className="listView">
+    <div className={listViewClassName}>
       {filteredGames.map((game) => (
         <GameCard key={game.id} game={game}></GameCard>
       ))}

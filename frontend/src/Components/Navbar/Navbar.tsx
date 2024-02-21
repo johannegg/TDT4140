@@ -12,7 +12,7 @@ interface NavbarProps {
 const handleLogout = () => {
   if (window.confirm("Er du sikker på at du vil logge ut?")) {
     localStorage.clear();
-    window.location.reload();
+    window.location.href = "/";
   }
 };
 const Navbar = (props: NavbarProps) => {

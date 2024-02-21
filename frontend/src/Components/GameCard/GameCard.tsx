@@ -36,7 +36,7 @@ export function GameCard({ game }: GameCardProps) {
   const firstCategory = game.categories[0];
   const imageSrc = mappedImg[firstCategory];
   return (
-    <Link to={`/game/${game.id}`} style={{ textDecoration: "none" }}>
+    <Link to={`/spill/${game.id}`} style={{ textDecoration: "none" }}>
       <div className="gameCard">
         <img src={imageSrc} alt="img" className="imgCard" />
         <h2 className="title">{game.title}</h2>

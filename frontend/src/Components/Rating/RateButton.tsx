@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Rating from './Rating';
 
-
 interface RateButtonProps {
   game: {
     id: string;
@@ -13,7 +12,7 @@ interface RateButtonProps {
   };
 }
 
-const TestRating: React.FC<RateButtonProps> = ({game}: RateButtonProps) => {
+const TestRating: React.FC<RateButtonProps> = ({ game }: RateButtonProps) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -37,13 +36,13 @@ const TestRating: React.FC<RateButtonProps> = ({game}: RateButtonProps) => {
           padding: '8px 12px',
           fontSize: '18px',
           position: 'relative',
-          backgroundColor: '#3498db', 
+          backgroundColor: '#3498db',
           color: 'white',
           border: 'none',
           borderRadius: '5px',
           cursor: 'pointer',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', 
-        
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+
         }}
       >
         Rate
