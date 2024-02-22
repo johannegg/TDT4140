@@ -8,10 +8,10 @@ import innendørs from "../../Media/Innendørs.png";
 import utendørs from "../../Media/Utendørs.png";
 import musikkquiz from "../../Media/Musikkquiz.png";
 import FavoriteButton from "../Favorite/FavoriteButton";
-// import quiz from "../../Media/Quiz.png"; // need image
-// import student from "../../Media/Student.png"; // need image
-// import individuell from "../../Media/Individuell.png"; // need image
-// import teambuilding from "../../Media/Teambuilding.png"; // need image
+import quiz from "../../Media/Quiz.png";
+import student from "../../Media/Student.png";
+import individuell from "../../Media/Individuell.png";
+import teambuilding from "../../Media/Teambuilding.png";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -24,10 +24,10 @@ const mappedImg: CategoryMappedImg = {
   Innendørs: innendørs,
   Utendørs: utendørs,
   Musikkquiz: musikkquiz,
-  // Quiz: quiz, // need image
-  // Student: student, // need image
-  // Individuell: individuell, // need image
-  // Teambuilding: teambuilding, // need image
+  Quiz: quiz,
+  Student: student,
+  Individuell: individuell,
+  Teambuilding: teambuilding,
 };
 
 type GameCardProps = {
