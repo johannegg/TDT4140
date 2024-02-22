@@ -23,7 +23,7 @@ button {
 
 /* This applies to all scrollbars */
 ::-webkit-scrollbar {
-  width: 15px; 
+  width: 10px; 
 }
 
 /* Track */
@@ -34,11 +34,11 @@ button {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #bfbebe;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #979696; 
 }

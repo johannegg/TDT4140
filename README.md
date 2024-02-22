@@ -101,7 +101,7 @@ While the server is running, the endpoints should be accessible locally from the
 
 ### Available endpoints
 
-The full documentation for the REST API can be found [here](/docs/rest-api.md). In this document, we specify which data is required in a request, and what type of data is returned. For the frontend team, this documentation will act as a guide on how to interact with the server through requests to endpoints. The test frontend setups in the [frontendTest](/frontendTest/) directory also specify examples for how to use "fetch" in Javascript, which should be easily adaptable for Typescript.
+The full documentation for the REST API can be found [here](/docs/README.md). In this document, we specify which data is required in a request, and what type of data is returned. For the frontend team, this documentation will act as a guide on how to interact with the server through requests to endpoints. The test frontend setups in the [frontendTest](/frontendTest/) directory also specify examples for how to use "fetch" in Javascript, which should be easily adaptable for Typescript.
 
 ### Database management
 
@@ -110,6 +110,10 @@ The database setup for the backend relies on a local MySQL server instance with 
 We have ensured that some "standard data" is automatically inserted on server launch through the [data.sql](/backend/src/main/resources/data.sql) file; for instance we have 3 entries in "roles", 3 entries in "users", and 6 entries in "user_roles". The full overview of our standard data can be found in [this](/docs/standard-data.md) file. If the tables and predefined data entries already exist in the database, nothing will be added on server launch. Other data that was added will also remain between server restarts.
 
 Interactions with the database is done through methods defined for each JPA repository; this includes queries, deletions, insertions etc. Endpoints related to fetching data are generally set up for public access, while other endpoints require authentication with specific roles.
+
+The structure of the database is given by the following ER-diagram:
+
+![ER-diagram](./docs/ER.png)
 
 ### Test coverage reports for unit tests
 
