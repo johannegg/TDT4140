@@ -28,6 +28,9 @@ function getFavorites() {
 
     fetch(favoritesApiUrl + '/get/all/' + usernameText, {
         method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
     })
         .then(response => response.json().then(data => {
             requestDiv.innerText = 'Get favorites for username: ' + usernameText;
@@ -40,7 +43,7 @@ function getFavorites() {
 
         }))
         .catch(error => {
-            console.error('Error getting game cards:', error);
+            console.error('Error getting favorites:', error);
         });
 }
 
@@ -65,7 +68,7 @@ function toggleFavorite() {
         }
     }))
     .catch(error => {
-        console.error('Error creating game card:', error);
+        console.error('Error toggling favorite:', error);
     });
 }
 
@@ -90,6 +93,6 @@ function checkFavorite() {
         }
     }))
     .catch(error => {
-        console.error('Error creating game card:', error);
+        console.error('Error checking favorite:', error);
     });
 }

@@ -61,8 +61,6 @@ public class WebSecurityConfig {
             .requestMatchers("/api/test/all").permitAll()
             .requestMatchers("/api/gamecard/get/**").permitAll()
             .requestMatchers("/api/rating/get/**").permitAll()
-            .requestMatchers("/api/favorites/get/**").permitAll()
-            .requestMatchers("/api/queue/get/**").permitAll()
             .anyRequest().authenticated());
 
     http.authenticationProvider(authenticationProvider());

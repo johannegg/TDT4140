@@ -37,6 +37,7 @@ public class FavoritesController {
     UserRepository userRepository;
 
     @GetMapping("/get/all/{username}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getFavoritesByUsername(@PathVariable String username) {
 
         User user = userRepository.findByUsername(username).orElse(null);
@@ -115,7 +116,6 @@ public class FavoritesController {
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
-        userRepository.save(user);
         return ResponseEntity.ok(new FavoriteResponse(user.getFavorites().contains(gameCard)));
     }
 }

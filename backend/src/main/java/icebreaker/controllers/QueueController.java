@@ -19,6 +19,7 @@ import icebreaker.models.User;
 import icebreaker.payload.request.queue.QueueRequest;
 import icebreaker.payload.response.MessageResponse;
 import icebreaker.payload.response.gamecard.GameCardResponse;
+import icebreaker.payload.response.queue.QueueResponse;
 import icebreaker.repository.GameCardRepository;
 import icebreaker.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -35,6 +36,7 @@ public class QueueController {
     UserRepository userRepository;
 
     @GetMapping("/get/all/{username}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getQueueByUsername(@PathVariable String username) {
 
         User user = userRepository.findByUsername(username).orElse(null);
@@ -49,9 +51,9 @@ public class QueueController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/toggle")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> addToQueue(@Valid @RequestBody QueueRequest queueRequest) {
+    public ResponseEntity<?> toggleInQueue(@Valid @RequestBody QueueRequest queueRequest) {
 
         long gameID = queueRequest.getGameCardId();
 
@@ -67,21 +69,24 @@ public class QueueController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
+
+        String message;
 
         if (user.getQueue().contains(gameCard)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Bli-kjent lek er allerede lagt til i køen"));
+            user.removeGameCardFromQueue(gameCard);
+            message = "Bli-kjent lek fjernet fra køen!";
+        } else {
+            user.addGameCardToQueue(gameCard);
+            message = "Bli-kjent lek lagt til i køen!";
         }
 
-        user.addGameCardToQueue(gameCard);
         userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek lagt til i køen!"));
+        return ResponseEntity.ok(new MessageResponse(message));
     }
 
-    @PostMapping("/remove")
+    @PostMapping("/check")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> removeFromQueue(@Valid @RequestBody QueueRequest queueRequest) {
+    public ResponseEntity<?> checkInQueue(@Valid @RequestBody QueueRequest queueRequest) {
 
         long gameID = queueRequest.getGameCardId();
 
@@ -98,14 +103,6 @@ public class QueueController {
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
-        if (!user.getQueue().contains(gameCard)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new MessageResponse("Finner ikke denne bli-kjent leken i køen til brukeren"));
-        }
-
-        user.removeGameCardFromQueue(gameCard);
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("Bli-kjent lek fjernet fra køen!"));
+        return ResponseEntity.ok(new QueueResponse(user.getQueue().contains(gameCard)));
     }
 }

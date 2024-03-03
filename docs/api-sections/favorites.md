@@ -6,17 +6,19 @@ Requests to any endpoint must have http://localhost:8080/api as the URI prefix.
 
 ## /favorites/get/all/{username}
 
-Fetches all favorite game cards for a given user, ordered by average rating.
+Fetches all favorite game cards for a given user, ordered by average rating. Requires cached JWT token with user permissions.
 
 - method: GET
-- role: none
-- headers: none
+- role: user
+- headers:
+  - 'Authorization': 'Bearer \<cached-JWT-token>'
 - path variables: 
   - username (type: String) [cached username value]
 - parameters: none
-- statuscodes: [200, 404]
+- statuscodes: [200, 401, 404]
 - response: 
     - 200: array of favorite game card objects
+    - 401: not a user
     - 404: no cards with the given id
 
 ## /favorites/check

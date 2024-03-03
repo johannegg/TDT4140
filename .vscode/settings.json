@@ -6,7 +6,7 @@
     "java.compile.nullAnalysis.mode": "automatic",
     
     // Commit message input validation
-    "git.inputValidation": "warn",
+    "git.inputValidation": true,
     "git.inputValidationSubjectLength": 50,
     "git.inputValidationLength": 72,
 }
