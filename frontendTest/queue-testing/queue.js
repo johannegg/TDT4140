@@ -28,6 +28,9 @@ function getQueue() {
 
     fetch(queueApiUrl + '/get/all/' + usernameText, {
         method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
     })
         .then(response => response.json().then(data => {
             requestDiv.innerText = 'Get queue for username: ' + usernameText;
@@ -40,15 +43,15 @@ function getQueue() {
 
         }))
         .catch(error => {
-            console.error('Error getting game cards:', error);
+            console.error('Error getting queue:', error);
         });
 }
 
-function addToQueue() {
-    const gameCardId = document.getElementById('add-gamecard-id').value;
+function toggleInQueue() {
+    const gameCardId = document.getElementById('toggle-gamecard-id').value;
     const requestBody = JSON.stringify({ gameCardId: gameCardId, username: usernameText });
 
-    fetch(queueApiUrl + '/add', {
+    fetch(queueApiUrl + '/toggle', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -57,7 +60,7 @@ function addToQueue() {
         body: requestBody
     })
     .then(response => response.json().then(data => {
-        requestDiv.innerText = 'Add card with id ' + gameCardId + ' to queue for username ' + usernameText;
+        requestDiv.innerText = 'Toggle in-queue for card ' + gameCardId + ' and username ' + usernameText;
         if (response.ok) {
             responseDiv.innerText = data.message;
         } else {
@@ -65,15 +68,15 @@ function addToQueue() {
         }
     }))
     .catch(error => {
-        console.error('Error creating game card:', error);
+        console.error('Error toggling in-queue:', error);
     });
 }
 
-function removeFromQueue() {
-    const gameCardId = document.getElementById('remove-gamecard-id').value;
+function checkInQueue() {
+    const gameCardId = document.getElementById('check-gamecard-id').value;
     const requestBody = JSON.stringify({ gameCardId: gameCardId, username: usernameText });
 
-    fetch(queueApiUrl + '/remove', {
+    fetch(queueApiUrl + '/check', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -82,14 +85,14 @@ function removeFromQueue() {
         body: requestBody
     })
     .then(response => response.json().then(data => {
-        requestDiv.innerText = 'Remove card with id ' + gameCardId + ' from queue for username ' + usernameText;
+        requestDiv.innerText = 'Check if card ' + gameCardId + ' is in queue for username ' + usernameText;
         if (response.ok) {
-            responseDiv.innerText = data.message;
+            responseDiv.innerText = data.isInQueue;
         } else {
             responseDiv.innerText = response.status + ' ' + data.message;
         }
     }))
     .catch(error => {
-        console.error('Error creating game card:', error);
+        console.error('Error checking in-queue:', error);
     });
 }

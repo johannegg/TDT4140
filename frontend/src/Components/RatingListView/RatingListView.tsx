@@ -21,9 +21,20 @@ const RatingListView = ({
 }: RatingListViewProps) => {
     const [ratings, setRatings] = useState<RatingDetailType[]>([]);
     const ratingListViewClassName = onUserPage ? "ratingViewUserPage" : "ratingListView";
-    const fetchRatings = useCallback(async () =>{
+    const fetchRatings = useCallback(async () => {
+        let headers = undefined;
+        if (onUserPage){
+            const userInfoString = localStorage.getItem("userInfo");
+            if (!userInfoString) {
+                return;
+            }
+            const userInfo = JSON.parse(userInfoString);
+            const token = userInfo.accessToken;
+            headers = { 'Authorization': `Bearer ${token}` };
+        }
         fetch(`${ratingApiUrl}`, {
             method: "GET",
+            headers: headers
         })
             .then((response) =>
                 response.json().then((data) => {

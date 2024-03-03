@@ -28,8 +28,19 @@ const ListView = ({
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
   const listViewClassName = onUserPage ? "listViewUserPage" : "listView";
   const fetchGameCards = useCallback(() => {
+    let headers = undefined;
+    if (onUserPage) {
+      const userInfoString = localStorage.getItem("userInfo");
+      if (!userInfoString) {
+        return;
+      }
+      const userInfo = JSON.parse(userInfoString);
+      const token = userInfo.accessToken;
+      headers = { 'Authorization': `Bearer ${token}` };
+    }
     fetch(`${gameCardApiUrl}`, {
       method: "GET",
+      headers: headers
     })
       .then((response) =>
         response.json().then((data) => {
@@ -43,7 +54,7 @@ const ListView = ({
         console.error("Error fetching game cards:", error);
         alert(error);
       });
-  }, [gameCardApiUrl]);
+  }, [gameCardApiUrl, onUserPage]);
 
   useEffect(() => {
     fetchGameCards();
