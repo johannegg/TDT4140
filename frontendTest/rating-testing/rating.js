@@ -50,6 +50,9 @@ function getRatingsByUsername() {
 
     fetch(ratingApiUrl + '/get/user/' + username, {
         method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        }
     })
         .then(response => response.json().then(data => {
             requestDiv.innerText = 'Get ratings by user: ' + username;
@@ -61,7 +64,7 @@ function getRatingsByUsername() {
             }
         }))
         .catch(error => {
-            console.error('Error getting game cards:', error);
+            console.error('Error getting ratings:', error);
         });
 }
 
@@ -92,7 +95,7 @@ function addRating() {
             }
         }))
         .catch(error => {
-            console.error('Error creating game card:', error);
+            console.error('Error adding rating:', error);
         });
 }
 
@@ -116,6 +119,6 @@ function removeRating() {
             }
         }))
         .catch(error => {
-            console.error('Error deleting game card:', error);
+            console.error('Error removing rating:', error);
         });
 }

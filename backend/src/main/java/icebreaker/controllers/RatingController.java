@@ -38,6 +38,7 @@ public class RatingController {
     UserRepository userRepository;
 
     @GetMapping("/get/user/{username}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getRatingsByUsername(@PathVariable String username) {
 
         User user = userRepository.findByUsername(username).orElse(null);
@@ -47,7 +48,8 @@ public class RatingController {
                     .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
-        List<RatingResponse> response = new ArrayList<>(user.getRatings().stream().map(RatingResponse::new).toList());
+        List<RatingResponse> response = new ArrayList<>(
+                user.getRatings().stream().map(RatingResponse::new).toList());
         response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
         return ResponseEntity.ok(response);
     }
