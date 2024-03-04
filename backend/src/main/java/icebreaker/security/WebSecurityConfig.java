@@ -60,7 +60,7 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
             .requestMatchers("/api/test/all").permitAll()
             .requestMatchers("/api/gamecard/get/**").permitAll()
-            .requestMatchers("/api/rating/get/**").permitAll()
+            .requestMatchers("/api/rating/get/gamecard/**").permitAll()
             .anyRequest().authenticated());
 
     http.authenticationProvider(authenticationProvider());

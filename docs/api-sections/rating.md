@@ -21,17 +21,19 @@ Fetches all rating data related to a specific game card, sorted by score.
 
 ## /rating/get/user/{username}
 
-Fetches all rating data from a specific user.
+Fetches all rating data from a specific user. Requires cached JWT token with user permissions.
 
 - method: GET
-- role: none
-- headers: none
+- role: user
+- headers:
+  - 'Authorization': 'Bearer \<cached-JWT-token>'
 - path variables: 
   - username (type: String) [not blank]
 - parameters: none
-- statuscodes: [200, 404]
+- statuscodes: [200, 401, 404]
 - response: 
     - 200: array of rating information objects
+    - 401: not a user
     - 404: no user with the given username
 
 ## /rating/add
