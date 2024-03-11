@@ -1,0 +1,16 @@
+.startButton, .stopButton, .resetButton {
+    font-size: larger;
+    background-color: rgb(111, 171, 194);
+    border-radius: 8px;
+    margin-right: 8px;
+
+}
+
+.format {
+    font-size: 2em;
+}
+
+
+.titlee {
+    font-weight: bold;
+}

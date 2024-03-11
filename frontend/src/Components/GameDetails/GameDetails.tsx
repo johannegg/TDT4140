@@ -14,6 +14,7 @@ import RateButton from "../Rating/RateButton";
 import RatingListView from "../RatingListView/RatingListView";
 import { categories } from "../CategoryBox/utils/categories";
 import FavoriteButton from "../Favorite/FavoriteButton";
+import Timer from "./Timer";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -43,10 +44,11 @@ type GameDetailsProps = {
   };
 };
 
-export function GameDetails({ game }: GameDetailsProps, ) {
+export function GameDetails({ game }: GameDetailsProps) {
   const firstCategory = game.categories[0];
   const imageSrc = mappedImg[firstCategory];
-  const ratingEndpoint: string = "http://localhost:8080/api/rating/get/gamecard/" + game.id;
+  const ratingEndpoint: string =
+    "http://localhost:8080/api/rating/get/gamecard/" + game.id;
   return (
     <div className="gameContainer">
       <div className="topSection">
@@ -62,10 +64,10 @@ export function GameDetails({ game }: GameDetailsProps, ) {
                 <>
                   <span
                     style={{
-                      marginLeft: '5px',
-                      fontSize: '20px',
-                      paddingTop: '10px',
-                      color: 'gold'
+                      marginLeft: "5px",
+                      fontSize: "20px",
+                      paddingTop: "10px",
+                      color: "gold",
                     }}
                   >
                     &#9733; {/* Stjerne */}
@@ -73,10 +75,14 @@ export function GameDetails({ game }: GameDetailsProps, ) {
                   {game.averageRating}
                 </>
               ) : (
-                <span style={{ marginLeft: '5px', color: 'gray' }}>Ingen</span>
+                <span style={{ marginLeft: "5px", color: "gray" }}>Ingen</span>
               )}
             </h3>
-            <div className="categories">{game.categories.map((cat) => <p className="category">{cat}</p>)}</div>
+            <div className="categories">
+              {game.categories.map((cat) => (
+                <p className="category">{cat}</p>
+              ))}
+            </div>
             <div className="descriptionDetail">{game.description}</div>
           </div>
           <div className="rules">{game.rules}</div>
@@ -85,11 +91,14 @@ export function GameDetails({ game }: GameDetailsProps, ) {
           <img src={imageSrc} alt="img" className="imgDetails" />
         </div>
       </div>
-      <div className="commentsContainer">
-        <RateButton game={game}></RateButton>
-      <RatingListView
-        ratingApiUrl={ratingEndpoint}  
-      ></RatingListView>
+      <div className="commentsTimerContainer">
+        <div className="commentsContainer">
+          <RateButton game={game}></RateButton>
+          <RatingListView ratingApiUrl={ratingEndpoint}></RatingListView>
+        </div>
+        <div>
+          <Timer></Timer>
+        </div>
       </div>
     </div>
   );
