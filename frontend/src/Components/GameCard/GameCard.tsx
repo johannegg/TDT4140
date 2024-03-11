@@ -12,6 +12,7 @@ import quiz from "../../Media/Quiz.png";
 import student from "../../Media/Student.png";
 import individuell from "../../Media/Individuell.png";
 import teambuilding from "../../Media/Teambuilding.png";
+import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -48,7 +49,8 @@ export function GameCard({ game }: GameCardProps) {
   return (
     <Link to={`/spill/${game.id}`} style={{ textDecoration: "none" }}>
       <div className="gameCard">
-        <div className="favoriteButton">
+        <div className="gameCardButtonPanel">
+          <GameCardDeleteButton gameId={+game.id} />
           {userInfoString && <FavoriteButton gameId={+game.id}/>}
         </div>
         <img src={imageSrc} alt="img" className="imgCard" />

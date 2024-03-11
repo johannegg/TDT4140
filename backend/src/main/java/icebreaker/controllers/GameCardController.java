@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import icebreaker.models.Category;
 import icebreaker.models.GameCard;
+import icebreaker.models.User;
 import icebreaker.payload.request.gamecard.GameCardAddRequest;
 import icebreaker.payload.request.gamecard.GameCardCategoryFilterRequest;
 import icebreaker.payload.request.gamecard.GameCardUpdateRequest;
@@ -27,6 +28,7 @@ import icebreaker.payload.response.MessageResponse;
 import icebreaker.payload.response.gamecard.GameCardResponse;
 import icebreaker.repository.CategoryRepository;
 import icebreaker.repository.GameCardRepository;
+import icebreaker.repository.UserRepository;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -39,6 +41,9 @@ public class GameCardController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/get/id/{id}")
     public ResponseEntity<?> getGameCardById(@PathVariable long id) {
@@ -158,12 +163,21 @@ public class GameCardController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> deleteGameCardById(@PathVariable long id) {
 
-        if (!gameCardRepository.existsById(id)) {
+        GameCard gameCard = gameCardRepository.findById(id).orElse(null);
+
+        if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
-        gameCardRepository.deleteById(id);
+        // Remove gameCard from all users' favorites and queue
+        for (User user : userRepository.findAll()) {
+            user.removeGameCardFromFavorites(gameCard);
+            user.removeGameCardFromQueue(gameCard);
+            userRepository.save(user); 
+        }
+
+        gameCardRepository.delete(gameCard);
 
         return ResponseEntity.ok(new MessageResponse("Bli-kjent lek slettet!"));
     }
@@ -177,6 +191,13 @@ public class GameCardController {
         if (gameCard == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den tittelen"));
+        }
+
+        // Remove gameCard from all users' favorites and queue
+        for (User user : userRepository.findAll()) {
+            user.removeGameCardFromFavorites(gameCard);
+            user.removeGameCardFromQueue(gameCard);
+            userRepository.save(user); 
         }
 
         gameCardRepository.delete(gameCard);
