@@ -21,3 +21,4 @@ The documentation has been split up into different files, grouped by the feature
 - Rating related endpoints: [rating.md](./api-sections/rating.md)
 - Queue related endpoints: [queue.md](./api-sections/queue.md)
 - Favorites related endpoints: [favorites.md](./api-sections/favorites.md)
+- Report related endpoints: [report.md](./api-sections/report.md)

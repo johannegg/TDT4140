@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+    <link rel="manifest" href="../icons/site.webmanifest">
+
+    <title>API Report Test</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            margin-bottom: 10px;
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #authPage,
+        #endpointsPage,
+        #resultPage {
+            margin-right: 50px;
+            margin-left: 50px;
+        }
+
+        #endpointsPageContainer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        #endpointsPageContainer>div {
+            width: 100%;
+        }
+
+        #roles-div {
+            max-width: 160px;
+            overflow-wrap: break-word;
+        }
+
+        #request-json,
+        #response-json {
+            max-width: 300px;
+            max-height: 500px;
+            overflow-wrap: break-word;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="authPage">
+            <h1>API GameCard Test</h1>
+            <div>
+                <h2>Login</h2>
+                <input type="text" id="username" placeholder="Username"><br>
+                <input type="password" id="password" placeholder="Password"><br>
+                <button onclick="login()">Login</button>
+            </div>
+            <div>
+                <h2>Sign Up</h2>
+                <input type="text" id="signupUsername" placeholder="Username"><br>
+                <input type="email" id="signupEmail" placeholder="Email"><br>
+                <input type="password" id="signupPassword" placeholder="Password"><br>
+                <button onclick="signup()">Sign Up</button>
+            </div>
+            <div>
+                <h2>Logout</h2>
+                <button onclick="logout()">Logout</button>
+            </div>
+            <div>
+                <h2>Username</h2>
+                <div id="username-div">Not logged in.</div>
+            </div>
+            <div>
+                <h2>Roles</h2>
+                <div id="roles-div">No roles found.</div>
+            </div>
+        </div>
+
+        <div id="endpointsPage">
+            <h1>Endpoint testing</h1>
+            <div id="endpointsPageContainer">
+                <div>
+                    <h2>Get Reports</h2>
+                    <button onclick="getGameCardReports()">Get Card Reports</button><br>
+                    <button onclick="getCommentReports()">Get Comment Reports</button>
+                </div>
+                <div>
+                    <h2>Delete Reports</h2>
+                    <input type="number" id="delete-gamecard-reporter-id" placeholder="Reporter ID" min="1"><br>
+                    <input type="number" id="delete-gamecard-id" placeholder="Gamecard ID" min="1"><br>
+                    <button onclick="deleteGameCardReport()">Delete Card Report</button><br>
+                    <input type="number" id="delete-rating-reporter-id" placeholder="Reporter ID" min="1"><br>
+                    <input type="number" id="delete-rating-gamecard-id" placeholder="Gamecard ID" min="1"><br>
+                    <input type="number" id="delete-rating-user-id" placeholder="Rating user ID" min="1"><br>
+                    <button onclick="deleteCommentReport()">Delete Comment Report</button>
+                </div>
+                <div>
+                    <h2>Send Card Report</h2>
+
+                    <input type="number" id="send-gamecard-id" placeholder="Gamecard ID" min="1"><br>
+                    <select id="send-gamecard-reason">
+                        <option value="UPASSENDE">UPASSENDE</option>
+                        <option value="TERRORISME">TERRORISME</option>
+                        <option value="STØTENDE">STØTENDE</option>
+                        <option value="ANNET">ANNET</option>
+                    </select><br>
+                    <textarea id="send-gamecard-comment" placeholder="Comment"></textarea><br>
+                    <button onclick="sendGameCardReport()">Send Card Report</button>
+                </div>
+                <div>
+                    <h2>Send Comment Report</h2>
+                    
+                    <input type="number" id="send-rating-gamecard-id" placeholder="Gamecard ID" min="1"><br>
+                    <input type="number" id="send-rating-user-id" placeholder="Rating User ID" min="1"><br>
+
+                    <select id="send-rating-reason">
+                        <option value="UPASSENDE">UPASSENDE</option>
+                        <option value="TERRORISME">TERRORISME</option>
+                        <option value="STØTENDE">STØTENDE</option>
+                        <option value="ANNET">ANNET</option>
+                    </select><br>
+                    <textarea id="send-rating-comment" placeholder="Comment"></textarea><br>
+                    <button onclick="sendCommentReport()">Send Comment Report</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="resultPage">
+            <h1>Result</h1>
+            <div id="endpointsPageContainer">
+                <div>
+                    <h2>Request</h2>
+                    <div id="request-json"></div>
+                </div>
+                <div>
+                    <h2>Response</h2>
+                    <div id="response-json"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="report.js"></script>
+
+</body>
+
+</html>

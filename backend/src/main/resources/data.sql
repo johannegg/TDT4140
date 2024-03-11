@@ -308,3 +308,43 @@ FROM users u, gamecards g
 WHERE
     u.username = 'moduser'
     AND g.title = 'Kjenn smaken';
+
+-- Add game card reports
+INSERT IGNORE INTO
+    gamecard_reports (
+        user_id, gamecard_id, reason, comment
+    )
+SELECT u.id, g.id, 'UPASSENDE', 'Dette spillet er kanskje ikke passende for barn?'
+FROM users u, gamecards g
+WHERE
+    u.username = 'normaluser'
+    AND g.title = 'Beer pong'
+UNION ALL
+SELECT u.id, g.id, 'UPASSENDE', 'Upassende.'
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Beer pong'
+UNION ALL
+SELECT u.id, g.id, 'TERRORISME', 'Verste jeg har vært borti!!'
+FROM users u, gamecards g
+WHERE
+    u.username = 'moduser'
+    AND g.title = 'Dance-Off';
+
+-- Add comment reports
+INSERT IGNORE INTO
+    comment_reports (
+        reporting_user_id, gamecard_id, rating_user_id, reason, comment 
+    )
+SELECT u.id, r.gamecard_id, r.user_id, 'STØTENDE', 'Jeg vil ikke at barna mine skal lese dette!'
+FROM users u, ratings r
+WHERE
+    u.username = 'normaluser'
+    AND r.comment = 'Dårlig, alle mobba meg :('
+UNION ALL
+SELECT u.id, r.gamecard_id, r.user_id, 'UPASSENDE', 'Dette er ikke greit!'
+FROM users u, ratings r
+WHERE
+    u.username = 'moduser'
+    AND r.comment = 'Helt ok.';
