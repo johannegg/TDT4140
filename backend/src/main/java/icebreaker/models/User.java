@@ -31,7 +31,6 @@ import jakarta.validation.constraints.Size;
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
 })
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,22 +49,32 @@ public class User {
     @Size(max = 120, message = "Passord hash kan ha maks 120 tegn")
     private String password;
 
-    // Define One-to-Many relationship with Rating
+    // One-to-Many relationship with Rating
     @OneToMany(mappedBy = "user", cascade = { CascadeType.ALL }, orphanRemoval = true)
     @JsonManagedReference
     private Set<Rating> ratings;
 
-    // Define Many-to-Many relationship with Role
+    // One-to-Many relationship with CommentReport
+    @OneToMany(mappedBy = "user", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<CommentReport> commentReports;
+
+    // One-to-Many relationship with GameCardReport
+    @OneToMany(mappedBy = "user", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<GameCardReport> gameCardReports;
+
+    // Many-to-Many relationship with Role
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    // Define Many-to-Many relationship with GameCard (favorites)
+    // Many-to-Many relationship with GameCard (favorites)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gamecard_id"))
     private Set<GameCard> favorites = new HashSet<>();
 
-    // Define Many-to-Many relationship with GameCard (queue)
+    // Many-to-Many relationship with GameCard (queue)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "queue", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gamecard_id"))
     @OrderColumn(name = "order_index")
@@ -140,6 +149,22 @@ public class User {
 
     public void setRatings(Set<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public Set<CommentReport> getCommentReports() {
+        return commentReports;
+    }
+
+    public void setCommentReports(Set<CommentReport> commentReports) {
+        this.commentReports = commentReports;
+    }
+
+    public Set<GameCardReport> getGameCardReports() {
+        return gameCardReports;
+    }
+
+    public void setGameCardReports(Set<GameCardReport> gameCardReports) {
+        this.gameCardReports = gameCardReports;
     }
 
     public Set<Role> getRoles() {

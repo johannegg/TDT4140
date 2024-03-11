@@ -1,6 +1,6 @@
 # Rating API
 
-Click [here](../rest-api.md) to go back to the API documentation overview.
+Click [here](../README.md) to go back to the API documentation overview.
 
 Requests to any endpoint must have http://localhost:8080/api as the URI prefix. 
 

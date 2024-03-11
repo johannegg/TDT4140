@@ -49,13 +49,18 @@ public class GameCard {
     @DecimalMin(value = "1", message = "Gjenomsnittlig vurdering må være minst 1")
     @DecimalMax(value = "5", message = "Gjenomsnittlig vurdering må være maks 5")
     private Double averageRating;
-
-    // Define One-to-Many relationship with Rating
+    
+    // One-to-Many relationship with Rating
     @OneToMany(mappedBy = "gameCard", cascade = { CascadeType.ALL }, orphanRemoval = true)
     @JsonManagedReference
     private Set<Rating> ratings;
+    
+    // One-to-Many relationship with CommentReport
+    @OneToMany(mappedBy = "gameCard", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<GameCardReport> gameCardReports;
 
-    // Define Many-to-Many relationship with Category
+    // Many-to-Many relationship with Category
     @ManyToMany
     @JoinTable(name = "gamecard_category", joinColumns = @JoinColumn(name = "gamecard_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
@@ -164,5 +169,13 @@ public class GameCard {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<GameCardReport> getGameCardReports() {
+        return gameCardReports;
+    }
+
+    public void setGameCardReports(Set<GameCardReport> gameCardReports) {
+        this.gameCardReports = gameCardReports;
     }
 }

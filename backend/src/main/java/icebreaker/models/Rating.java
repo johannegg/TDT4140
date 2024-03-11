@@ -1,11 +1,18 @@
 package icebreaker.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import icebreaker.models.composite.RatingId;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -13,14 +20,9 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "ratings")
+@IdClass(RatingId.class)
 public class Rating {
-    @Min(value = 1, message = "Score må være minst 1")
-    @Max(value = 5, message = "Score må være maks 5")
-    private int score;
-
-    @Size(max = 300, message = "Kommentaren kan ha maks 300 tegn")
-    private String comment;
-
+    
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -33,6 +35,18 @@ public class Rating {
     @JsonBackReference
     private GameCard gameCard;
 
+    @Min(value = 1, message = "Score må være minst 1")
+    @Max(value = 5, message = "Score må være maks 5")
+    private int score;
+
+    @Size(max = 300, message = "Kommentaren kan ha maks 300 tegn")
+    private String comment;
+
+    // One-to-Many relationship with CommentReport
+    @OneToMany(mappedBy = "rating", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<CommentReport> commentReports;
+
     // Constructors
     public Rating() {
     }
@@ -44,7 +58,7 @@ public class Rating {
         this.gameCard = gameCard;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public int getScore() {
         return score;
     }
@@ -75,5 +89,13 @@ public class Rating {
 
     public void setGameCard(GameCard gameCard) {
         this.gameCard = gameCard;
+    }
+
+    public Set<CommentReport> getCommentReports() {
+        return commentReports;
+    }
+
+    public void setCommentReports(Set<CommentReport> commentReports) {
+        this.commentReports = commentReports;
     }
 }
