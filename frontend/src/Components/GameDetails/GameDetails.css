@@ -77,3 +77,8 @@
   align-items: center;
 }
 
+.gameDetailsButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

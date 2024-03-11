@@ -70,7 +70,7 @@ const RatingListView = ({
             {ratings.map((rating) => (
                 <div className="profilePageDiv" key={rating.gameCardId}>
                     <h2>{rating.title}</h2>
-                    <RatingDetail rating={rating}></RatingDetail>
+                    <RatingDetail gameId={+rating.gameCardId} rating={rating}></RatingDetail>
                 </div>
             ))}
             {ratings.length === 0 && (

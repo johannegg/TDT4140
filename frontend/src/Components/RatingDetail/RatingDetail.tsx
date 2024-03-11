@@ -1,6 +1,8 @@
+import RatingDeleteButton from "../DeleteButton/RatingDeleteButton";
 import "./RatingDetail.css";
 
 type RatingDetailProps = {
+  gameId: number;
   rating: {
     score: number;
     comment: string;
@@ -8,7 +10,7 @@ type RatingDetailProps = {
   };
 };
 
-export function RatingDetail({ rating }: RatingDetailProps) {
+export function RatingDetail({ gameId, rating }: RatingDetailProps) {
   const { score, comment, username } = rating;
 
   return (
@@ -27,7 +29,10 @@ export function RatingDetail({ rating }: RatingDetailProps) {
             &#9733; {/* Stjerne */}
           </span> {score}</p>
       </div>
-      <p className="comment">{comment}</p>
+      <div className="commentBottomRow">
+        <p className="comment">{comment}</p>
+        <RatingDeleteButton gameId={gameId} ratingUsername={username} />
+      </div>
     </div>
   );
 }

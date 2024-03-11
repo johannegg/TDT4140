@@ -15,6 +15,8 @@ import RatingListView from "../RatingListView/RatingListView";
 import { categories } from "../CategoryBox/utils/categories";
 import FavoriteButton from "../Favorite/FavoriteButton";
 import Timer from "./Timer";
+import { GameCard } from "../GameCard/GameCard";
+import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -56,7 +58,10 @@ export function GameDetails({ game }: GameDetailsProps) {
           <div className="detailsHeader">
             <div className="topRow">
               <h1 className="titleDetail">{game.title}</h1>
-              <FavoriteButton gameId={+game.id}></FavoriteButton>
+              <div className="gameDetailsButtons">
+                <GameCardDeleteButton gameId={+game.id}></GameCardDeleteButton>
+                <FavoriteButton gameId={+game.id}></FavoriteButton>
+              </div>
             </div>
             <h3 className="avgrating">
               Rating:

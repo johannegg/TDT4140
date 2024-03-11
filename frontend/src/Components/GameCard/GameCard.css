@@ -68,6 +68,11 @@
   margin: auto;
 }
 
-.favoriteButton {
+.gameCardButtonPanel {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  gap: 6px;
   margin-left: auto;
 }
+
