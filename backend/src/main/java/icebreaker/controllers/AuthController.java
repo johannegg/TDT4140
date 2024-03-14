@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +54,16 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
+
+	@GetMapping("/get/id/{username}")
+	public ResponseEntity<?> getIdByUsername(@PathVariable String username) {
+		User user = userRepository.findByUsername(username).orElse(null);
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
+		}
+		return ResponseEntity.ok(user.getId());
+	}
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

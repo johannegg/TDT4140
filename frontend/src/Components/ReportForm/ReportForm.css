@@ -24,7 +24,7 @@
   line-height: 1.5;
 }
 
-.submitRating {
+.submitReport {
   background-color: #3498db;
   color: #fff;
   padding: 10px 20px;
@@ -35,6 +35,6 @@
   transition: background-color 0.3s ease;
 }
 
-.submitRating:hover {
+.submitReport:hover {
   background-color: #2980b9;
 }

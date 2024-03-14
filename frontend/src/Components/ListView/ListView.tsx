@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import "./ListView.css";
 import { GameCard } from "../GameCard/GameCard";
+import ReportForm from "../ReportForm/ReportForm";
 
 type GameCardType = {
   id: string;
@@ -23,7 +24,7 @@ const ListView = ({
   searchInput,
   categoriesToFilter,
   onUserPage,
-  gameCardApiUrl
+  gameCardApiUrl,
 }: ListViewProps) => {
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
   const listViewClassName = onUserPage ? "listViewUserPage" : "listView";
@@ -36,11 +37,11 @@ const ListView = ({
       }
       const userInfo = JSON.parse(userInfoString);
       const token = userInfo.accessToken;
-      headers = { 'Authorization': `Bearer ${token}` };
+      headers = { Authorization: `Bearer ${token}` };
     }
     fetch(`${gameCardApiUrl}`, {
       method: "GET",
-      headers: headers
+      headers: headers,
     })
       .then((response) =>
         response.json().then((data) => {
@@ -71,14 +72,16 @@ const ListView = ({
   );
 
   return (
-    <div className={listViewClassName}>
-      {filteredGames.map((game) => (
-        <GameCard key={game.id} game={game}></GameCard>
-      ))}
-      {filteredGames.length === 0 && (
-        <p>Ingen spill matcher det du leter etter.</p>
-      )}
-    </div>
+    <>
+      <div className={listViewClassName}>
+        {filteredGames.map((game) => (
+          <GameCard key={game.id} game={game}></GameCard>
+        ))}
+        {filteredGames.length === 0 && (
+          <p>Ingen spill matcher det du leter etter.</p>
+        )}
+      </div>
+    </>
   );
 };
 
