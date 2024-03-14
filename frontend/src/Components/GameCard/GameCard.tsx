@@ -13,6 +13,7 @@ import student from "../../Media/Student.png";
 import individuell from "../../Media/Individuell.png";
 import teambuilding from "../../Media/Teambuilding.png";
 import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
+import QueueButton from "../Queue/QueueButton";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -51,6 +52,7 @@ export function GameCard({ game }: GameCardProps) {
       <div className="gameCard">
         <div className="gameCardButtonPanel">
           <GameCardDeleteButton gameId={+game.id} />
+          {userInfoString && <QueueButton gameId={+game.id}/>}
           {userInfoString && <FavoriteButton gameId={+game.id}/>}
         </div>
         <img src={imageSrc} alt="img" className="imgCard" />

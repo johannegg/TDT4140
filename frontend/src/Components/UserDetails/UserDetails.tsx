@@ -3,7 +3,7 @@ import ListView from "../ListView/ListView";
 import RatingListView from "../RatingListView/RatingListView";
 
 const favoriteGamesRefreshKey = 1;
-// const queuedGamesRefreshKey = 2;
+const queuedGamesRefreshKey = 2;
 
 const UserPage = () => {
 
@@ -18,7 +18,7 @@ const UserPage = () => {
   const username: string = userInfo.username;
   const email: string = userInfo.email;
   const favoritesEndpoint: string = "http://localhost:8080/api/favorites/get/all/" + username;
-  // const queueEndpoint: string = "http://localhost:8080/api/queue/get/all/" + username;
+  const queueEndpoint: string = "http://localhost:8080/api/queue/get/all/" + username;
   const ratingEndpoint: string = "http://localhost:8080/api/rating/get/user/" + username;
 
 
@@ -39,15 +39,15 @@ const UserPage = () => {
           onUserPage={true} 
           gameCardApiUrl={favoritesEndpoint} />
         </div>
-        {/* <div className="list-view">
+        <div className="list-view">
           <h3 className="queue">Min Kø</h3>
           <ListView 
           categoriesToFilter={[]}
           searchInput=""
-          refreshKey={favoriteGamesRefreshKey}
-          isOnUserPage={true} 
+          refreshKey={queuedGamesRefreshKey}
+          onUserPage={true} 
           gameCardApiUrl={queueEndpoint} />
-        </div> */}
+        </div>
         <div className="list-view">
           <h3 className="ratings">Mine Ratings</h3>
           <RatingListView 
