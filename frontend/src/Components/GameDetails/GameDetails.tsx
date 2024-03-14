@@ -12,12 +12,11 @@ import individuell from "../../Media/Individuell.png";
 import teambuilding from "../../Media/Teambuilding.png";
 import RateButton from "../Rating/RateButton";
 import RatingListView from "../RatingListView/RatingListView";
-import { categories } from "../CategoryBox/utils/categories";
 import FavoriteButton from "../Favorite/FavoriteButton";
 import Timer from "./Timer";
-import { GameCard } from "../GameCard/GameCard";
 import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
 import QueueButton from "../Queue/QueueButton";
+import ShareButton from "../Share/ShareButton";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -61,6 +60,7 @@ export function GameDetails({ game }: GameDetailsProps) {
               <h1 className="titleDetail">{game.title}</h1>
               <div className="gameDetailsButtons">
                 <GameCardDeleteButton gameId={+game.id}></GameCardDeleteButton>
+                <ShareButton gameId={+game.id}/>
                 <QueueButton gameId={+game.id}/>
                 <FavoriteButton gameId={+game.id}></FavoriteButton>
               </div>
