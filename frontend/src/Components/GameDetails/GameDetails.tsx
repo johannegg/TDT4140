@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "./GameDetails.css";
 import familie from "../../Media/Familie.png";
 import fest from "../../Media/Fest.png";
@@ -13,9 +13,11 @@ import teambuilding from "../../Media/Teambuilding.png";
 import RateButton from "../Rating/RateButton";
 import RatingListView from "../RatingListView/RatingListView";
 import FavoriteButton from "../Favorite/FavoriteButton";
+import { GiFlyingFlag } from "react-icons/gi";
 import Timer from "./Timer";
 import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
 import QueueButton from "../Queue/QueueButton";
+import ReportForm from "../ReportForm/ReportForm";
 import ShareButton from "../Share/ShareButton";
 
 type CategoryMappedImg = {
@@ -48,6 +50,20 @@ type GameDetailsProps = {
 
 export function GameDetails({ game }: GameDetailsProps) {
   const firstCategory = game.categories[0];
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    // Open the popup only if the user is logged in
+    if (!localStorage.getItem("userInfo")) {
+      alert("Du må være logget inn for å rapportere et spill");
+      return;
+    }
+    setPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupOpen(false);
+  };
   const imageSrc = mappedImg[firstCategory];
   const ratingEndpoint: string =
     "http://localhost:8080/api/rating/get/gamecard/" + game.id;
@@ -91,12 +107,16 @@ export function GameDetails({ game }: GameDetailsProps) {
               ))}
             </div>
             <div className="descriptionDetail">{game.description}</div>
+            <GiFlyingFlag className="reportFlag" onClick={handleButtonClick} />
           </div>
           <div className="rules">{game.rules}</div>
         </div>
         <div className="imgContainer">
           <img src={imageSrc} alt="img" className="imgDetails" />
         </div>
+        {isPopupOpen && (
+          <ReportForm onClose={handleClosePopup} gameCardId={+game.id} />
+        )}
       </div>
       <div className="commentsTimerContainer">
         <div className="commentsContainer">

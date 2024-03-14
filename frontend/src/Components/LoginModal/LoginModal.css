@@ -76,6 +76,7 @@ p {
   color: rgb(111, 171, 194);
 }
 .signupButton:hover{
+  cursor: pointer;
   color: rgb(69, 156, 190);
   text-decoration: underline;
 }
