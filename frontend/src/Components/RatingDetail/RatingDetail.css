@@ -49,3 +49,14 @@
   align-items: center;
   padding: 0px;
 }
+
+.reportFlag {
+  margin-top: 2%;
+  margin-left: 90%;
+  color: grey;
+  font-size: x-large;
+}
+
+.reportFlag:hover{
+  cursor: pointer;
+}

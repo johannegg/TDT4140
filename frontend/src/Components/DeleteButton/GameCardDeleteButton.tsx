@@ -57,6 +57,9 @@ const GameCardDeleteButton = ({
                     }
                     alert("Lek slettet!");
                     window.location.reload();
+                    if (window.location.pathname === `/spill/${gameId}`) {
+                        window.location.href = "/";
+                    }
                 })
             )
             .catch((error) => {
