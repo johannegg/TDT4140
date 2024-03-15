@@ -27,7 +27,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "gamecard_id"}),
+        @UniqueConstraint(columnNames = { "user_id", "gamecard_id" }),
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
 })
@@ -79,6 +79,16 @@ public class User {
     @JoinTable(name = "queue", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gamecard_id"))
     @OrderColumn(name = "order_index")
     private List<GameCard> queue = new ArrayList<>();
+
+    // One-to-Many relationship with Notification for sent notifications
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Notification> sentNotifications;
+
+    // One-to-Many relationship with Notification for received notifications
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Notification> receivedNotifications;
 
     // Constructors
     public User() {
@@ -189,5 +199,21 @@ public class User {
 
     public void setQueue(List<GameCard> queue) {
         this.queue = queue;
+    }
+
+    public Set<Notification> getSentNotifications() {
+        return sentNotifications;
+    }
+
+    public void setSentNotifications(Set<Notification> sentNotifications) {
+        this.sentNotifications = sentNotifications;
+    }
+
+    public Set<Notification> getReceivedNotifications() {
+        return receivedNotifications;
+    }
+
+    public void setReceivedNotifications(Set<Notification> receivedNotifications) {
+        this.receivedNotifications = receivedNotifications;
     }
 }

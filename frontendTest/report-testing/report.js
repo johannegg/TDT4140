@@ -105,36 +105,6 @@ function deleteCommentReport() {
         });
 }
 
-{/* <div>
-                    <h2>Send Card Report</h2>
-
-                    <input type="number" id="send-gamecard-id" placeholder="Gamecard ID" min="1"><br>
-                    <select id="send-gamecard-reason" multiple>
-                        <option value="UPASSENDE">UPASSENDE</option>
-                        <option value="TERRORISME">TERRORISME</option>
-                        <option value="STØTENDE">STØTENDE</option>
-                        <option value="ANNET">ANNET</option>
-                    </select><br>
-                    <textarea id="send-gamecard-comment" placeholder="Comment"></textarea><br>
-                    <button onclick="sendGameCardReport()">Send Card Report</button>
-                </div>
-                <div>
-                    <h2>Send Comment Report</h2>
-
-                    
-                    <input type="text" id="send-rating-gamecard-id" placeholder="Gamecard ID"><br>
-                    <input type="text" id="send-rating-user-id" placeholder="Rating User ID"><br>
-
-                    <select id="send-rating-reason" multiple>
-                        <option value="UPASSENDE">UPASSENDE</option>
-                        <option value="TERRORISME">TERRORISME</option>
-                        <option value="STØTENDE">STØTENDE</option>
-                        <option value="ANNET">ANNET</option>
-                    </select><br>
-                    <textarea id="send-rating-comment" placeholder="Comment"></textarea><br>
-                    <button onclick="sendCommentReport()">Send Comment Report</button>
-                </div> */}
-
 function sendGameCardReport() {
     const gameCardId = document.getElementById('send-gamecard-id').value;
     const reason = document.getElementById('send-gamecard-reason').value;    

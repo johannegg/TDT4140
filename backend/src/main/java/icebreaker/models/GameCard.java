@@ -43,18 +43,18 @@ public class GameCard {
     private String description;
 
     @NotBlank(message = "Brukernavn kan ikke være tomt")
-	@Size(min = 3, max = 20, message = "Brukernavn må være mellom 3 og 20 tegn")
+    @Size(min = 3, max = 20, message = "Brukernavn må være mellom 3 og 20 tegn")
     private String username;
 
     @DecimalMin(value = "1", message = "Gjenomsnittlig vurdering må være minst 1")
     @DecimalMax(value = "5", message = "Gjenomsnittlig vurdering må være maks 5")
     private Double averageRating;
-    
+
     // One-to-Many relationship with Rating
     @OneToMany(mappedBy = "gameCard", cascade = { CascadeType.ALL }, orphanRemoval = true)
     @JsonManagedReference
     private Set<Rating> ratings;
-    
+
     // One-to-Many relationship with CommentReport
     @OneToMany(mappedBy = "gameCard", cascade = { CascadeType.ALL }, orphanRemoval = true)
     @JsonManagedReference
@@ -64,6 +64,11 @@ public class GameCard {
     @ManyToMany
     @JoinTable(name = "gamecard_category", joinColumns = @JoinColumn(name = "gamecard_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
+
+    // One-to-Many relationship with Notification
+    @OneToMany(mappedBy = "gameCard", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Notification> notifications = new HashSet<>();
 
     // Constructors
     public GameCard() {
@@ -100,7 +105,7 @@ public class GameCard {
         ratings.add(rating);
         calculateAverageRating();
     }
-    
+
     public void removeRating(Rating rating) {
         ratings.remove(rating);
         calculateAverageRating();
@@ -177,5 +182,13 @@ public class GameCard {
 
     public void setGameCardReports(Set<GameCardReport> gameCardReports) {
         this.gameCardReports = gameCardReports;
+    }
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
     }
 }

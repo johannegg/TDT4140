@@ -1,6 +1,7 @@
 package icebreaker.models.composite;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class RatingId implements Serializable {
     // Composite primary key for Rating
@@ -29,5 +30,19 @@ public class RatingId implements Serializable {
 
     public void setGameCard(Long gameCard) {
         this.gameCard = gameCard;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RatingId that = (RatingId) o;
+        return Objects.equals(user, that.user) &&
+               Objects.equals(gameCard, that.gameCard);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, gameCard);
     }
 }
