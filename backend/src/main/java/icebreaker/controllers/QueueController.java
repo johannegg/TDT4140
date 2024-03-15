@@ -1,6 +1,8 @@
 package icebreaker.controllers;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,8 +48,10 @@ public class QueueController {
                     .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
-        List<GameCardResponse> response = user.getQueue().stream().map(gameCard -> new GameCardResponse(gameCard))
-                .toList();
+        List<GameCardResponse> response = user.getQueue().stream()
+                .map(gameCard -> new GameCardResponse(gameCard))
+                .collect(Collectors.toList());
+        Collections.reverse(response);
         return ResponseEntity.ok(response);
     }
 

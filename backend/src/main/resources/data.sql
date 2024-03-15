@@ -348,3 +348,43 @@ FROM users u, ratings r
 WHERE
     u.username = 'moduser'
     AND r.comment = 'Helt ok.';
+
+-- Add notifications
+INSERT IGNORE INTO
+    notifications (
+        sender_id, receiver_id, gamecard_id, comment, timestamp
+    )
+SELECT u1.id, u2.id, g.id, 'Sjekk ut den her.', '2024-03-14 18:25:06.820740'
+FROM users u1, users u2, gamecards g
+WHERE
+    u1.username = 'normaluser'
+    AND u2.username = 'moduser'
+    AND g.title = 'Beer pong'
+UNION ALL
+SELECT u1.id, u2.id, g.id, 'Anbefaler denne!', '2024-03-14 18:25:12.820740'
+FROM users u1, users u2, gamecards g
+WHERE
+    u1.username = 'normaluser'
+    AND u2.username = 'moduser'
+    AND g.title = 'Mariekjeks'
+UNION ALL
+SELECT u1.id, u2.id, g.id, 'Dette var gøy!', '2024-03-14 18:25:18.820740'
+FROM users u1, users u2, gamecards g
+WHERE
+    u1.username = 'moduser'
+    AND u2.username = 'normaluser'
+    AND g.title = 'Kast ring'
+UNION ALL
+SELECT u1.id, u2.id, g.id, 'Prøv denne, ellers... >:(', '2024-03-14 18:25:26.820740'
+FROM users u1, users u2, gamecards g
+WHERE
+    u1.username = 'adminuser'
+    AND u2.username = 'normaluser'
+    AND g.title = 'Kast ring'
+UNION ALL
+SELECT u1.id, u2.id, g.id, 'Verdt å prøve', '2024-03-14 18:25:32.820740'
+FROM users u1, users u2, gamecards g
+WHERE
+    u1.username = 'moduser'
+    AND u2.username = 'normaluser'
+    AND g.title = 'Babels tårn';
