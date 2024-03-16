@@ -20,7 +20,7 @@ interface ReportData {
   gameCardId: number;
 }
 
-const Report: React.FC<ReportFormProps> = ({
+const ReportForm: React.FC<ReportFormProps> = ({
   onClose,
   gameCardId,
   username,
@@ -163,7 +163,7 @@ const Report: React.FC<ReportFormProps> = ({
                   />
                   <label
                     htmlFor={`custom-radio-${index}`}
-                    className="categoryLabel"
+                    className="reasonLabel"
                   >
                     {reason}
                   </label>
@@ -182,11 +182,11 @@ const Report: React.FC<ReportFormProps> = ({
               placeholder="Skriv inn en rapportering"
             />
           </div>
-          <button className="submitReport">Rapporter</button>
+          <button className="submitReport">Send inn rapport</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default Report;
+export default ReportForm;

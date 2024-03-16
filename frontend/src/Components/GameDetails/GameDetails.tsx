@@ -18,6 +18,7 @@ import Timer from "./Timer";
 import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
 import QueueButton from "../Queue/QueueButton";
 import ReportForm from "../ReportForm/ReportForm";
+import ShareButton from "../Share/ShareButton";
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -75,6 +76,7 @@ export function GameDetails({ game }: GameDetailsProps) {
               <h1 className="titleDetail">{game.title}</h1>
               <div className="gameDetailsButtons">
                 <GameCardDeleteButton gameId={+game.id}></GameCardDeleteButton>
+                <ShareButton gameId={+game.id}/>
                 <QueueButton gameId={+game.id}/>
                 <FavoriteButton gameId={+game.id}></FavoriteButton>
               </div>

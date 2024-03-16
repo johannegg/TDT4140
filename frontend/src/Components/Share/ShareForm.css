@@ -1,9 +1,4 @@
-.comment {
-  resize: none;
-  margin-bottom: 20px;
-}
-
-.submitReport {
+.share {
   background-color: #3498db;
   color: #fff;
   padding: 10px 20px;
@@ -14,6 +9,10 @@
   transition: background-color 0.3s ease;
 }
 
-.submitReport:hover {
+.share:hover {
   background-color: #2980b9;
+}
+
+.shareInput{
+    width: 490px;
 }

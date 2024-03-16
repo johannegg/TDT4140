@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import "./ListView.css";
 import { GameCard } from "../GameCard/GameCard";
-import ReportForm from "../ReportForm/ReportForm";
+
 
 type GameCardType = {
   id: string;
