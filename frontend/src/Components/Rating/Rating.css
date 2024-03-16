@@ -1,6 +1,6 @@
 .close-button {
   position: relative;
-  margin-left: 400px;
+  margin-left: 97%;
   top: 5px;
   right: 5px;
   cursor: pointer;
@@ -9,6 +9,7 @@
 .comment {
   resize: none;
   margin-bottom: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .popup {
@@ -22,6 +23,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   line-height: 1.5;
+  z-index: 1;
 }
 
 .submitRating {
