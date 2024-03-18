@@ -205,57 +205,57 @@ WHERE (
 -- Ratings standard data for users and gamecards
 INSERT IGNORE INTO
     ratings (
-        score, comment, user_id, gamecard_id
+        score, comment, user_id, gamecard_id, timestamp
     )
-SELECT 4, 'Gøy!', u.id, g.id
+SELECT 4, 'Gøy!', u.id, g.id, '2024-02-16 18:25:06.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'adminuser'
     AND g.title = 'Beer pong'
 UNION ALL
-SELECT 5, 'Fantastisk!', u.id, g.id
+SELECT 5, 'Fantastisk!', u.id, g.id, '2024-02-16 18:25:12.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'moduser'
     AND g.title = 'Beer pong'
 UNION ALL
-SELECT 3, 'Helt ok.', u.id, g.id
+SELECT 3, 'Helt ok.', u.id, g.id, '2024-02-16 18:25:18.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'normaluser'
     AND g.title = 'Beer pong'
 UNION ALL
-SELECT 5, 'Dette var gøy!', u.id, g.id
+SELECT 5, 'Dette var gøy!', u.id, g.id, '2024-02-16 18:25:24.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'normaluser'
     AND g.title = 'Mariekjeks'
 UNION ALL
-SELECT 2, NULL, u.id, g.id
+SELECT 2, NULL, u.id, g.id, '2024-02-16 18:25:32.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'moduser'
     AND g.title = 'Mariekjeks'
 UNION ALL
-SELECT 1, 'Dårlig, alle mobba meg :(', u.id, g.id
+SELECT 1, 'Dårlig, alle mobba meg :(', u.id, g.id, '2024-02-16 18:25:38.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'moduser'
     AND g.title = 'Kjenn smaken'
 UNION ALL
-SELECT 3, 'Meh', u.id, g.id
+SELECT 3, 'Meh', u.id, g.id, '2024-02-16 18:25:42.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'moduser'
     AND g.title = 'Kast ring'
 UNION ALL
-SELECT 5, 'Kjempestas med familien', u.id, g.id
+SELECT 5, 'Kjempestas med familien', u.id, g.id, '2024-02-16 18:28:06.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'adminuser'
     AND g.title = 'Kast ring'
 UNION ALL
-SELECT 5, 'Nå snakker vi!!', u.id, g.id
+SELECT 5, 'Nå snakker vi!!', u.id, g.id, '2024-02-16 18:29:06.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'moduser'

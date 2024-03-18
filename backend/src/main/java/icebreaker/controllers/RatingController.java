@@ -1,5 +1,6 @@
 package icebreaker.controllers;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +49,11 @@ public class RatingController {
                     .body(new MessageResponse("Finner ikke bruker med det brukernavnet"));
         }
 
+        List<Rating> ratings = new ArrayList<>(user.getRatings().stream().toList());
+        ratings.sort((a, b) -> b.getTimestamp().compareTo(a.getTimestamp()));
+
         List<RatingResponse> response = new ArrayList<>(
-                user.getRatings().stream().map(RatingResponse::new).toList());
-        response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
+                ratings.stream().map(RatingResponse::new).toList());
         return ResponseEntity.ok(response);
     }
 
@@ -64,9 +67,11 @@ public class RatingController {
                     .body(new MessageResponse("Finner ikke bli-kjent lek med den ID-en"));
         }
 
+        List<Rating> ratings = new ArrayList<>(gameCard.getRatings().stream().toList());
+        ratings.sort((a, b) -> b.getTimestamp().compareTo(a.getTimestamp()));
+
         List<RatingResponse> response = new ArrayList<>(
-                gameCard.getRatings().stream().map(RatingResponse::new).toList());
-        response.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
+                ratings.stream().map(RatingResponse::new).toList());
         return ResponseEntity.ok(response);
     }
 
@@ -92,7 +97,8 @@ public class RatingController {
                     .body(new MessageResponse("Brukeren har allerede gitt en vurdering på denne bli-kjent leken"));
         }
 
-        Rating rating = new Rating(ratingAddRequest.getScore(), ratingAddRequest.getComment(), user, gameCard);
+        LocalDateTime timestamp = LocalDateTime.now();
+        Rating rating = new Rating(ratingAddRequest.getScore(), ratingAddRequest.getComment(), user, gameCard, timestamp);
         gameCard.addRating(rating);
         gameCardRepository.save(gameCard);
 

@@ -1,5 +1,6 @@
 package icebreaker.models;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -16,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -42,6 +44,9 @@ public class Rating {
     @Size(max = 300, message = "Kommentaren kan ha maks 300 tegn")
     private String comment;
 
+    @NotNull(message = "Tidspunkt kan ikke være tomt")
+    private LocalDateTime timestamp;
+
     // One-to-Many relationship with CommentReport
     @OneToMany(mappedBy = "rating", cascade = { CascadeType.ALL }, orphanRemoval = true)
     @JsonManagedReference
@@ -51,11 +56,12 @@ public class Rating {
     public Rating() {
     }
 
-    public Rating(int score, String comment, User user, GameCard gameCard) {
+    public Rating(int score, String comment, User user, GameCard gameCard, LocalDateTime timestamp) {
         this.score = score;
         this.comment = comment;
         this.user = user;
         this.gameCard = gameCard;
+        this.timestamp = timestamp;
     }
 
     // Getters and setters
@@ -97,5 +103,13 @@ public class Rating {
 
     public void setCommentReports(Set<CommentReport> commentReports) {
         this.commentReports = commentReports;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }
