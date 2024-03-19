@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { GrAdd } from "react-icons/gr";
 import { IoMdCheckmark } from "react-icons/io";
 import { useLocation } from "react-router-dom";
+import { useDarkMode } from "../../Contexts/DarkModeContext"; 
 
 const queueApiUrl = "http://localhost:8080/api/queue";
 
@@ -100,6 +101,8 @@ const QueueButton = ({ gameId }: QueueButtonProps) => {
     }
   };
 
+  const { isDarkMode } = useDarkMode();
+
   return (
     <div>
       {isInQueue ? <IoMdCheckmark
@@ -108,7 +111,7 @@ const QueueButton = ({ gameId }: QueueButtonProps) => {
           event.stopPropagation();
           handleQueueToggle();
         }}
-        color={"black"}
+        color={isDarkMode ? "green" : "black"}
         size={30}
         style={{ cursor: "pointer" }}
       /> : <GrAdd
@@ -117,7 +120,7 @@ const QueueButton = ({ gameId }: QueueButtonProps) => {
           event.stopPropagation();
           handleQueueToggle();
         }}
-        color={"black"}
+        color={isDarkMode ? "green" : "black"}
         size={30}
         style={{ cursor: "pointer" }}
       />}

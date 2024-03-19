@@ -1,0 +1,28 @@
+.sidebar.dark {
+  height: 80vh;
+  width: 20%;
+  min-height: 600px;
+  padding: 8px;
+  padding-top: 15px;
+  margin-top: 10px;
+  background-color: rgb(1, 59, 81);
+  border-radius: 10px;
+  margin-left: 1.5%;
+  font-size: x-large;
+  font-weight: 800;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarSubSection {
+  font-size: large;
+  font-weight: 600;
+  color: rgb(225, 247, 255);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.sidebarSubSection:hover {
+  color: rgb(255, 255, 255);
+}

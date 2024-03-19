@@ -1,0 +1,86 @@
+.gameContainer.dark {
+    flex-direction: row; 
+    flex-direction: column;
+    width: 1000px;
+    margin: auto;
+    background-color: #151730;
+
+  }
+
+  .backGround.dark {
+    background-color: #171830; 
+  }
+  
+  .topSection.dark {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .text.dark {
+    margin-right: 30px;
+  }
+  
+  .detailsHeader.dark {
+    width: 70%;
+    border: solid #2A2A2A 2px; 
+    padding: 15px;
+    border-radius: 40px;
+    background-color: #6066b1;
+    padding-bottom: 30px;
+  }
+  
+  .imgContainer.dark {
+    position: relative;
+    background-color: #6066b1; 
+  }
+  
+  .imgDetails.dark {
+    width: 300px;
+    background-color: #6066b1;
+  }
+  
+  .categoriesDetail.dark, .avgrating.dark {
+    font-weight: 500;
+    color: #BDBDBD;
+  }
+  
+  .rules.dark, .commentsContainer.dark {
+    padding-top: 20px;
+    margin-left: 10px;
+    color: #BDBDBD;
+    background-color: #6066b1;
+  }
+  
+  .commentsTimerContainer.dark {
+    display: flex;
+    align-items: flex-start;
+    background-color: #6066b1; 
+  }
+  
+  .categories.dark {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.1rem;
+  }
+  
+  .category.dark {
+    border-radius: 99999px;
+    padding: 0.2rem 0.5rem;
+    background-color: #37474F;
+  }
+  
+  .topRow.dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .gameDetailsButtons.dark {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import "./GamePage.css";
+import "./DarkGamePage.css";
 import { GameDetails } from "../../Components/GameDetails/GameDetails";
 import LoginModal from "../../Components/LoginModal/LoginModal";
 import SignupModal from "../../Components/SignupModal/SignupModal";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 type RouteParams = {
   gameId: string;
@@ -24,6 +26,7 @@ const GamePage = () => {
   const [game, setGame] = useState<Game | null>(null);
   const [loginModal, setLoginModal] = useState(false);
   const [signupModal, setSignupModal] = useState(false);
+  const {isDarkMode} = useDarkMode()
 
   useEffect(() => {
     if (gameId) {
@@ -71,10 +74,12 @@ const GamePage = () => {
 
   return (
     <>
+      <div className={`mainBody ${isDarkMode ? "dark" : ""}`}>
       <Link to={"/"}>
         <button className="backButton">Hjem</button>
       </Link>
       <Navbar toggleLoginModal={toggleLoginModal}></Navbar>
+      </div>
       <GameDetails game={game}></GameDetails>
       <LoginModal
         visibility={loginModal}

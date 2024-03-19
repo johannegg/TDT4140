@@ -1,0 +1,28 @@
+.ratingViewUserPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #E0E0E0; 
+}
+
+.ratingViewUserPage .profilePageDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    color: #E0E0E0;
+}
+
+.ratingViewUserPage .profilePageDiv .ratingScore {
+    padding-bottom: 5px;
+    color: #E0E0E0;
+}
+
+.ratingViewUserPage .profilePageDiv .container {
+    width: 80%;
+    border: 3px solid #627D98;
+    background-color: #2D2D2D;
+}

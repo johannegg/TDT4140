@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./HomePage.css";
+import "./DarkHomePage.css" 
 import Navbar from "../../Components/Navbar/Navbar";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import ListView from "../../Components/ListView/ListView";
 import LoginModal from "../../Components/LoginModal/LoginModal";
 import SignupModal from "../../Components/SignupModal/SignupModal";
 import { GameForm } from "../../Components/GameForm/GameForm";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 export default function HomePage() {
   const [loginModal, setLoginModal] = useState(false);
@@ -15,6 +17,7 @@ export default function HomePage() {
  
   const [searchInput, setSearchInput] = useState("");
   const [checkedCategories, setCheckedCategories] = useState<Array<string>>([]);
+  const {isDarkMode} = useDarkMode();
 
   const toggleLoginModal = () => {
     // localStorage.clear();
@@ -38,7 +41,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar toggleLoginModal={toggleLoginModal}></Navbar>
-      <div className="mainBody">
+      <div className={`mainBody ${isDarkMode ? "dark" : ""}`}>
         <Sidebar
           toggleFormModal={toggleFormModal}
           handleChange={handleChange}

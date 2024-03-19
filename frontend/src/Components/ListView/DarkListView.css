@@ -1,0 +1,39 @@
+.listView.dark {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    grid-gap: 16px;
+    align-items: start;
+    padding: 8px;
+    padding-top: 0px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: 800;
+    color: #E0E0E0; 
+    width: 90%;
+    background-color: #1E1E1E; 
+  }
+  
+  .listViewUserPage.dark {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 1%;
+    padding: 8px;
+    /* border: 1.25px solid rgb(146, 143, 143);
+    border-radius: 10px; */
+    font-size: large;
+    font-weight: 800;
+    color: rgb(22, 31, 34);
+    width: 94%;
+    height: 10%;
+  }
+  
+  .categoryCheck {
+    width: 14px;
+  }
+  

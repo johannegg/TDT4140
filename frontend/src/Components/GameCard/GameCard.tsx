@@ -1,5 +1,6 @@
 import React from "react";
 import "./GameCard.css";
+import "./DarkGameCard.css"
 import { Link } from "react-router-dom";
 import familie from "../../Media/Familie.png";
 import fest from "../../Media/Fest.png";
@@ -14,6 +15,10 @@ import individuell from "../../Media/Individuell.png";
 import teambuilding from "../../Media/Teambuilding.png";
 import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
 import QueueButton from "../Queue/QueueButton";
+import { useDarkMode } from "../../Contexts/DarkModeContext"; 
+
+
+
 
 type CategoryMappedImg = {
   [key: string]: string | undefined;
@@ -42,22 +47,25 @@ type GameCardProps = {
   };
 };
 
+
 export function GameCard({ game }: GameCardProps) {
   const categoriesString = game.categories.join(", ");
   const firstCategory = game.categories[0];
   const imageSrc = mappedImg[firstCategory];
   const userInfoString = localStorage.getItem("userInfo");
+  const { isDarkMode } = useDarkMode();
+
   return (
     <Link to={`/spill/${game.id}`} style={{ textDecoration: "none" }}>
-      <div className="gameCard">
-        <div className="gameCardButtonPanel">
+      <div className={`gameCard ${isDarkMode ? "dark" : ""}`}>
+        <div className={`gameCardButtonPanel ${isDarkMode ? "dark" : ""}`}>
           <GameCardDeleteButton gameId={+game.id} />
           {userInfoString && <QueueButton gameId={+game.id}/>}
           {userInfoString && <FavoriteButton gameId={+game.id}/>}
         </div>
-        <img src={imageSrc} alt="img" className="imgCard" />
-        <h2 className="title">{game.title}</h2>
-        <h3 className="rating">
+        <img src={imageSrc} alt="img" className={`imgCard ${isDarkMode ? "dark" : ""}`} />
+        <h2 className={`title ${isDarkMode ? "dark" : ""}`}>{game.title}</h2>
+        <h3 className={`rating ${isDarkMode ? "dark" : ""}`}>
           Rating:
           {game.averageRating !== null ? (
             <>
@@ -77,8 +85,8 @@ export function GameCard({ game }: GameCardProps) {
             <span style={{ marginLeft: '5px', color: 'gray' }}>Ingen</span>
           )}
         </h3>
-        <div className="cardCategories">{categoriesString}</div>
-        <div className="cardDescription">{game.description}</div>
+        <div className={`cardCategories ${isDarkMode ? "dark" : ""}`}>{categoriesString}</div>
+        <div className={`cardDescription ${isDarkMode ? "dark" : ""}`}>{game.description}</div>
       </div>
     </Link>
   );
