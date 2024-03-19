@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./GameDetails.css";
+import "./DarkGameDetails.css"
 import familie from "../../Media/Familie.png";
 import fest from "../../Media/Fest.png";
 import barn from "../../Media/Barn.png";
@@ -16,6 +17,8 @@ import FavoriteButton from "../Favorite/FavoriteButton";
 import { GiFlyingFlag } from "react-icons/gi";
 import Timer from "./Timer";
 import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
+import { useDarkMode } from "../../Contexts/DarkModeContext"; 
+
 import QueueButton from "../Queue/QueueButton";
 import ReportForm from "../ReportForm/ReportForm";
 import ShareButton from "../Share/ShareButton";
@@ -48,6 +51,8 @@ type GameDetailsProps = {
   };
 };
 
+
+
 export function GameDetails({ game }: GameDetailsProps) {
   const firstCategory = game.categories[0];
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -65,16 +70,17 @@ export function GameDetails({ game }: GameDetailsProps) {
     setPopupOpen(false);
   };
   const imageSrc = mappedImg[firstCategory];
+  const { isDarkMode } = useDarkMode();
   const ratingEndpoint: string =
     "http://localhost:8080/api/rating/get/gamecard/" + game.id;
   return (
-    <div className="gameContainer">
-      <div className="topSection">
-        <div className="text">
-          <div className="detailsHeader">
-            <div className="topRow">
-              <h1 className="titleDetail">{game.title}</h1>
-              <div className="gameDetailsButtons">
+    <div className={`gameContainer ${isDarkMode ? "dark" : ""}`}>
+      <div className={`topSection ${isDarkMode ? "dark" : ""}`}>
+        <div className={`text ${isDarkMode ? "dark" : ""}`}>
+          <div className={`detailsHeader ${isDarkMode ? "dark" : ""}`}>
+            <div className={`topRow ${isDarkMode ? "dark" : ""}`}>
+              <h1 className={`titleDetail ${isDarkMode ? "dark" : ""}`}>{game.title}</h1>
+              <div className={`gameDetailsButtons ${isDarkMode ? "dark" : ""}`}>
                 <GameCardDeleteButton gameId={+game.id}></GameCardDeleteButton>
                 <ShareButton gameId={+game.id}/>
                 <QueueButton gameId={+game.id}/>
@@ -101,25 +107,25 @@ export function GameDetails({ game }: GameDetailsProps) {
                 <span style={{ marginLeft: "5px", color: "gray" }}>Ingen</span>
               )}
             </h3>
-            <div className="categories">
+            <div className={`categories ${isDarkMode ? "dark" : ""}`}>
               {game.categories.map((cat) => (
-                <p className="category">{cat}</p>
+                <p className={`category ${isDarkMode ? "dark" : ""}`}>{cat}</p>
               ))}
             </div>
+            <div className={`descriptionDetail ${isDarkMode ? "dark" : ""}`}>{game.description}</div>
             <div className="descriptionDetail">{game.description}</div>
             <GiFlyingFlag className="reportFlag" onClick={handleButtonClick} />
           </div>
-          <div className="rules">{game.rules}</div>
+          <div className={`rules ${isDarkMode ? "dark" : ""}`}>{game.rules}</div>
         </div>
-        <div className="imgContainer">
-          <img src={imageSrc} alt="img" className="imgDetails" />
-        </div>
+        <div className={`imgContainer ${isDarkMode ? "dark" : ""}`}>
+          <img src={imageSrc} alt="img" className={`imgDetails ${isDarkMode ? "dark" : ""}`} />        </div>
         {isPopupOpen && (
           <ReportForm onClose={handleClosePopup} gameCardId={+game.id} />
         )}
       </div>
-      <div className="commentsTimerContainer">
-        <div className="commentsContainer">
+      <div className={`commentsTimerContainer ${isDarkMode ? "dark" : ""}`}>
+        <div className={`commentsContainer ${isDarkMode ? "dark" : ""}`}>
           <RateButton game={game}></RateButton>
           <RatingListView ratingApiUrl={ratingEndpoint}></RatingListView>
         </div>

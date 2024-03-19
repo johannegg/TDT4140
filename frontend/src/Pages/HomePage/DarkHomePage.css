@@ -1,0 +1,10 @@
+.App.dark {
+  text-align: center;
+}
+
+.mainBody.dark {
+  width: 100vw;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+}

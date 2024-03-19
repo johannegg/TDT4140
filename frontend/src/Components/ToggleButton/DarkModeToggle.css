@@ -1,0 +1,54 @@
+.dark-mode-toggle {
+    position: relative;
+    display: inline-block;
+    width: 80px; 
+    height: 40px; 
+  }
+  
+  .dark-mode-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-track {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 40px; 
+  }
+  
+  .toggle-indicator {
+    position: absolute;
+    height: 32px;
+    width: 32px; 
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+  }
+  
+  input:checked + .toggle-track .toggle-indicator {
+    transform: translateX(44px); 
+    background-color: #4D4D4D; 
+  }
+  
+  .toggle-track {
+    background-color: #9E9E9E; 
+  }
+  
+  input:checked + .toggle-track {
+    background-color: #757575; 
+  }
+  
+  

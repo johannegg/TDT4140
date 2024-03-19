@@ -1,5 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import "./ListView.css";
+import "./DarkListView.css"
+import { useDarkMode } from "../../Contexts/DarkModeContext";
+
 import { GameCard } from "../GameCard/GameCard";
 
 
@@ -26,8 +29,9 @@ const ListView = ({
   onUserPage,
   gameCardApiUrl,
 }: ListViewProps) => {
+  const { isDarkMode } = useDarkMode(); 
   const [gameCards, setGameCards] = useState<GameCardType[]>([]);
-  const listViewClassName = onUserPage ? "listViewUserPage" : "listView";
+  const listViewClassName = `${onUserPage ? "listViewUserPage" : "listView"} ${isDarkMode ? "dark" : ""}`;
   const fetchGameCards = useCallback(() => {
     let headers = undefined;
     if (onUserPage) {
@@ -70,7 +74,7 @@ const ListView = ({
       (categoriesToFilter.length === 0 ||
         checkValidGame(game.categories, categoriesToFilter))
   );
-
+   
   return (
     <>
       <div className={listViewClassName}>

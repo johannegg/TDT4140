@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import CategoryBox from "../CategoryBox/CategoryBox";
 import "./Sidebar.css";
+import "./DarkSidebar.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 interface SidebarProps {
   toggleFormModal: () => void;
@@ -17,6 +19,7 @@ const Sidebar = (props: SidebarProps) => {
   
   const [searchInput, setSearchInput] = useState("");
   const isLoggedIn = localStorage.getItem("userInfo") !== null;
+  const { isDarkMode } = useDarkMode();
 
   const handleToggleFormModal = () => {
     if (localStorage.getItem("userInfo") === null) {
@@ -32,7 +35,7 @@ const Sidebar = (props: SidebarProps) => {
   };
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isDarkMode ? "dark" : ""}`}>
       {isLoggedIn ? (
         <>
           <Link to="/profil" className="sidebarSubSection">Profil</Link>

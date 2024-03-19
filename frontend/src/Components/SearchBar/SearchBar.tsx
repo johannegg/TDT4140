@@ -1,5 +1,8 @@
 import React from "react";
 import "./SearchBar.css";
+import "./DarkSearchBar.css";
+import { useDarkMode } from "../../Contexts/DarkModeContext";
+
 
 interface SearchBarProps {
   handleChange: (value: string) => void;
@@ -11,8 +14,10 @@ const SearchBar = ({ handleChange, searchInput }: SearchBarProps) => {
     handleChange(event.target.value);
   };
 
+const { isDarkMode } = useDarkMode();
+
   return (
-    <div className="search-bar">
+    <div className={`searchbar ${isDarkMode ? "dark" : ""}`}>
       <input
         className="search-input"
         type="search"

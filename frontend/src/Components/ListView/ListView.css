@@ -1,6 +1,6 @@
 .listView {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust minmax() as needed */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
   grid-gap: 16px;
   align-items: start;
   padding: 8px;
@@ -15,7 +15,6 @@
 }
 
 .listViewUserPage {
-  /* background-color: rgb(255, 225, 225); */
   display: flex;
   flex-wrap: wrap;
   align-items: center;
