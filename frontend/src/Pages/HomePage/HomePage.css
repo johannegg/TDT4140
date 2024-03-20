@@ -4,6 +4,7 @@
 
 .mainBody {
   width: 100vw;
+  min-height: calc(100vh - 116px);
   display: flex;
   flex-direction: row;
 }

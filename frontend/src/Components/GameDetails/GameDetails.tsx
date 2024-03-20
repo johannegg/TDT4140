@@ -17,7 +17,7 @@ import FavoriteButton from "../Favorite/FavoriteButton";
 import { GiFlyingFlag } from "react-icons/gi";
 import Timer from "./Timer";
 import GameCardDeleteButton from "../DeleteButton/GameCardDeleteButton";
-import { useDarkMode } from "../../Contexts/DarkModeContext"; 
+import { useDarkMode } from "../../Contexts/DarkModeContext";
 
 import QueueButton from "../Queue/QueueButton";
 import ReportForm from "../ReportForm/ReportForm";
@@ -82,8 +82,8 @@ export function GameDetails({ game }: GameDetailsProps) {
               <h1 className={`titleDetail ${isDarkMode ? "dark" : ""}`}>{game.title}</h1>
               <div className={`gameDetailsButtons ${isDarkMode ? "dark" : ""}`}>
                 <GameCardDeleteButton gameId={+game.id}></GameCardDeleteButton>
-                <ShareButton gameId={+game.id}/>
-                <QueueButton gameId={+game.id}/>
+                <ShareButton gameId={+game.id} />
+                <QueueButton gameId={+game.id} />
                 <FavoriteButton gameId={+game.id}></FavoriteButton>
               </div>
             </div>
@@ -112,9 +112,10 @@ export function GameDetails({ game }: GameDetailsProps) {
                 <p className={`category ${isDarkMode ? "dark" : ""}`}>{cat}</p>
               ))}
             </div>
-            <div className={`descriptionDetail ${isDarkMode ? "dark" : ""}`}>{game.description}</div>
-            <div className="descriptionDetail">{game.description}</div>
-            <GiFlyingFlag className="reportFlag" onClick={handleButtonClick} />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className={`descriptionDetail ${isDarkMode ? "dark" : ""}`}>{game.description}</div>
+              <GiFlyingFlag className="reportFlag" onClick={handleButtonClick} />
+            </div>
           </div>
           <div className={`rules ${isDarkMode ? "dark" : ""}`}>{game.rules}</div>
         </div>

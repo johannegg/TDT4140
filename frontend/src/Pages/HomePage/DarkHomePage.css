@@ -4,6 +4,7 @@
 
 .mainBody.dark {
   width: 100vw;
+  min-height: calc(100vh - 116px);
   background-color: black;
   display: flex;
   flex-direction: row;

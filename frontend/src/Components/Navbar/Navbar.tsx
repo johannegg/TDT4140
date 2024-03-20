@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import DarkModeToggle from '../ToggleButton/DarkModeToggle';
 import { useDarkMode } from '../../Contexts/DarkModeContext';
 
+import NotificationBoxButton from "../NotificationBox/NotificationBoxButton";
 interface NavbarProps {
   toggleLoginModal: () => void;
 }
@@ -20,41 +21,42 @@ const handleLogout = () => {
 };
 
 const Navbar: React.FC<NavbarProps> = (props) => {
-  const {isDarkMode} = useDarkMode();
+  const { isDarkMode } = useDarkMode();
+  const isLoggedIn = localStorage.getItem("userInfo") !== null;
   return (
     <div className={`header ${isDarkMode ? "dark" : ""}`}>
-      <div className="adSpace">
-        Annonsere her? Kontakt ice@breaker.no
+      <div style={{ display: "flex", justifyContent: "right" }}>
+        <div className="adSpace">
+          Annonsere her? Kontakt ice@breaker.no
+        </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="logo">
         <Link to={"/"}>
-          <img src={logoImage} height="100" width="400" alt="Logo" />
+          <img style={{ height:"90px", 
+          width: "400px", 
+          marginTop:"10px",
+          cursor: "hand" }}
+          alt="Logo"
+          src={logoImage} />
         </Link>
       </div>
-      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
-        <div style={{ marginRight: '16px' }}> 
+      <div className="controls">
+        <div style={{ width: "50px", height: "100px", cursor: "pointer" }}>
+          <NotificationBoxButton />
+        </div>
+        <div style={{ width: "80px", 
+        height: "40px", 
+        marginTop: "30px", 
+        marginBottom: "30px", 
+        marginLeft: "10px",
+        marginRight: "15px"}}>
           <DarkModeToggle />
         </div>
-        {localStorage.getItem("userInfo") == null && (
-          <img
-            className="logImg"
-            onClick={props.toggleLoginModal}
-            src={loginn}
-            height="60"
-            alt="Log in"
-            style={{ marginTop: "16px", cursor: "pointer" }}
-          />
-        )}
-        {localStorage.getItem("userInfo") !== null && (
-          <img
-            className="logImg"
-            onClick={handleLogout}
-            src={logout}
-            height="60"
-            alt="Log out"
-            style={{ marginTop: "16px", cursor: "pointer" }}
-          />
-        )}
+        <img style={{ height: "60px", cursor: "pointer" }}
+          onClick={isLoggedIn ? handleLogout : props.toggleLoginModal}
+          src={isLoggedIn ? logout : loginn}
+          alt={isLoggedIn ? "Log out" : "Log in"}
+        />
       </div>
     </div>
   );

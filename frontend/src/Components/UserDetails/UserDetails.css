@@ -26,10 +26,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-items: start;
   padding-left: 5%;
   padding-right: 5%;
   padding-top: 1%;
-  height: 75vh;
+  height: 65vh;
 }
 
 .list-view {
@@ -37,7 +38,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: (50% - 20px);
-  height: 75vh;
+  height: 65vh;
   overflow: auto;
   flex: 1;
   margin: 10px;

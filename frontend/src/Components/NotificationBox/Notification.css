@@ -1,0 +1,96 @@
+.notificationBoxButtonDiv {
+    width: 50px;
+    height: 100px;
+    position: relative;
+    overflow: visible;
+    z-index: 999;
+}
+
+.notificationBoxButton {
+    width: 50px;
+    height: 80px;
+    font-size: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: rgb(111, 171, 194);
+    position: absolute;
+    z-index: 999;
+}
+
+.notificationBoxDiv {
+    min-width: 276px;
+    max-height: 50vh;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%); 
+    border: 3px solid #90b5cf;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: rgb(111, 171, 194);
+    cursor: auto;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.notificationContainer {
+    min-width: 240px;
+    border: 3px solid #90b5cf;
+    background-color: rgb(225, 247, 255);
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    z-index: 999;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.notificationUsername {
+    min-width: 220px;
+    font-weight: 700;
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.notificationComment {
+    min-width: 220px;
+    font-weight: 200;
+    font-size: 15px;
+    color: black;
+    text-decoration: none;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.notificationLink {
+    min-width: 220px;
+    font-size: 15px;
+    color: rgb(111, 171, 194);
+}
+
+
+.notificationBoxDiv::-webkit-scrollbar {
+    width: 10px;
+}
+
+.notificationBoxDiv::-webkit-scrollbar-track {
+    background-color: rgb(111, 171, 194);
+}
+
+.notificationBoxDiv::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.notificationBoxDiv::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -8,6 +8,7 @@ public class NotificationResponse {
     private String receiver;
     private Long gameCardId;
     private String comment;
+    private String gameCardTitle;
 
     public NotificationResponse() {
     }
@@ -17,6 +18,7 @@ public class NotificationResponse {
         this.receiver = notification.getReceiver().getUsername();
         this.gameCardId = notification.getGameCard().getId();
         this.comment = notification.getComment();
+        this.gameCardTitle = notification.getGameCard().getTitle();
     }
 
     public String getSender() {
@@ -49,5 +51,13 @@ public class NotificationResponse {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getGameCardTitle() {
+        return gameCardTitle;
+    }
+
+    public void setGameCardTitle(String gameCardTitle) {
+        this.gameCardTitle = gameCardTitle;
     }
 }
