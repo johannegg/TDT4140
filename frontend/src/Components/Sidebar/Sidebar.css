@@ -13,6 +13,7 @@
   color: white;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .sidebarSubSection {
@@ -21,6 +22,8 @@
   color: rgb(225, 247, 255);
   cursor: pointer;
   text-decoration: none;
+  line-height: 1.5;
+  margin-bottom: 10px;
 }
 
 .sidebarSubSection:hover {

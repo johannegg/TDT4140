@@ -14,6 +14,7 @@ public class CommentReportResponse {
 
     private EReason reason;
     private String comment;
+    private String ratingComment;
     
     public CommentReportResponse(CommentReport commentReport) {        
         this.reportingUserId = commentReport.getUser().getId();
@@ -25,6 +26,7 @@ public class CommentReportResponse {
 
         this.reason = commentReport.getReason();
         this.comment = commentReport.getComment();
+        this.ratingComment = commentReport.getRating().getComment();
     }
 
     public long getReportingUserId() {
@@ -81,6 +83,14 @@ public class CommentReportResponse {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getRatingComment() {
+        return ratingComment;
+    }
+
+    public void setRatingComment(String ratingComment) {
+        this.ratingComment = ratingComment;
     }
 
 }

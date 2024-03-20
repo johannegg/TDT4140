@@ -20,6 +20,7 @@
 .search-input {
     background-color: transparent;
     border: none;
+    color: white;
 }
 
 .search-input:focus {

@@ -25,7 +25,7 @@ const CategoryBox = ({ checkedCategories, setCheckedCategories }: Props) => {
   };
   return (
     <div>
-      <p className="kategoriTittel">Kategorier</p>
+      <div className="kategoriTittel">Kategorier</div>
       {categories.map((category, index) => {
         return (
           <div>
