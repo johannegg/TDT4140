@@ -66,7 +66,7 @@ const GameCardDeleteButton = ({
                 console.error("Error deleting game card:", error);
                 alert(error);
             });
-    }, []);
+    }, [apiUrl, gameId]);
 
     return (
         isModerator ? (

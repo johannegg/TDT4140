@@ -219,7 +219,7 @@ WHERE
     u.username = 'moduser'
     AND g.title = 'Beer pong'
 UNION ALL
-SELECT 3, 'Helt ok.', u.id, g.id, '2024-02-16 18:25:18.820740'
+SELECT 3, 'Helt ok.', u.id, g.id, '2024-02-16 18:40:18.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'normaluser'
@@ -228,7 +228,7 @@ UNION ALL
 SELECT 5, 'Dette var gøy!', u.id, g.id, '2024-02-16 18:25:24.820740'
 FROM users u, gamecards g
 WHERE
-    u.username = 'normaluser'
+    u.username = 'adminuser'
     AND g.title = 'Mariekjeks'
 UNION ALL
 SELECT 2, NULL, u.id, g.id, '2024-02-16 18:25:32.820740'
@@ -259,6 +259,12 @@ SELECT 5, 'Nå snakker vi!!', u.id, g.id, '2024-02-16 18:29:06.820740'
 FROM users u, gamecards g
 WHERE
     u.username = 'moduser'
+    AND g.title = 'Babels tårn'
+UNION ALL
+SELECT 5, 'Gøy!!', u.id, g.id, '2024-02-16 18:30:06.820740'
+FROM users u, gamecards g
+WHERE
+    u.username = 'normaluser'
     AND g.title = 'Babels tårn';
 
 -- Add game cards to user favorites
@@ -268,7 +274,12 @@ SELECT u.id, g.id
 FROM users u, gamecards g
 WHERE (
         u.username = 'normaluser'
-        AND g.title = 'Beer pong'
+        AND (
+            g.title = 'Babels tårn'
+            OR g.title = 'Beer pong'
+            OR g.title = 'Kast ring'
+            OR g.title = 'Kjenn smaken'
+        )
     )
     OR (
         u.username = 'moduser'
@@ -364,7 +375,7 @@ UNION ALL
 SELECT u1.id, u2.id, g.id, 'Anbefaler denne!', '2024-03-14 18:25:12.820740'
 FROM users u1, users u2, gamecards g
 WHERE
-    u1.username = 'normaluser'
+    u1.username = 'adminuser'
     AND u2.username = 'moduser'
     AND g.title = 'Mariekjeks'
 UNION ALL

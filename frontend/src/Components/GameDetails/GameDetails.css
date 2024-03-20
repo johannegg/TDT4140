@@ -19,9 +19,9 @@
 
 .detailsHeader {
   width: 70%;
-  border: solid rgb(180, 209, 220) 2px;
+  border: 3px solid #90b5cf;
   padding: 15px;
-  border-radius: 40px;
+  border-radius: 20px;
   background-color: rgb(225, 247, 255);
   padding-bottom: 30px;
 }
