@@ -58,18 +58,20 @@ export function RatingDetail({
       </div>
       <div className="commentBottomRow">
         <p className="comment">{comment}</p>
-        <RatingDeleteButton gameId={gameId} ratingUsername={username} />
+        <div style={{display: "flex", gap: "10px"}}>
+          {!onUserPage && (
+            <GiFlyingFlag className="reportFlag" onClick={handleButtonClick} />
+            )}
+          <RatingDeleteButton gameId={gameId} ratingUsername={username} />
+        </div>
+        {isPopupOpen && (
+          <ReportForm
+            onClose={handleClosePopup}
+            gameCardId={gameCardId}
+            username={rating.username}
+          />
+        )}
       </div>
-      {!onUserPage && (
-        <GiFlyingFlag className="reportFlag" onClick={handleButtonClick} />
-      )}
-      {isPopupOpen && (
-        <ReportForm
-          onClose={handleClosePopup}
-          gameCardId={gameCardId}
-          username={rating.username}
-        />
-      )}
     </div>
   );
 }

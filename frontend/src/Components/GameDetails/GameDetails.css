@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 1000px;
   margin: auto;
+  margin-top: 10px;
 }
 
 .topSection {
@@ -61,13 +62,14 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0.1rem;
 }
 
 .category {
   border-radius: 99999px;
   padding: 0.2rem 0.5rem;
   background-color: rgb(145, 193, 193);
+  margin: 5px;
+  margin-bottom: 10px;
 }
 
 

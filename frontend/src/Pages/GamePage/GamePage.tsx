@@ -74,7 +74,7 @@ const GamePage = () => {
 
   return (
     <>
-      <div className={`mainBody ${isDarkMode ? "dark" : ""}`}>
+      <div className={`mainGameBody ${isDarkMode ? "dark" : ""}`}>
       <Link to={"/"}>
         <button className="backButton">Hjem</button>
       </Link>

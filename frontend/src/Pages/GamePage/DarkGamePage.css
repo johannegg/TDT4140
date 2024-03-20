@@ -10,3 +10,10 @@
   font-weight: 500;
   padding: 10px 12px;
 }
+
+.mainGameBody.dark {
+  width: 100vw;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+}
