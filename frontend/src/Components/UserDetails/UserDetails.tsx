@@ -25,14 +25,14 @@ const UserPage = () => {
   return (
     <div className="user-page-container">
       <div className="userinfo-title">
-        <h2>Min Profil</h2>
+        <h2>Min profil</h2>
         <p>Brukernavn: {username}</p>
-        <p>Email: {email}</p>
+        <p>E-postadresse: {email}</p>
       </div>
       <div className="lists-container">
         <div className="list-view">
-          <h3 className="favorites">Mine Favoritter</h3>
           <ListView 
+          title="Mine favoritter"
           categoriesToFilter={[]}
           searchInput=""
           refreshKey={favoriteGamesRefreshKey}
@@ -40,8 +40,8 @@ const UserPage = () => {
           gameCardApiUrl={favoritesEndpoint} />
         </div>
         <div className="list-view">
-          <h3 className="queue">Min Kø</h3>
           <ListView 
+          title="Min kø"
           categoriesToFilter={[]}
           searchInput=""
           refreshKey={queuedGamesRefreshKey}
